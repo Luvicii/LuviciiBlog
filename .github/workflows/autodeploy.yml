@@ -49,6 +49,7 @@ jobs:
 
       - name: 生成静态文件
         run: |
+          npm install gulp
           hexo clean
           hexo bangumi -u #bilibili番剧更新
           hexo generate
