@@ -61,7 +61,7 @@ jobs:
           repository-name: Luvicii/Luvicii.github.io
           branch: main
           clean: true
-    	  clean-exclude: |
+    	  clean-exclude:
             CNAME
             .nojekyll
           folder: public
