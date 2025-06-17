@@ -44,12 +44,11 @@ jobs:
       - name: 安装依赖
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: |
-          npm install gulp-cli -g #全局安装gulp
+          npm install gulp-cli -g
           npm install --save
 
       - name: 生成静态文件
-        run: |
-          npm install gulp
+        run: |          
           hexo clean
           hexo bangumi -u #bilibili番剧更新
           hexo generate
