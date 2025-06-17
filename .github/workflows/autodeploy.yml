@@ -44,7 +44,7 @@ jobs:
       - name: 安装依赖
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         run: |
-          npm install gulp
+          npm install --global gulp-cli
           npm install --save
 
       - name: 生成静态文件
