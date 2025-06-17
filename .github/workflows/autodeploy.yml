@@ -57,8 +57,12 @@ jobs:
       - name: 部署到Github
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: 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
+          token: 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
           repository-name: Luvicii/Luvicii.github.io
           branch: main
+          clean: true
+    	  clean-exclude: |
+            CNAME
+            .nojekyll
           folder: public
           commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
