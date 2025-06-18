@@ -3,8 +3,6 @@ name: 自动部署
 on:
   push:
     branches: [main]
-  release:
-    types: [published]
 
 jobs:
   deploy:
@@ -12,46 +10,51 @@ jobs:
     environment: production
     
     steps:
-      - name: 检出代码
+      - name: 检出源代码
         uses: actions/checkout@v4
         with:
+          path: 'source'
           submodules: true
-
+          
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: npm
-
+          node-version: '20'
+          cache: 'npm'
+          
       - name: 安装 Hexo
         run: npm install hexo-cli -g
-
+        
       - name: 安装依赖
+        working-directory: ./source
         run: npm ci
-
+        
       - name: 生成静态文件
+        working-directory: ./source
         run: |
           export TZ='Asia/Shanghai'
           hexo clean
           hexo bangumi -u
           hexo generate
-
+          
       - name: 验证生成结果
         run: |
-          [ -f public/index.html ] || exit 1
-          echo "生成完成，共 $(find public -type f | wc -l) 个文件"
-
+          [ -f source/public/index.html ] || exit 1
+          echo "生成完成，共 $(find source/public -type f | wc -l) 个文件"
+          
+      - name: 设置部署目录
+        run: |
+          mkdir -p deploy
+          mv source/public deploy/
+          
       - name: 部署到 GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
-          repository-name: Luvicii/Luvicii.github.io
-          branch: main
-          folder: public
-          clean: true
-          clean-exclude: |
-            CNAME
-            .nojekyll
-          single-commit: true
-          target-folder: /
-          commit-message: "部署: ${{ github.sha }} [通过Github Actions]"
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用内置令牌
+          publish_dir: ./deploy/public
+          destination_dir: ./  # 部署到根目录
+          keep_files: false   # 完全清理
+          force_orphan: true  # 强制单次提交
+          user_name: 'Luvicii'
+          user_email: 'lurt2021728238@gmail.com'
+          commit_message: "部署: ${{ github.sha }} [通过Github Actions]"
