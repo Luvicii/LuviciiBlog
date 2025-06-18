@@ -161,9 +161,7 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-     - https://s21.ax1x.com/2025/06/17/pVEaDdP.png
-     - https://s21.ax1x.com/2025/06/17/pVEaDdP.png
-     - https://s21.ax1x.com/2025/06/17/pVEaIoV.png
+     - https://i0.hdslb.com/bfs/article/9fe2ce4122faf95289c68b4354f2debb119fecf9.jpg
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
