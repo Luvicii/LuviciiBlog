@@ -1,87 +1,108 @@
-name: 自动部署
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
 
-on:
-  push:
-    branches: [main]
+# Site
+title: Luvicii
+subtitle: ''
+description: ''
+keywords:
+author: John Doe
+language: zh-CN
+timezone: ''
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: production
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    
-    steps:
-      - name: 检出源代码
-        uses: actions/checkout@v4
-        with:
-          path: 'source'
-          fetch-depth: 0
-          
-      - name: 设置 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          
-      - name: 安装 Hexo 和依赖
-        working-directory: ./source
-        run: |
-          npm install hexo-cli -g
-          if [ ! -f package-lock.json ] && [ ! -f yarn.lock ]; then
-            npm install --package-lock-only
-          fi
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
-          
-      - name: 生成静态文件
-        working-directory: ./source
-        run: |
-          export TZ='Asia/Shanghai'
-          hexo clean
-          hexo bangumi -u || true  # 忽略可能的错误
-          hexo generate
-          
-          # 验证生成结果
-          if [ ! -d "public" ]; then
-            echo "##[error]public 目录未生成!"
-            echo "当前目录内容:"
-            ls -la
-            exit 1
-          fi
-          
-      - name: 准备部署目录
-        run: |
-          mkdir -p deploy
-          cp -r source/public/. deploy/ || cp -r public/. deploy/  # 双重保险
-          touch deploy/.nojekyll
-          [ -f source/CNAME ] && cp source/CNAME deploy/CNAME || true
-          
-      - name: 验证部署内容
-        run: |
-          echo "部署目录内容:"
-          ls -la deploy
-          [ -f deploy/index.html ] || { echo "##[error]index.html 缺失!"; exit 1; }
-          
-      - name: 配置 Git 身份
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@users.noreply.github.com"
-          
-      - name: 直接 Git 部署
-        run: |
-          cd deploy
-          git init
-          git add .
-          git commit -m "部署: ${{ github.sha }}"
-          
-          # 使用推荐的认证方式
-          git remote add origin "https://github.com/Luvicii/Luvicii.github.io.git"
-          git push -f origin HEAD:main
-          
-          # 备选认证方式
-          # git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Luvicii/Luvicii.github.io.git" HEAD:main
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: http://example.com
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+include:
+exclude:
+ignore:
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: anzhiyu
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: git
+  repo: git@github.com:Luvicii/Luvicii.github.io.git
+  branch: main
+  message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+
