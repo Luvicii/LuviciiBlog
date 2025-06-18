@@ -1,65 +1,53 @@
 name: 自动部署
-# 当有改动推送到master分支时，启动Action
+
 on:
   push:
-    branches:
-      - main
-      #2020年10月后github新建仓库默认分支改为main，注意更改
+    branches: [main]
   release:
-    types:
-      - published
+    types: [published]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production  # 添加环境标识
+    
     steps:
-      - name: 检查分支
-        uses: actions/checkout@v2
+      - name: 检出代码
+        uses: actions/checkout@v4  # 升级到v4
         with:
-          ref: main
+          submodules: true  # 如果使用主题子模块需要此项
 
-      - name: 安装 Node
-        uses: actions/setup-node@v1
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4  # 升级到v4
         with:
-          node-version: "18.x"
+          node-version: "20"  # 推荐使用当前LTS版本
+          cache: npm  # 自动缓存依赖
 
       - name: 安装 Hexo
-        run: |
-          export TZ='Asia/Shanghai'
-          npm install hexo-cli -g
-
-      - name: 缓存 Hexo
-        id: cache-npm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+        run: npm install hexo-cli -g
 
       - name: 安装依赖
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm install --global gulp-cli
-          npm install --save
+        run: npm ci  # 更严格的安装方式
 
       - name: 生成静态文件
-        run: |          
+        run: |
+          export TZ='Asia/Shanghai'
           hexo clean
-          hexo bangumi -u #bilibili番剧更新
+          hexo bangumi -u
           hexo generate
-          
 
-      - name: 部署到Github
+      - name: 部署到 GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: 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
+          token: ${{ secrets.ACCESS_TOKEN }}  # 使用安全存储的令牌
           repository-name: Luvicii/Luvicii.github.io
           branch: main
-          folder: public       
+          folder: public
           clean: true
-          commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
+          clean-exclude: |
+            CNAME
+            .nojekyll
+          # 空仓库特殊处理
+          single-commit: true
+          target-folder: /
+          commit-message: "部署: ${{ github.event.head_commit.message | truncate(50) }} [通过Github Actions]"
