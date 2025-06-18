@@ -9,25 +9,25 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production  # 添加环境标识
+    environment: production
     
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4  # 升级到v4
+        uses: actions/checkout@v4
         with:
-          submodules: true  # 如果使用主题子模块需要此项
+          submodules: true
 
       - name: 设置 Node.js
-        uses: actions/setup-node@v4  # 升级到v4
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"  # 推荐使用当前LTS版本
-          cache: npm  # 自动缓存依赖
+          node-version: "20"
+          cache: npm
 
       - name: 安装 Hexo
         run: npm install hexo-cli -g
 
       - name: 安装依赖
-        run: npm ci  # 更严格的安装方式
+        run: npm ci
 
       - name: 生成静态文件
         run: |
@@ -36,10 +36,15 @@ jobs:
           hexo bangumi -u
           hexo generate
 
+      - name: 验证生成结果
+        run: |
+          [ -f public/index.html ] || exit 1
+          echo "生成完成，共 $(find public -type f | wc -l) 个文件"
+
       - name: 部署到 GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}  # 使用安全存储的令牌
+          token: ${{ secrets.ACCESS_TOKEN }}
           repository-name: Luvicii/Luvicii.github.io
           branch: main
           folder: public
@@ -47,7 +52,6 @@ jobs:
           clean-exclude: |
             CNAME
             .nojekyll
-          # 空仓库特殊处理
           single-commit: true
           target-folder: /
-          commit-message: "部署: ${{ github.event.head_commit.message | truncate(50) }} [通过Github Actions]"
+          commit-message: "部署: ${{ github.sha }} [通过Github Actions]"
