@@ -60,6 +60,6 @@ jobs:
           token: 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
           repository-name: Luvicii/Luvicii.github.io
           branch: main
-          folder: public          
+          folder: public       
           clean: true
           commit-message: "${{ github.event.head_commit.message }} Updated By Github Actions"
