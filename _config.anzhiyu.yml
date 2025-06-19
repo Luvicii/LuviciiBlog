@@ -28,14 +28,14 @@ nav:
   menu:
     - title: Luvicii
       item:
-        - name: 博客
-          link: https://blog.Luvicc.com/
-          icon: /img/favicon.ico
+        - name: 我的博客
+          link: https://Luvicc.github.io
+          icon: /img/blog.svg
     - title: 项目
       item:
-        - name: 安知鱼图床
-          link: https://image.anheyu.com/
-          icon: https://image.anheyu.com/favicon.ico
+        - name: 我的 BiliBili
+          link: https://space.bilibili.com/312979806
+          icon: https://img.picui.cn/free/2025/06/19/6853b43eb9679.png
 
 # mourn （哀悼日，指定日期网站简单变灰，不包括滚动条）
 # 注意： 仅网站首页变灰，其他页面正常显示
@@ -200,7 +200,7 @@ mainTone:
 # wordcount (字数统计)
 # see https://blog.anheyu.com/posts/c27d.html#字数统计
 wordcount:
-  enable: false
+  enable: true
   post_wordcount: true
   min2read: true
   total_wordcount: true
