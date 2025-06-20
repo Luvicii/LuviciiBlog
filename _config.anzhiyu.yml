@@ -162,6 +162,7 @@ cover:
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
      - https://img.picui.cn/free/2025/06/19/6853bbd2167bd.png
+     - https://img.picui.cn/free/2025/06/21/6855977990469.png
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
