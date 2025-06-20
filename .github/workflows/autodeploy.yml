@@ -48,4 +48,4 @@ jobs:
           git add .
           git commit -m "Deploy: ${{ github.sha }}"
           # 强制推送到目标仓库
-          git push -f "https://${{ github.actor }}:${{ secrets.PAT }}@github.com/Luvicii/Luvicii.github.io.git" HEAD:main
+          git push -f "https://${{ github.actor }}:${{ secrets.GITHUBTOKEN }}@github.com/Luvicii/Luvicii.github.io.git" HEAD:main
