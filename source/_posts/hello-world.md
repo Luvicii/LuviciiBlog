@@ -1,6 +1,6 @@
 ---
 title: Hello, Counter-Strick
-cover: https://img7.moeyu.ltd/voiux/gallery/149f8186640b962387feaaffb41df2c5.png_1280w.jpg
+cover: https://img.nga.178.com/attachments/mon_202506/04/-9lddQ95hf-fgmmK2nT3cSlc-sg.jpg
 categories: 风骚的我
 ---
 
