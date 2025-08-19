@@ -1,6 +1,6 @@
 ---
 title: Hello World
-cover: 
+cover: https://img.cdn1.vip/i/68a445ef475f3_1755596271.webp
 categories: 风骚的我
 ---
 Welcome to [Here] for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](
