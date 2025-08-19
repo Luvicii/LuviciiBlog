@@ -3,7 +3,7 @@ title: 强风吹拂 a beautiful story
 date: 2025-06-17 07:58:53
 tags:
 categories: 跑步
-cover: 
+cover: https://img7.moeyu.ltd/voiux/gallery/3de3c02568912cfe1cac54c5275842f7.jpg_1280w.jpg
 ---
 
 ## hello
