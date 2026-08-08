@@ -246,10 +246,10 @@ post_copyright:
 reward:
   enable: true
   QR_code:
-    - img: https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png
+    - img: /img/qrcode-weichat.png
       link:
       text: 微信
-    - img: https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png
+    - img: /img/qrcode-alipay.png
       link:
       text: 支付宝
 
@@ -432,9 +432,9 @@ footer:
   runtime:
     enable: false
     launch_time: 04/01/2022 00:00:00 # 网站上线时间
-    work_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.4/img/badge/安知鱼-上班摸鱼中.svg
+    work_img: /img/badge/work.svg
     work_description: 距离月入25k也就还差一个好工作~
-    offduty_img: https://npm.elemecdn.com/anzhiyu-blog@2.0.4/img/badge/安知鱼-下班啦.svg
+    offduty_img: /img/badge/offduty.svg
     offduty_description: 下班了就该开开心心的玩耍，嘿嘿~
   # 徽标部分配置项 https://shields.io/
   # https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr
@@ -442,19 +442,19 @@ footer:
     enable: false
     list:
       - link: https://hexo.io/ #徽标指向网站链接
-        shields: https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg #徽标API
+        shields: /img/badge/frame-hexo.svg #徽标API
         message: 博客框架为Hexo_v5.4.0 #徽标提示语
       - link: https://blog.anheyu.com/
-        shields: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-Luvicii-2E67D3.svg
+        shields: /img/badge/theme-luvicii.svg
         message: 本站使用Luvicii主题
       # - link: https://www.dogecloud.com/
-      #   shields: https://npm.elemecdn.com/anzhiyu-blog@2.2.0/img/badge/CDN-多吉云-3693F3.svg
+      #   shields: /img/badge/多吉云.svg
       #   message: 本站使用多吉云为静态资源提供CDN加速
       # - link: https://github.com/
-      #   shields: https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Source-Github.svg
+      #   shields: /img/badge/Github.svg
       #   message: 本站项目由Github托管
       # - link: http://creativecommons.org/licenses/by-nc-sa/4.0/
-      #   shields: https://npm.elemecdn.com/anzhiyu-blog@2.2.0/img/badge/Copyright-BY-NC-SA.svg
+      #   shields: /img/badge/CC-BY-NC-SA.svg
       #   message: 本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可
   socialBar:
     enable: false
@@ -1072,8 +1072,8 @@ home_top:
   default_descr: 再怎么看我也不知道怎么描述它的啦！
   swiper:
     enable: false
-    swiper_css: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.css #swiper css依赖
-    swiper_js: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/swiper/swiper.min.js #swiper js依赖
+    swiper_css: /css/plugins/swiper.min.css #swiper css依赖
+    swiper_js: /js/plugins/swiper.min.js #swiper js依赖
   banner:
     tips: 美食
     title: 大大的蛋糕
@@ -1083,7 +1083,7 @@ home_top:
 # 朋友圈配置
 friends_vue:
   enable: true
-  vue_js: https://npm.elemecdn.com/anzhiyu-theme-static@1.1.1/friends/index.4f887d95.js
+  vue_js: /js/plugins/friends.js
   apiurl: # 朋友圈后端地址
   top_tips: 使用 友链朋友圈 订阅友链最新文章
   top_background:
@@ -1312,9 +1312,9 @@ CDN:
     # fontawesome:
     # flickr_justified_gallery_js:
     # flickr_justified_gallery_css:
-    # aplayer_css:
-    # aplayer_js:
-    # meting_js:
+    aplayer_css: /css/plugins/APlayer.min.css
+    aplayer_js: /js/plugins/APlayer.min.js
+    meting_js: /js/plugins/Meting2.min.js
     # meting_api:
     # prismjs_js:
     # prismjs_lineNumber_js:
@@ -1322,11 +1322,13 @@ CDN:
     # artalk_js:
     # artalk_css:
     # pace_js:
-    # pace_default_css:
-    # countup_js:
-    # gsap_js:
+    pace_default_css: /css/plugins/progress_bar.css
+    countup_js: /js/plugins/countup.js
+    gsap_js: /js/plugins/gsap.min.js
     # busuanzi:
-    # rightmenu:
-    # waterfall:
-    # ali_iconfont_css:
-    # accesskey_js:
+    rightmenu: /js/plugins/rightmenu.js
+    waterfall: /js/plugins/waterfall.js
+    ali_iconfont_css: /css/plugins/ali_iconfont_css.css
+    accesskey_js: /js/plugins/accesskey.js
+    coin_js: /js/plugins/coin.js
+    coin_css: /css/plugins/coin.min.css

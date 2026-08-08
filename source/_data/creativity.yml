@@ -11,19 +11,19 @@
       icon: https://bu.dusays.com/2022/12/15/639aa3a5c240e.png
     - name: Node
       color: "#333"
-      icon: https://npm.elemecdn.com/anzhiyu-blog@2.1.1/img/svg/node-logo.svg
+      icon: /img/svg/node-logo.svg
     - name: Webpack
       color: "#2e3a41"
       icon: https://bu.dusays.com/2023/04/09/643293b68026c.png
     - name: Pinia
       color: "#fff"
-      icon: https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/pinia-logo.svg
+      icon: /img/svg/pinia-logo.svg
     - name: Python
       color: "#fff"
       icon: https://bu.dusays.com/2023/04/09/643293b1230f7.png
     - name: Vite
       color: "#937df7"
-      icon: https://npm.elemecdn.com/anzhiyu-blog@2.0.8/img/svg/vite-logo.svg
+      icon: /img/svg/vite-logo.svg
     - name: Flutter
       color: "#4499e4"
       icon: https://bu.dusays.com/2023/04/09/643293b1055c2.png
