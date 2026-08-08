@@ -3,4 +3,3 @@ Allow: /
 Disallow: /json/
 
 Sitemap: https://luvicii.github.io/sitemap.xml
-Sitemap: https://luvicii.github.io/baidusitemap.xml

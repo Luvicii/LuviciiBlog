@@ -28,7 +28,7 @@ Decisions confirmed with user:
   - `timezone: Asia/Shanghai`
   - Fill `subtitle`, `description`, `keywords` (Chinese, matching blog identity).
 - Install `hexo-generator-sitemap` and `hexo-generator-feed`; add config blocks:
-  - `sitemap: path: sitemap.xml`, `baidusitemap: path: baidusitemap.xml`
+  - `sitemap: path: sitemap.xml`
   - `feed: enable: true`, `type: atom`, `path: atom.xml`, `limit: 20`
 - Add `source/robots.txt` allowing all crawlers and referencing `https://luvicii.github.io/sitemap.xml`.
 - `_config.luvicii.yml`:

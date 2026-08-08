@@ -116,8 +116,6 @@ deploy:
 # Sitemap (hexo-generator-sitemap)
 sitemap:
   path: sitemap.xml
-baidusitemap:
-  path: baidusitemap.xml
 
 # RSS (hexo-generator-feed)
 feed:
@@ -146,7 +144,6 @@ Allow: /
 Disallow: /json/
 
 Sitemap: https://luvicii.github.io/sitemap.xml
-Sitemap: https://luvicii.github.io/baidusitemap.xml
 ```
 
 (`/json/` holds Hexo-generated data JSON not meant for indexing; everything else is allowed.)
@@ -157,10 +154,10 @@ Run:
 
 ```bash
 npx hexo clean && npx hexo generate
-ls -la public/sitemap.xml public/baidusitemap.xml public/atom.xml public/search.xml public/robots.txt
+ls -la public/sitemap.xml public/atom.xml public/search.xml public/robots.txt
 ```
 
-Expected: build exits 0; all five files exist.
+Expected: build exits 0; all four files exist.
 
 - [ ] **Step 7: Verify no example.com remains in output**
 
@@ -173,6 +170,8 @@ Expected: no output (no files contain `example.com`).
 git add _config.yml source/robots.txt
 git commit -m "feat(seo): set site url/timezone/description, add sitemap, RSS and search index, robots.txt"
 ```
+
+> Amendment during execution: baidusitemap dropped — hexo-generator-baidu-sitemap pulls a dead Hexo 3 dependency tree with critical audit findings, and Baidu accepts the standard sitemap.xml. robots.txt references sitemap.xml only.
 
 ---
 
@@ -482,8 +481,8 @@ Expected: all steps exit 0.
 
 - [ ] **Step 3: Verify generated SEO assets**
 
-Run: `ls -la public/sitemap.xml public/baidusitemap.xml public/atom.xml public/search.xml public/robots.txt`
-Expected: all five files exist.
+Run: `ls -la public/sitemap.xml public/atom.xml public/search.xml public/robots.txt`
+Expected: all four files exist.
 
 - [ ] **Step 4: Verify URL and placeholder cleanup**
 

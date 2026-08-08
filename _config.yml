@@ -135,8 +135,6 @@ aplayer:
 # Sitemap (hexo-generator-sitemap)
 sitemap:
   path: sitemap.xml
-baidusitemap:
-  path: baidusitemap.xml
 
 # RSS (hexo-generator-feed)
 feed:
