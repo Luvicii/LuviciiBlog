@@ -2,8 +2,8 @@
   path_name: /wordScenery
   type: 2
   description: 因为到不了世界各地，所以请网友们发来了各地的夕阳与风景🌇。
-  cover: https://upload-bbs.miyoushe.com/upload/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
-  top_background: https://bu.dusays.com/2023/06/30/649e546ada7dd.webp
+  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
+  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/649e546ada7dd.webp
   rowHeight: 220
   limit: 10
   lazyload: true
@@ -17,7 +17,7 @@
       address: 江西湘潭
       from: 再吃一口就减肥
       image:
-        - https://bu.dusays.com/2023/04/09/64329399db122.webp
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
     - date: 2022-10-25      
 
 - class_name: 我的日常
@@ -26,24 +26,7 @@
   description: 这里存放的是有关我自己的一些沙雕生活与有趣的事情。
   top_link: /album
   top_btn_text: 返回
-  top_background: https://bu.dusays.com/2023/04/09/64329399cea5a.webp
-  cover: https://bu.dusays.com/2023/04/09/64329399cea5a.webp
+  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
   album_list:
-    - date: 2022-10-24
-      content: 太太
-      image:
-        - https://img.picui.cn/free/2025/06/19/6853e56a62d58.png
       
-- class_name: CS2 反恐精英
-  path_name: /cs2
-  type: 1
-  description: 勇敢的少年啊，去追求你的奇迹！！！
-  top_link: /album
-  top_btn_text: 返回
-  top_background:  https://img.picui.cn/free/2025/06/19/6853e732a50bb.png
-  cover: https://img.picui.cn/free/2025/06/19/6853e732a50bb.png
-  album_list:
-    - date: 2022-10-24
-      content: cs 赛事一角
-      image:
-        - https://img.picui.cn/free/2025/06/19/6853e793abbdc.png
