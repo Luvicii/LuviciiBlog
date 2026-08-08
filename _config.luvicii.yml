@@ -29,7 +29,7 @@ nav:
     - title: Luvicii
       item:
         - name: 我的博客
-          link: https://Luvicc.github.io
+          link: https://luvicii.github.io
           icon: /img/blog.svg
     - title: 项目
       item:
@@ -66,7 +66,7 @@ copy:
 # formal:
 #   name: link || icon
 social:
-   Github: https://github.com || luvicii-icon-github
+   Github: https://github.com/Luvicii || luvicii-icon-github
    BiliBili: https://space.bilibili.com/312979806 || luvicii-icon-bilibili
 
 # 作者卡片 状态
@@ -109,7 +109,7 @@ docsearch:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
   preload: true
   CDN:
 
@@ -319,7 +319,7 @@ comments:
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
   lazyload: false
-  count: true # Display comment count in post's top_img
+  count: false # Display comment count in post's top_img (disabled until Twikoo/Waline backend is deployed)
   card_post_count: false # Display comment count in Home Page
 
 # valine
@@ -349,7 +349,7 @@ valine:
 # waline - A simple comment system with backend support fork from Valine
 # https://waline.js.org/
 waline:
-  serverURL: # Waline server address url
+  serverURL: # Waline server address url — paste https://your-waline.vercel.app here once deployed, then set comments.count back to true
   bg: # Waline background
   pageview: false
   meta_css: false # 是否引入 waline-meta.css ,以便显示 meta图标
@@ -360,7 +360,7 @@ waline:
 # Twikoo
 # https://github.com/imaegoo/twikoo
 twikoo:
-  envId:
+  envId: # paste your Twikoo envId (Tencent CloudBase env id or Vercel URL) here once deployed, then set comments.count back to true
   region:
   visitor: false
   option:
@@ -598,13 +598,7 @@ google_adsense:
 # Verification (站长验证)
 # --------------------------------------
 
-site_verification:
-  - name: google-site-verification
-    content: xxx
-  - name: baidu-site-verification
-    content: code-xxx
-  - name: msvalidate.01
-    content: xxx
+site_verification: null # add entries here after verifying with Google/Baidu/Bing webmaster tools (must stay null, not []: Hexo array-merge keeps the theme's placeholder entries)
 
 # Beautify/Effect (美化/效果)
 # --------------------------------------
@@ -864,7 +858,7 @@ runtimeshow:
 
 # Console - Newest Comments
 newest_comments:
-  enable: true
+  enable: false # requires a working comment backend (Twikoo envId / Waline serverURL)
   sort_order: # Don't modify the setting unless you know how it works
   limit: 6
   storage: 1 # unit: mins, save data to localStorage
@@ -1082,9 +1076,9 @@ home_top:
 
 # 朋友圈配置
 friends_vue:
-  enable: true
+  enable: false # enable once apiurl below is set
   vue_js: /js/plugins/friends.js
-  apiurl: # 朋友圈后端地址
+  apiurl: # 朋友圈后端地址 — paste hexo-circle-of-friends API URL here, then set enable back to true
   top_tips: 使用 友链朋友圈 订阅友链最新文章
   top_background:
 
