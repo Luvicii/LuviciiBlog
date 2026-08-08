@@ -295,8 +295,10 @@ site_verification:
 with:
 
 ```yaml
-site_verification: [] # add entries here after verifying with Google/Baidu/Bing webmaster tools
+site_verification: null # add entries here after verifying with Google/Baidu/Bing webmaster tools (must stay null, not []: Hexo array-merge keeps the theme's placeholder entries)
 ```
+
+> Amendment during execution: `null` instead of `[]` — Hexo's theme-config override deep-merges arrays, so `[]` keeps the theme's own placeholder verification entries; `null` replaces the array and the template (`site_verification.pug` guards with `if theme.site_verification`) renders nothing.
 
 - [ ] **Step 9: Build and verify**
 
