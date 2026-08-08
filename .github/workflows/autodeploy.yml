@@ -3,6 +3,7 @@ name: Auto Deploy to Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -10,8 +11,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
