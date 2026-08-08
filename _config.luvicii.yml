@@ -35,7 +35,7 @@ nav:
       item:
         - name: 我的 BiliBili
           link: https://space.bilibili.com/312979806
-          icon: luvicii-icon-bilibili
+          icon: /img/bili.svg
 
 # mourn （哀悼日，指定日期网站简单变灰，不包括滚动条）
 # 注意： 仅网站首页变灰，其他页面正常显示
@@ -314,7 +314,7 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Valine/Waline/Twikoo/Artalk
-  use:  Twikoo/Waline
+  use:  Twikoo/Waline # ⚠ theme splits on commas: when deploying a backend, write Twikoo,Waline (comma) and fill envId/serverURL below
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
