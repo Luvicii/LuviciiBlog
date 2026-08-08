@@ -2,50 +2,38 @@ name: Auto Deploy to Pages
 
 on:
   push:
-    branches: [main]  # 监听的分支
+    branches: [main]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 步骤1：检出源码
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          submodules: recursive  # 包含主题子模块:cite[6]
+          submodules: recursive
 
-      # 步骤2：设置Node环境
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: npm
 
-      # 步骤3：安装依赖（使用锁定文件确保一致性）
       - name: Install dependencies
-        run: |
-          npm install hexo-cli -g
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci
 
-      # 步骤4：生成静态文件
-      - name: Generate site
+      - name: Generate and minify site
         run: |
-          hexo clean
-          hexo generate
-          # 验证生成结果
+          npx hexo clean
+          npx hexo generate
+          npx gulp min
           [ -f public/index.html ] || exit 1
 
-      # 步骤5：部署到Pages仓库
       - name: Deploy to GitHub Pages
-        run: |
-          cd public
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Deploy: ${{ github.sha }}"
-          # 强制推送到目标仓库
-          git push -f "https://${{ github.actor }}:${{ secrets.PAT }}@github.com/Luvicii/Luvicii.github.io.git" HEAD:main
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PAT }}
+          external_repository: Luvicii/Luvicii.github.io
+          publish_branch: main
+          publish_dir: ./public
+          commit_message: "Deploy: ${{ github.sha }}"
