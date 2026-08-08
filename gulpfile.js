@@ -9,6 +9,7 @@ function minifyHtml() {
   return src(`${pub}/**/*.html`)
     .pipe(htmlmin({
       collapseWhitespace: true,
+      conservativeCollapse: true,
       removeComments: true,
       minifyJS: false,
       minifyCSS: false
