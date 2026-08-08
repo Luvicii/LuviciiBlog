@@ -4,16 +4,16 @@
 
 # Site
 title: Luvicii
-subtitle: ''
-description: ''
-keywords:
+subtitle: '生活明朗，万物可爱'
+description: 'Luvicii 的个人博客，分享数码科技、大学生活、跑步与生活日常。'
+keywords: 'Luvicii,个人博客,数码科技,生活日常,跑步'
 author: Luvicii
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://luvicii.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -98,14 +98,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: luvicii
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: https://Luvicii@github.com/Luvicii/Luvicii.github.io.git
-  branch: main
-  message: "Site updated: {{ now('MM-DD HH:mm:ss') }}"
-
 # 追番插件
 # https://github.com/HCLonely/hexo-bilibili-bangumi
 bangumi: # 追番设置
@@ -140,3 +132,26 @@ aplayer:
   asset_inject: false
 
 
+# Sitemap (hexo-generator-sitemap)
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+# RSS (hexo-generator-feed)
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+
+# Local search index (hexo-generator-search)
+search:
+  path: search.xml
+  field: post
+  content: true
