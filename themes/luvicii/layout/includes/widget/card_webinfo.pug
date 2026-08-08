@@ -1,0 +1,47 @@
+if theme.aside.card_webinfo.enable
+  .card-webinfo
+    .item-headline
+      i.luviciifont.luvicii-icon-chart-line
+      span= _p('aside.card_webinfo.headline')
+    .webinfo
+      if theme.aside.card_webinfo.post_count
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-file-lines
+            .item-name= _p('aside.card_webinfo.article_name') + " :"
+          .item-count= site.posts.length
+      if theme.runtimeshow.enable
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-stopwatch
+            .item-name= _p('aside.card_webinfo.runtime.name') + " :"
+          .item-count#runtimeshow(data-publishDate=date_xml(theme.runtimeshow.publish_date))
+            i.luviciifont.luvicii-icon-spinner.luvicii-spin
+      if theme.wordcount.enable && theme.wordcount.total_wordcount
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-font
+            .item-name=_p('aside.card_webinfo.site_wordcount') + " :"
+          .item-count=totalcount(site)
+      if theme.busuanzi.site_uv
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-universal-access
+            .item-name= _p('aside.card_webinfo.site_uv_name') + " :"
+          .item-count#busuanzi_value_site_uv
+            i.luviciifont.luvicii-icon-spinner.luvicii-spin
+      if theme.busuanzi.site_pv
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-square-poll-vertical
+            .item-name= _p('aside.card_webinfo.site_pv_name') + " :"
+          .item-count#busuanzi_value_site_pv
+            i.luviciifont.luvicii-icon-spinner.luvicii-spin
+      if theme.aside.card_webinfo.last_push_date
+        .webinfo-item
+          .webinfo-item-title
+            i.luviciifont.luvicii-icon-hourglass-start
+            .item-name= _p('aside.card_webinfo.last_push_date.name') + " :"
+          .item-count#last-push-date(data-lastPushDate=date_xml(Date.now()))
+            i.luviciifont.luvicii-icon-spinner.luvicii-spin
+

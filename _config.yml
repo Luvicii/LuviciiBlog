@@ -96,13 +96,13 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: anzhiyu
+theme: luvicii
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:Luvicii/Luvicii.github.io.git
+  repo: https://Luvicii@github.com/Luvicii/Luvicii.github.io.git
   branch: main
   message: "Site updated: {{ now('MM-DD HH:mm:ss') }}"
 

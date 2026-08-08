@@ -1,0 +1,47 @@
+#console
+  .console-card-group-reward
+    ul.reward-all.console-card
+      each item in theme.reward.QR_code
+        li.reward-item
+          a(href=url_for(item.link || item.img), target='_blank')
+            img.post-qr-code-img(alt=item.text, src=url_for(item.img))
+          .post-qr-code-desc=item.text
+  .console-card-group
+    .console-card-group-left
+      !=partial('includes/widget/card_newest_comment', {}, {cache: true})
+    .console-card-group-right
+      .console-card.tags
+        .card-content
+          if theme.nav_music.enable && theme.nav_music.console_widescreen_music
+            .author-content-item-tips 音乐
+            span.author-content-item-title 灵魂的碰撞💥
+          else 
+            .author-content-item-tips 兴趣点
+            span.author-content-item-title 寻找你感兴趣的领域
+            !=partial('includes/widget/card_console_tags', {}, {cache: true})
+      .console-card.history
+        .item-headline
+          i.luviciifont.luvicii-icon-box-archiv
+          span 文章
+        !=partial('includes/widget/card_console_archives', {}, {cache: true})
+  .button-group
+    if theme.darkmode.enable
+      .console-btn-item
+        a.darkmode_switchbutton(title='显示模式切换', href='javascript:void(0);')
+          i.luviciifont.luvicii-icon-moon
+    .console-btn-item#consoleHideAside(onclick='luvicii.hideAsideBtn()', title='边栏显示控制')
+      a.asideSwitch
+        i.luviciifont.luvicii-icon-arrows-left-right
+    if theme.comment_barrage_config.enable
+      .console-btn-item.on#consoleCommentBarrage(onclick='luvicii.switchCommentBarrage()', title='热评开关')
+        a.commentBarrage
+          i.luviciifont.luvicii-icon-message
+    if theme.nav_music.enable
+      .console-btn-item#consoleMusic(onclick='luvicii.musicToggle()', title='音乐开关')
+        a.music-switch
+          i.luviciifont.luvicii-icon-music
+    if theme.shortcutKey.enable
+      .console-btn-item#consoleKeyboard(onclick='luvicii.keyboardToggle()', title='快捷键开关')
+        a.keyboard-switch
+          i.luviciifont.luvicii-icon-keyboard
+  .console-mask(onclick='luvicii.hideConsole()', href='javascript:void(0);')
