@@ -18,7 +18,6 @@
       from: 再吃一口就减肥
       image:
         - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
-    - date: 2022-10-25      
 
 - class_name: 我的日常
   path_name: /dailyPhoto
