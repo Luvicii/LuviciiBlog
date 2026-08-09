@@ -1,0 +1,78 @@
+- subtitle: 你好，我是 Luvicii
+  name: Luvicii
+  description: 一个喜欢动漫、CS2 与生活的普通人。
+  helloAbout: 欢迎来到我的小站
+  skillsTips:
+    tips: 技能与兴趣
+    title: 我在做的事
+  avatarSkills: 0
+  aboutsiteTips:
+    tips: 关于我
+    title1: 爱动漫
+    title2: 爱游戏，也爱生活
+    word: [写作, 代码, 跑步, 快乐]
+  careers:
+    list:
+      - 与动漫为伴
+      - 与代码为友
+      - 认真生活
+    item:
+      - 追番的快乐
+      - 写码的乐趣
+      - 跑步的畅快
+  statistic:
+    link: https://luvicii.github.io/
+    text: 去看看
+    cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+  map:
+    background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+    backgroundDark: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
+    title: 这里是
+    StrengthenTitle: 江苏
+  selfInfo:
+    selfInfoTips1: 星座
+    selfInfoContentYear: 双鱼座
+    selfInfoTips2: 职业
+    selfInfoContent2: 学生
+    selfInfoTips3: 坐标
+    selfInfoContent3: 江苏
+  personalities:
+    author_name: Luvicii
+    personality_type: INFJ
+    photo_url: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka3.jpg
+    personality_img: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.jpg
+    name_url: https://www.16personalities.com/ch/infj-%E4%BA%BA%E6%A0%BC
+    personality_type_color: "#ac899c"
+  maxim:
+    maxim_tips: 座右铭
+    maxim_top: 即使破碎
+    maxim_bottom: 也要热烈地活着
+  buff:
+    buff_tips: 欢迎给我
+    buff_top: 打赏支持
+    buff_bottom: 一块也是爱
+  game:
+    game_tips: 最近在玩
+    game_title: CS2
+    game_uid: 312979806
+    game_bg: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+  comic:
+    comic_tips: 最近在看
+    comic_title: 在看什么
+    comic_list:
+      - 新世纪福音战士
+      - 吹响吧！上低音号
+  music:
+    music_tips: 最近在听
+    music_title: 音乐馆
+    music_link: /music/
+    music_bg: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+  like:
+    like_tips: 喜欢
+    like_title: 数码与科技
+    like_bottom: 也喜欢动漫与音乐
+    like_bg: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b121f02.png
+  reward_list:
+    - name: 小小心意
+      amount: 1
+      datatime: 2026-08-09 00:00:00
