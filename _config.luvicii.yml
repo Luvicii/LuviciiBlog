@@ -1069,10 +1069,10 @@ home_top:
     swiper_css: /css/plugins/swiper.min.css #swiper css依赖
     swiper_js: /js/plugins/swiper.min.js #swiper js依赖
   banner:
-    tips: 美食
-    title: 大大的蛋糕
-    image: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
-    link: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+    tips: 甜品
+    title: 今日份点心
+    image: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/food/dessert1.jpg
+    link: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/food/dessert2.jpg
 
 # 朋友圈配置
 friends_vue:
