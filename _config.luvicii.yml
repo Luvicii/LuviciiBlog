@@ -73,7 +73,7 @@ social:
 author_status:
   enable: true
   # 可以是任何图片，建议放表情包或者emoji图片，效果都很好，[表情包速查](https://emotion.xiaokang.me/)
-  statusImg: "https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/twikoo-status.png"
+  statusImg: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/twikoo-status.png"
   skills:
      - 🤖️ 数码科技爱好者
      - 🔍 分享与热心帮助
@@ -139,7 +139,7 @@ favicon: /favicon.ico
 
 # Avatar (头像)
 avatar:
-  img: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
+  img: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
   effect: false
 
 # Disable all banner image
@@ -161,8 +161,8 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-     - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
-     - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
+     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
+     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
@@ -173,7 +173,7 @@ error_img:
 error_404:
   enable: true
   subtitle: "请尝试站内搜索寻找文章"
-  background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+  background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
 
 post_meta:
   page: # Home Page
@@ -785,7 +785,7 @@ preloader:
   source: 3
   # pace theme (see https://codebyzach.github.io/pace/)
   pace_css_url:
-  avatar: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg # 自定加载动画义头像
+  avatar: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg # 自定加载动画义头像
 
 # aside (侧边栏)
 # --------------------------------------
@@ -810,8 +810,8 @@ aside:
     content: 欢迎来看我的个人博客~
   card_weixin:
     enable: false
-    face: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/01/13/63c02edf44033.png
-    backFace: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/2023/05/13/645fa3cf90d70.webp
+    face: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/01/13/63c02edf44033.png
+    backFace: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/2023/05/13/645fa3cf90d70.webp
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
@@ -1071,8 +1071,8 @@ home_top:
   banner:
     tips: 美食
     title: 大大的蛋糕
-    image: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
-    link: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
+    image: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+    link: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
 
 # 朋友圈配置
 friends_vue:
@@ -1219,7 +1219,7 @@ rightClickMenu:
 # 首页随便逛逛people模式 而非技能点模式，关闭后为技能点模式需要配置creativity.yml
 peoplecanvas:
   enable: false
-  img: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
+  img: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
 
 # 动效
 dynamicEffect:

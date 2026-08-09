@@ -69,6 +69,6 @@ echo
 echo "================== 图片 URL =================="
 for f in "${ARGS[@]}"; do
   name="$(basename "$f")"
-  echo "https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/$SUBDIR/$name"
+  echo "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/$SUBDIR/$name"
 done
 echo "==============================================="
