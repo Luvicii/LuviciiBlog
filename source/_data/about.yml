@@ -1,6 +1,6 @@
 - subtitle: 你好，我是 Luvicii
   name: Luvicii
-  description: 一个喜欢动漫、CS2 与生活的普通人。
+  description: 喜欢动漫、CS2 与生活。
   helloAbout: 欢迎来到我的小站
   skillsTips:
     tips: 技能与兴趣
@@ -39,7 +39,7 @@
   personalities:
     author_name: Luvicii
     personality_type: INFJ
-    photo_url: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka3.jpg
+    photo_url: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new5.jpg
     personality_img: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.jpg
     name_url: https://www.16personalities.com/ch/infj-%E4%BA%BA%E6%A0%BC
     personality_type_color: "#ac899c"
