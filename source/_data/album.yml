@@ -29,3 +29,149 @@
   cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
   album_list:
       
+- class_name: 图床图库（审核中）
+  path_name: /imgbed
+  type: 1
+  description: 图床 Luvicii-images 的全部图片，供审核使用。
+  top_link: /album
+  top_btn_text: 返回
+  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+  rowHeight: 220
+  limit: 100
+  lazyload: true
+  btnLazyload: false
+  url: false
+  album_list:
+    - date: 2026-08-09 01:00:00
+      content: 旧图迁移 · 6378d6458c6b6.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/11/19/6378d6458c6b6.png
+    - date: 2026-08-09 02:00:00
+      content: 旧图迁移 · 639aa3a5c240e.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c240e.png
+    - date: 2026-08-09 03:00:00
+      content: 旧图迁移 · 639aa3a5c241c.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c241c.png
+    - date: 2026-08-09 04:00:00
+      content: 旧图迁移 · 639aa3a5c251e.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c251e.png
+    - date: 2026-08-09 05:00:00
+      content: 旧图迁移 · 63c02edf44033.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/01/13/63c02edf44033.png
+    - date: 2026-08-09 06:00:00
+      content: 旧图迁移 · 64329399cea5a.webp
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+    - date: 2026-08-09 07:00:00
+      content: 旧图迁移 · 64329399db122.webp
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
+    - date: 2026-08-09 08:00:00
+      content: 旧图迁移 · 643293b0f0abe.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b0f0abe.png
+    - date: 2026-08-09 09:00:00
+      content: 旧图迁移 · 643293b1055c2.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1055c2.png
+    - date: 2026-08-09 10:00:00
+      content: 旧图迁移 · 643293b10ccdd.webp
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b10ccdd.webp
+    - date: 2026-08-09 11:00:00
+      content: 旧图迁移 · 643293b1184e9.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+    - date: 2026-08-09 12:00:00
+      content: 旧图迁移 · 643293b121f02.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b121f02.png
+    - date: 2026-08-09 13:00:00
+      content: 旧图迁移 · 643293b1230f7.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1230f7.png
+    - date: 2026-08-09 14:00:00
+      content: 旧图迁移 · 643293b6788bd.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b6788bd.png
+    - date: 2026-08-09 15:00:00
+      content: 旧图迁移 · 643293b68026c.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b68026c.png
+    - date: 2026-08-09 16:00:00
+      content: 旧图迁移 · 64496e511b09c.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
+    - date: 2026-08-09 17:00:00
+      content: 旧图迁移 · 645907596997d.gif
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+    - date: 2026-08-09 18:00:00
+      content: 旧图迁移 · 645fa3cf90d70.webp
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/645fa3cf90d70.webp
+    - date: 2026-08-09 19:00:00
+      content: 旧图迁移 · 645fa415e8694.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/645fa415e8694.png
+    - date: 2026-08-09 20:00:00
+      content: 旧图迁移 · 649e546ada7dd.webp
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/649e546ada7dd.webp
+    - date: 2026-08-09 21:00:00
+      content: 旧图迁移 · 64e6ce9c507bb.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
+    - date: 2026-08-09 01:00:00
+      content: 明日香 · asuka1.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka1.jpg
+    - date: 2026-08-09 02:00:00
+      content: 明日香 · asuka2.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.jpg
+    - date: 2026-08-09 03:00:00
+      content: 明日香 · new1.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
+    - date: 2026-08-09 04:00:00
+      content: 明日香 · new2.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new2.jpg
+    - date: 2026-08-09 05:00:00
+      content: 明日香 · new3.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new3.jpg
+    - date: 2026-08-09 06:00:00
+      content: 明日香 · new4.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new4.jpg
+    - date: 2026-08-09 07:00:00
+      content: 明日香 · new5.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new5.jpg
+    - date: 2026-08-09 08:00:00
+      content: 明日香 · new6.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new6.jpg
+    - date: 2026-08-09 01:00:00
+      content: 其他 · 20230330.jpg
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/covers/20230330.jpg
+    - date: 2026-08-09 02:00:00
+      content: 其他 · ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
+    - date: 2026-08-09 03:00:00
+      content: 其他 · 2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
+    - date: 2026-08-09 04:00:00
+      content: 其他 · twikoo-status.png
+      image:
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/twikoo-status.png
