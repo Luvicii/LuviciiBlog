@@ -2,8 +2,8 @@
   path_name: /wordScenery
   type: 2
   description: 因为到不了世界各地，所以请网友们发来了各地的夕阳与风景🌇。
-  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
-  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.webp
+  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
   rowHeight: 220
   limit: 10
   lazyload: true
@@ -17,7 +17,7 @@
       address: 江西湘潭
       from: 再吃一口就减肥
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
 
 - class_name: 我的日常
   path_name: /dailyPhoto
@@ -25,8 +25,8 @@
   description: 这里存放的是有关我自己的一些沙雕生活与有趣的事情。
   top_link: /album
   top_btn_text: 返回
-  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
-  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
   album_list:
       
 - class_name: 图床图库（审核中）
@@ -36,7 +36,7 @@
   top_link: /album
   top_btn_text: 返回
   top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
-  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
   rowHeight: 220
   limit: 100
   lazyload: true
@@ -66,11 +66,11 @@
     - date: 2026-08-09 06:00:00
       content: 旧图迁移 · 2023/08/24/64e6ce9c507bb.png
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
     - date: 2026-08-09 07:00:00
       content: 旧图迁移 · 2023/04/09/643293b1184e9.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
     - date: 2026-08-09 08:00:00
       content: 旧图迁移 · 643293b0f0abe.png
       image:
@@ -118,11 +118,11 @@
     - date: 2026-08-09 19:00:00
       content: 旧图迁移 · 2023/05/13/645fa3cf90d70.webp
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/2023/05/13/645fa3cf90d70.webp
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/645fa3cf90d70.webp
     - date: 2026-08-09 20:00:00
       content: 旧图迁移 · 2023/04/27/64496e511b09c.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
     - date: 2026-08-09 21:00:00
       content: 旧图迁移 · 64e6ce9c507bb.png
       image:
@@ -130,39 +130,39 @@
     - date: 2026-08-09 01:00:00
       content: 明日香 · asuka1.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka1.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka1.webp
     - date: 2026-08-09 02:00:00
       content: 明日香 · asuka2.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.webp
     - date: 2026-08-09 03:00:00
       content: 明日香 · new1.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.webp
     - date: 2026-08-09 04:00:00
       content: 明日香 · new2.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new2.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new2.webp
     - date: 2026-08-09 05:00:00
       content: 明日香 · new3.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new3.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new3.webp
     - date: 2026-08-09 06:00:00
       content: 明日香 · new4.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new4.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new4.webp
     - date: 2026-08-09 07:00:00
       content: 明日香 · new5.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new5.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new5.webp
     - date: 2026-08-09 08:00:00
       content: 明日香 · new6.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new6.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new6.webp
     - date: 2026-08-09 01:00:00
       content: 其他 · 20230330.jpg
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/covers/20230330.jpg
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/covers/20230330.webp
     - date: 2026-08-09 02:00:00
       content: 其他 · ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png
       image:
@@ -170,7 +170,7 @@
     - date: 2026-08-09 03:00:00
       content: 其他 · 2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
       image:
-        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.webp
     - date: 2026-08-09 04:00:00
       content: 其他 · twikoo-status.png
       image:

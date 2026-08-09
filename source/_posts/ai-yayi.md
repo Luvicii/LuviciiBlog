@@ -6,7 +6,7 @@ tags:
   - 角色
   - 动画
 categories: 动画
-cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
+cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.webp
 ---
 
 > 世界上最遥远的距离，不是生与死，而是我就站在你面前，却只对你说了一句——"笨蛋真嗣！"
@@ -19,7 +19,7 @@ cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
 
 而说起这种病的天花板级患者，我们只能请出那位红色双马尾的代言人——惣流·明日香·兰格雷。
 
-![红裙明日香：双手叉腰的自信，就是愛压抑患者最好的保护色](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg)
+![红裙明日香：双手叉腰的自信，就是愛压抑患者最好的保护色](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.webp)
 
 *双手叉腰，气势两米八——但越是张扬的姿态，越是在掩饰那句说不出口的话。*
 
@@ -33,7 +33,7 @@ cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
 
 傲娇的本质，其实是害怕。害怕先说出口就输了，害怕伸出的手落空，所以干脆把真心裹上一层刺。明日香的刺最尖、最红，也最扎人——可看过《Air/真心为你》的人都懂，刺里面包裹的东西有多柔软。
 
-![明日香与绫波丽：EVA 两大"情感障碍"代表会师](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new3.jpg)
+![明日香与绫波丽：EVA 两大"情感障碍"代表会师](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new3.webp)
 
 *明日香与绫波丽同框——一个把爱压抑成愤怒，一个把爱压抑成沉默。EVA 的情感表达障碍，从来不是一个人的病。*
 
@@ -45,7 +45,7 @@ cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/new1.jpg
 
 把喜欢改装成吐槽，把关心伪装成顺路，把"我想你"翻译成"最近怎么样"。中文互联网给这种行为起了一个更贴切的词：**嘴硬**。
 
-![明日香痛车：爱就要大声……贴在车上](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka1.jpg)
+![明日香痛车：爱就要大声……贴在车上](https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka1.webp)
 
 *反观痛车车主，就完全不压抑——爱就直接糊在车身上，红绿灯下向全世界广播。这大概是愛压抑的反向治疗方案。*
 
