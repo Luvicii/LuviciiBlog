@@ -2,9 +2,9 @@
 # ============================================
 # Luvicii 图床一键上传脚本
 # 用法:
-#   ./upload.sh 图片1.png 图片2.jpg          # 上传,默认存到 2026/08/ 目录
-#   ./upload.sh -d 文章名 a.png b.jpg        # 指定子目录
-#   ./upload.sh -c "自定义说明" a.png        # 附带提交说明
+#   ./uploadIMG.sh 图片1.png 图片2.jpg          # 上传,默认存到 2026/08/ 目录
+#   ./uploadIMG.sh -d 文章名 a.png b.jpg        # 指定子目录
+#   ./uploadIMG.sh -c "自定义说明" a.png        # 附带提交说明
 # 输出: 每个图片的 jsDelivr 访问 URL
 # ============================================
 
