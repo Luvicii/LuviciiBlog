@@ -3,7 +3,7 @@
   type: 2
   description: 因为到不了世界各地，所以请网友们发来了各地的夕阳与风景🌇。
   cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.png
-  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/649e546ada7dd.webp
+  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
   rowHeight: 220
   limit: 10
   lazyload: true
@@ -17,7 +17,7 @@
       address: 江西湘潭
       from: 再吃一口就减肥
       image:
-        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
 
 - class_name: 我的日常
   path_name: /dailyPhoto
@@ -25,8 +25,8 @@
   description: 这里存放的是有关我自己的一些沙雕生活与有趣的事情。
   top_link: /album
   top_btn_text: 返回
-  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
-  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+  top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
   album_list:
       
 - class_name: 图床图库（审核中）
@@ -36,7 +36,7 @@
   top_link: /album
   top_btn_text: 返回
   top_background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
-  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+  cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
   rowHeight: 220
   limit: 100
   lazyload: true
@@ -64,13 +64,13 @@
       image:
         - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/01/13/63c02edf44033.png
     - date: 2026-08-09 06:00:00
-      content: 旧图迁移 · 64329399cea5a.webp
+      content: 旧图迁移 · 2023/08/24/64e6ce9c507bb.png
       image:
-        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
     - date: 2026-08-09 07:00:00
-      content: 旧图迁移 · 64329399db122.webp
+      content: 旧图迁移 · 2023/04/09/643293b1184e9.jpg
       image:
-        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
     - date: 2026-08-09 08:00:00
       content: 旧图迁移 · 643293b0f0abe.png
       image:
@@ -116,13 +116,13 @@
       image:
         - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/645fa3cf90d70.webp
     - date: 2026-08-09 19:00:00
-      content: 旧图迁移 · 645fa415e8694.png
+      content: 旧图迁移 · 2023/05/13/645fa3cf90d70.webp
       image:
-        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/645fa415e8694.png
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/13/2023/05/13/645fa3cf90d70.webp
     - date: 2026-08-09 20:00:00
-      content: 旧图迁移 · 649e546ada7dd.webp
+      content: 旧图迁移 · 2023/04/27/64496e511b09c.jpg
       image:
-        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/649e546ada7dd.webp
+        - https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/06/30/2023/04/27/64496e511b09c.jpg
     - date: 2026-08-09 21:00:00
       content: 旧图迁移 · 64e6ce9c507bb.png
       image:

@@ -25,8 +25,8 @@
     text: 去看看
     cover: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
   map:
-    background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
-    backgroundDark: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399db122.webp
+    background: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
+    backgroundDark: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/04/09/643293b1184e9.jpg
     title: 这里是
     StrengthenTitle: 江苏
   selfInfo:
@@ -66,7 +66,7 @@
     music_tips: 最近在听
     music_title: 音乐馆
     music_link: /music/
-    music_bg: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/64329399cea5a.webp
+    music_bg: https://cdn.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/2023/08/24/64e6ce9c507bb.png
   like:
     like_tips: 喜欢
     like_title: 数码与科技
