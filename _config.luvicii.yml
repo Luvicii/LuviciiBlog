@@ -59,8 +59,8 @@ code_word_wrap: false
 copy:
   enable: true
   copyright:
-    enable: true
-    limit_count: 50
+    enable: true # 开启后,文章底部显示版权声明(转载/分享须知)
+    limit_count: 50 # 全文超过多少字才显示版权声明
 
 # social settings (社交图标设置)
 # formal:
@@ -125,10 +125,11 @@ mathjax:
   enable: false
   per_page: false
 
-# KaTeX
+# 数学公式渲染(KaTeX)
+# 文章里用 $...$ 或 $$...$$ 写公式即可显示(如 $x^2+y^2=1$)
 katex:
   enable: true
-  per_page: false
+  per_page: false # true=所有文章都加载公式库(慢), false=只在用到公式的文章加载(推荐)
   hide_scrollbar: true
 
 # Image (图片设置)
@@ -146,7 +147,8 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.webp # 首页顶部图
+index_img: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.webp # 首页顶部背景图(支持图床 URL,可随意换图)
+# 注:开启后首页顶部显示 大图+站点标题+打字机副标题;设为 false 则恢复简洁风格(副标题也会隐藏)
 
 # If the banner of page not setting, it will show the top_img
 default_top_img: false
@@ -195,8 +197,8 @@ mainTone:
   enable: true # true or false 文章是否启用获取图片主色调
   mode: api # cdn/api/both cdn模式为图片url+imageAve参数获取主色调，api模式为请求API获取主色调，both模式会先请求cdn参数，无法获取的情况下将请求API获取，可以在文章内配置main_color: '#3e5658'，使用十六进制颜色，则不会请求both/cdn/api获取主色调，而是直接使用配置的颜色
   # 项目地址：https://github.com/anzhiyu-c/img2color-go
-  api: https://img2color-go.vercel.app/api?img= # mode为api时可填写
-  cover_change: true # 整篇文章跟随cover修改主色调
+  api: https://img2color-go.vercel.app/api?img= # mode=api 时填写(第三方服务,失败不影响使用)
+  cover_change: true # 开启后整篇文章配色跟随封面图主色调
 
 # wordcount (字数统计)
 # see https://blog.anheyu.com/posts/c27d.html#字数统计
@@ -287,11 +289,11 @@ post_pagination: 2
 # Displays outdated notice for a post (文章过期提醒)
 noticeOutdate:
   enable: true
-  style: flat # style: simple/flat
-  limit_day: 365 # When will it be shown
-  position: top # position: top/bottom
-  message_prev: It has been
-  message_next: days since the last update, the content of the article may be outdated.
+  style: flat # 提示样式: simple=简单文字 / flat=卡片
+  limit_day: 365 # 文章超过多少天未更新就显示过期提醒(单位:天)
+  position: top # 提示位置: top=文章顶部 / bottom=底部
+  message_prev: It has been # 提示语前半句(可改中文,如"距上次更新已过去")
+  message_next: days since the last update, the content of the article may be outdated. # 提示语后半句
 
 # Share System (分享功能)
 # --------------------------------------
@@ -430,12 +432,12 @@ footer:
     since: 2022
   custom_text:
   runtime:
-    enable: true
-    launch_time: 04/01/2022 00:00:00 # 网站上线时间
-    work_img: /img/badge/work.svg
-    work_description: 距离月入25k也就还差一个好工作~
-    offduty_img: /img/badge/offduty.svg
-    offduty_description: 下班了就该开开心心的玩耍，嘿嘿~
+    enable: true # 页脚显示网站已运行天数
+    launch_time: 04/01/2022 00:00:00 # 网站上线时间(从这天开始算天数)
+    work_img: /img/badge/work.svg # 工作日显示的徽章图
+    work_description: 距离月入25k也就还差一个好工作~ # 工作日提示语(可改)
+    offduty_img: /img/badge/offduty.svg # 非工作日显示的徽章图
+    offduty_description: 下班了就该开开心心的玩耍，嘿嘿~ # 非工作日提示语(可改)
   # 徽标部分配置项 https://shields.io/
   # https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr
   bdageitem:
@@ -684,27 +686,30 @@ canvas_fluttering_ribbon:
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
+# 背景粒子连线特效(细线组成网状背景)
 canvas_nest:
   enable: true
-  color: "0,0,255" #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
-  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
-  zIndex: -1 # z-index property of the background, default: -1.
-  count: 99 # the number of lines, default: 99.
-  mobile: false
+  color: "0,0,255" # 线条颜色 RGB 值,如 "255,255,255"=白色
+  opacity: 0.7 # 线条透明度(0~1)
+  zIndex: -1 # 层级:-1=背景层(推荐)
+  count: 99 # 粒子数量(越多越密,越耗性能)
+  mobile: false # 移动端是否启用
 
 # Typewriter Effect (打字效果)
 # https://github.com/disjukr/activate-power-mode
+# 输入框打字震动特效(在评论区/搜索框打字时发光抖动)
 activate_power_mode:
   enable: true
-  colorful: true # open particle animation (冒光特效)
-  shake: false #  open shake (抖动特效)
+  colorful: true # 彩色粒子冒光
+  shake: false # 屏幕抖动
   mobile: false
 
 # Mouse click effects: fireworks (鼠标点击效果: 烟火特效)
+# 鼠标点击烟花特效(点哪哪放烟花)
 fireworks:
   enable: true
-  zIndex: 9999 # -1 or 9999
-  mobile: false
+  zIndex: 9999 # 层级: 9999=在最上层 / -1=在最底层
+  mobile: false # 移动端是否启用
 
 # Mouse click effects: Heart symbol (鼠标点击效果: 爱心)
 click_heart:
@@ -754,10 +759,10 @@ hr_icon:
   icon-top:
 
 # the subtitle on homepage (主页subtitle)
+# 首页打字机副标题(显示在站点标题下方,循环打字)
 subtitle:
   enable: true
-  # Typewriter Effect (打字效果)
-  effect: true
+  effect: true # 打字机效果开关
   # Effect Speed Options (打字效果速度参数)
   startDelay: 300 # time before typing starts in milliseconds
   typeSpeed: 150 # type speed in milliseconds
@@ -806,7 +811,7 @@ aside:
     name_link: /
 
   card_announcement:
-    enable: true
+    enable: true # 侧边栏公告卡片(公告内容直接改 content)
     content: 欢迎来看我的个人博客~
   card_weixin:
     enable: false
@@ -818,9 +823,9 @@ aside:
     sort: date # date or updated
     sort_order: # Don't modify the setting unless you know how it works
   card_categories:
-    enable: true
-    limit: 8 # if set 0 will show all
-    expand: none # none/true/false
+    enable: true # 侧边栏分类卡片
+    limit: 8 # 最多显示几个分类(0=全部)
+    expand: none # 展开状态: none=全收起 / true=全展开 / false=不可展开
     sort_order: # Don't modify the setting unless you know how it works
   card_tags:
     enable: true
@@ -946,13 +951,13 @@ fancybox: true
 # --------------------------------------
 
 # mermaid
-# see https://github.com/mermaid-js/mermaid
+# 流程图/时序图/甘特图支持(Mermaid)
+# 文章里用 ```mermaid 代码块写图即可
 mermaid:
   enable: true
-  # built-in themes: default/forest/dark/neutral
   theme:
-    light: default
-    dark: dark
+    light: default # 浅色主题: default/forest/dark/neutral
+    dark: dark # 深色主题
 
 # Note (Bootstrap Callout)
 note:
@@ -1005,10 +1010,10 @@ snackbar:
 instantpage: true
 
 # https://github.com/vinta/pangu.js
-# Insert a space between Chinese character and English character (中英文之间添加空格)
+# 自动排版:中英文之间自动加空格(如"玩CS2" → "玩 CS2")
 pangu:
   enable: true
-  field: site # site/post
+  field: site # site=全站生效 / post=仅文章生效
 
 # Lazyload (图片懒加载)
 # https://github.com/verlok/vanilla-lazyload
@@ -1065,9 +1070,9 @@ home_top:
       icon: luvicii-icon-book
   default_descr: 再怎么看我也不知道怎么描述它的啦！
   swiper:
-    enable: true
-    swiper_css: /css/plugins/swiper.min.css #swiper css依赖
-    swiper_js: /js/plugins/swiper.min.js #swiper js依赖
+    enable: true # 首页顶部文章轮播(文章 front-matter 加 swiper_index: 1 即可进轮播)
+    swiper_css: /css/plugins/swiper.min.css # 轮播样式(本地自托管,勿改)
+    swiper_js: /js/plugins/swiper.min.js # 轮播脚本(本地自托管,勿改)
   banner:
     tips: 甜品
     title: 今日份点心
@@ -1197,10 +1202,10 @@ shortcutKey:
 accesskey:
   enable: true
 
-# 友情链接顶部相关配置
+# 友链页(/link/)顶部横幅区
 linkPageTop:
   enable: true
-  title: 与数百名博主无限进步
+  title: 与数百名博主无限进步 # 横幅标题(可改)
   # 添加博主友链的评论自定义格式
   addFriendPlaceholder: "昵称（请勿包含博客等字样）：\n网站地址（要求博客地址，请勿提交个人主页）：\n头像图片url（请提供尽可能清晰的图片，我会上传到我自己的图床）：\n描述：\n站点截图（可选）：\n"
 
@@ -1212,7 +1217,7 @@ agreementPopup:
   enable: false
   url: /privacy
 
-# 右键菜单
+# 自定义右键菜单(在页面任意位置右键弹出个性化菜单)
 rightClickMenu:
   enable: true
 
