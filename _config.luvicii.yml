@@ -164,8 +164,8 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
-     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/27/64496e511b09c.jpg
+     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/cover/mutsumi1.jpg # 若叶睦(MyGO)默认封面
+     - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/cover/mutsumi2.jpg # 若叶睦(MyGO)默认封面
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
