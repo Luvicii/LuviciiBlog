@@ -77,9 +77,9 @@ author_status:
   skills:
      - 🤖️ 数码科技爱好者
      - 🔍 分享与热心帮助
-    # - 🏠 智能家居小能手
-    # - 🔨 设计开发一条龙
-    # - 🤝 专修交互与设计
+     - 🏠 智能家居小能手
+     - 🔨 设计开发一条龙
+     - 🤝 专修交互与设计
      - 🏃 脚踏实地行动派
      - 🧱 团队小组发动机
 
@@ -175,7 +175,7 @@ error_img:
 error_404:
   enable: true
   subtitle: "请尝试站内搜索寻找文章"
-  background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+  background: /img/404.gif # 404 页背景图(本地,构建时自动复制)
 
 post_meta:
   page: # Home Page
