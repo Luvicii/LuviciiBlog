@@ -147,7 +147,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/asuka/asuka2.webp # 首页顶部背景图(支持图床 URL,可随意换图)
+index_img: /img/xdp-banner_1.jpg # 首页顶部背景图(本地图,也可填图床 URL,可随意换图)
 # 注:开启后首页顶部显示 大图+站点标题+打字机副标题;设为 false 则恢复简洁风格(副标题也会隐藏)
 
 # If the banner of page not setting, it will show the top_img
