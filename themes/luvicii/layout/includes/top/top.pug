@@ -96,8 +96,7 @@ if home_top_config.enable
         link(rel="stylesheet", href=theme.home_top.banner.top_group_banner_css)
       
   if theme.home_top.swiper.enable
-    if !site.data.essay
-      script(src=url_for(theme.home_top.swiper.swiper_js))
+    script(src=url_for(theme.home_top.swiper.swiper_js))
     script.
       function initBlogSlider() {
         var swiper = new Swiper(".blog-slider", {
