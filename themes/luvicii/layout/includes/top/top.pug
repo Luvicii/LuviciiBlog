@@ -54,19 +54,20 @@ if home_top_config.enable
             //- 轮播图组件
             .blog-slider__pagination.swiper-pagination-clickable.swiper-pagination-bullets
 
-          #topPostGroup
-            - let top_group_list = sort_attr_post("top_group_list").splice(0, 4)
-            each item in top_group_list
-              .top-group-list-item
-                .post_cover.left_radius
-                  a(href=item.path title=item.title)
-                    span.top-group-text 荐
-                    img.post_bg(alt=item.title, src=item.cover, onerror=`this.src=` + error_img + `; this.onerror = null;`)
-                .top-group-info
-                  a.article-title(href=item.path title=item.title)=item.title
-            .top-group-list-none
-            .top-group-list-none
-            .top-group-list-none
+          if theme.home_top.top_post_group.enable
+            #topPostGroup
+              - let top_group_list = sort_attr_post("top_group_list").splice(0, 4)
+              each item in top_group_list
+                .top-group-list-item
+                  .post_cover.left_radius
+                    a(href=item.path title=item.title)
+                      span.top-group-text 荐
+                      img.post_bg(alt=item.title, src=item.cover, onerror=`this.src=` + error_img + `; this.onerror = null;`)
+                  .top-group-info
+                    a.article-title(href=item.path title=item.title)=item.title
+              .top-group-list-none
+              .top-group-list-none
+              .top-group-list-none
       else 
         .topGroup
           - let top_group_list = sort_attr_post("top_group_list").splice(0, 6)
