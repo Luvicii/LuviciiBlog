@@ -255,8 +255,21 @@ if hexo-config('home_top.swiper.enable') == true and hexo-config('home_top.top_p
   @media screen and (min-width: 1201px)
     div#swiper_container.blog-slider
       height: 340px
+    #swiper_container .blog-slider__item
+      flex-direction: column
     #swiper_container .blog-slider__img
-      height: 320px
+      width: 100%
+      height: 226px
+    #swiper_container .blog-slider__code
+      display: none
+    #swiper_container .blog-slider__content
+      display: flex
+      flex-direction: column
+      justify-content: center
+      width: 100%
+      height: 114px
+      padding: 0 20px
+      text-align: left
 
 if hexo-config('article_double_row') == true
   #content-inner #recent-posts > .recent-post-item > .recent-post-info > .content
