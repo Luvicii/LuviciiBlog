@@ -166,6 +166,11 @@
     music_page_default = JSON.stringify(theme.music_page_default)
   }
 
+  let musicPlaylist = '[]'
+  if (theme.music_playlist) {
+    musicPlaylist = JSON.stringify(theme.music_playlist)
+  }
+
 script.
   const GLOBAL_CONFIG = {
     linkPageTop: !{linkPageTop},
@@ -177,6 +182,7 @@ script.
     twikooEnvId: '!{theme.twikoo.envId}',
     commentBarrageConfig:!{commentBarrageConfig},
     music_page_default: !{music_page_default},
+    musicPlaylist: !{musicPlaylist},
     root: '!{config.root}',
     preloader: !{preloader},
     friends_vue_info: !{friends_vue_info},

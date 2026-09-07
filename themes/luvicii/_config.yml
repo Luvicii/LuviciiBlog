@@ -1135,6 +1135,16 @@ nav_music:
   volume: 0.7 # 默认音量
   all_playlist: https://y.qq.com/n/ryqq/playlist/8802438608
 
+# 音乐馆页面可切换的多个歌单（配置两项及以上时，页面顶部显示切换栏）
+# music_playlist:
+#   - name: 网易云
+#     id: 8152976493
+#     server: netease
+#   - name: QQ音乐
+#     id: 8802438608
+#     server: tencent
+music_playlist:
+
 # 路径为 /music 的音乐页面默认加载的歌单 1. nav_music 2. custom
 music_page_default: nav_music
 

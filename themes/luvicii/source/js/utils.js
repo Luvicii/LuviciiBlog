@@ -845,16 +845,34 @@ const luvicii = {
       return;
     }
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = "8152976493";
-    const userServer = "netease";
+    const playlist = GLOBAL_CONFIG.musicPlaylist || [];
+    const defaultItem = playlist[0] || { id: "8152976493", server: "netease" };
+    const id = urlParams.get("id") || defaultItem.id;
+    const server = urlParams.get("server") || defaultItem.server;
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
-    if (urlParams.get("id") && urlParams.get("server")) {
-      const id = urlParams.get("id");
-      const server = urlParams.get("server");
-      anMusicPageMeting.innerHTML = `<meting-js id="${id}" server=${server} type="playlist" type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
-    } else {
-      anMusicPageMeting.innerHTML = `<meting-js id="${userId}" server="${userServer}" type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
-    }
+    anMusicPageMeting.innerHTML = `<meting-js id="${id}" server=${server} type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
+    // 绑定多歌单切换栏并标记当前歌单
+    document.querySelectorAll(".anMusic-playlist-item").forEach(item => {
+      if (item.dataset.id === String(id) && item.dataset.server === server) {
+        item.classList.add("active");
+      }
+      item.addEventListener("click", () => {
+        luvicii.switchMusicPlaylist(item.dataset.id, item.dataset.server, item);
+      });
+    });
+    luvicii.changeMusicBg(false);
+  },
+  // 切换指定歌单
+  switchMusicPlaylist: function (id, server, item) {
+    const anMusicPageMeting = document.getElementById("anMusic-page-meting");
+    if (!anMusicPageMeting) return;
+    document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
+    if (item) item.classList.add("active");
+    // 重置随机播放与自定义列表状态，避免残留旧歌单数据
+    selectRandomSong = [];
+    defaultPlayMusicList = [];
+    changeMusicListFlag = false;
+    anMusicPageMeting.innerHTML = `<meting-js id="${id}" server="${server}" type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
     luvicii.changeMusicBg(false);
   },
   //隐藏今日推荐
@@ -873,9 +891,6 @@ const luvicii = {
   addEventListenerMusic: function () {
     const anMusicPage = document.getElementById("anMusic-page");
     const aplayerIconMenu = anMusicPage.querySelector(".aplayer-info .aplayer-time .aplayer-icon-menu");
-    const anMusicBtnGetSong = anMusicPage.querySelector("#anMusicBtnGetSong");
-    const anMusicRefreshBtn = anMusicPage.querySelector("#anMusicRefreshBtn");
-    const anMusicSwitchingBtn = anMusicPage.querySelector("#anMusicSwitching");
     const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
     //初始化音量
     metingAplayer.volume(0.8, true);
@@ -889,16 +904,13 @@ const luvicii = {
       anMusicPage.querySelector(".aplayer.aplayer-withlist .aplayer-list").style.opacity = "1";
     });
 
-    function anMusicPageMenuAask() {
-      if (window.location.pathname != "/music/") {
-        document.getElementById("menu-mask").removeEventListener("click", anMusicPageMenuAask);
-        return;
-      }
+    // 以下页面级与全局事件只需绑定一次，切换歌单重建播放器后不再重复绑定
+    if (anMusicPage.dataset.eventsBound) return;
+    anMusicPage.dataset.eventsBound = "true";
 
-      anMusicPage.querySelector(".aplayer-list").classList.remove("aplayer-list-hide");
-    }
-
-    document.getElementById("menu-mask").addEventListener("click", anMusicPageMenuAask);
+    const anMusicBtnGetSong = anMusicPage.querySelector("#anMusicBtnGetSong");
+    const anMusicRefreshBtn = anMusicPage.querySelector("#anMusicRefreshBtn");
+    const anMusicSwitchingBtn = anMusicPage.querySelector("#anMusicSwitching");
 
     // 监听增加单曲按钮
     anMusicBtnGetSong.addEventListener("click", () => {
@@ -926,36 +938,52 @@ const luvicii = {
       luvicii.changeMusicList();
     }
 
+    // 全局事件（menu-mask、键盘）只绑定一次，播放器实时获取，兼容切换歌单与 pjax
+    if (luvicii.musicGlobalEventsBound) return;
+    luvicii.musicGlobalEventsBound = true;
+
+    function anMusicPageMenuAask() {
+      if (window.location.pathname != "/music/") return;
+      const aplayerList = document.querySelector("#anMusic-page .aplayer-list");
+      if (aplayerList) aplayerList.classList.remove("aplayer-list-hide");
+    }
+
+    document.getElementById("menu-mask").addEventListener("click", anMusicPageMenuAask);
+
     // 监听键盘事件
-    //空格控制音乐
     document.addEventListener("keydown", function (event) {
+      const musicPage = document.getElementById("anMusic-page");
+      if (!musicPage) return;
+      const metingEl = musicPage.querySelector("meting-js");
+      const player = metingEl && metingEl.aplayer;
+      if (!player) return;
       //暂停开启音乐
       if (event.code === "Space") {
         event.preventDefault();
-        metingAplayer.toggle();
+        player.toggle();
       }
       //切换下一曲
       if (event.keyCode === 39) {
         event.preventDefault();
-        metingAplayer.skipForward();
+        player.skipForward();
       }
       //切换上一曲
       if (event.keyCode === 37) {
         event.preventDefault();
-        metingAplayer.skipBack();
+        player.skipBack();
       }
       //增加音量
       if (event.keyCode === 38) {
         if (musicVolume <= 1) {
           musicVolume += 0.1;
-          metingAplayer.volume(musicVolume, true);
+          player.volume(musicVolume, true);
         }
       }
       //减小音量
       if (event.keyCode === 40) {
         if (musicVolume >= 0) {
           musicVolume += -0.1;
-          metingAplayer.volume(musicVolume, true);
+          player.volume(musicVolume, true);
         }
       }
     });
