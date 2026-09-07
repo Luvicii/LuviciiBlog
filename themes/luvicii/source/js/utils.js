@@ -773,6 +773,15 @@ const luvicii = {
       }, 100);
     }
   },
+  // 生成音乐馆播放器 HTML：Meting 平台歌单或本地直链歌曲（借 meting-js 的 api 属性用 data: URL 传入）
+  buildMusicPageMeting: function (item) {
+    const base = `mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"`;
+    if (item.songs && item.songs.length) {
+      const dataApi = "data:application/json," + encodeURIComponent(JSON.stringify(item.songs));
+      return `<meting-js api="${dataApi}" ${base}></meting-js>`;
+    }
+    return `<meting-js id="${item.id}" server="${item.server}" type="playlist" ${base}></meting-js>`;
+  },
   // 获取自定义播放列表
   getCustomPlayList: function () {
     if (!window.location.pathname.startsWith("/music/")) {
@@ -780,13 +789,16 @@ const luvicii = {
     }
     const urlParams = new URLSearchParams(window.location.search);
     const playlist = GLOBAL_CONFIG.musicPlaylist || [];
-    const defaultItem = playlist[0] || { id: "8152976493", server: "netease" };
-    const id = urlParams.get("id") || defaultItem.id;
-    const server = urlParams.get("server") || defaultItem.server;
+    let current = playlist[0] || { id: "8152976493", server: "netease" };
+    if (urlParams.get("id") && urlParams.get("server")) {
+      const id = urlParams.get("id");
+      const server = urlParams.get("server");
+      current = playlist.find(p => String(p.id) === id && p.server === server) || { id, server };
+    }
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
-    anMusicPageMeting.innerHTML = `<meting-js id="${id}" server=${server} type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
+    anMusicPageMeting.innerHTML = luvicii.buildMusicPageMeting(current);
     // 记录当前歌单，供刷新与循环切换使用
-    luvicii.currentMusic = { id, server };
+    luvicii.currentMusic = current;
     // 绑定多歌单切换列表并标记当前歌单
     const playlistBtn = document.getElementById("anMusicPlaylistBtn");
     if (playlistBtn) {
@@ -794,28 +806,30 @@ const luvicii = {
         document.getElementById("anMusic-playlist-list").classList.toggle("show");
       });
     }
-    document.querySelectorAll(".anMusic-playlist-item").forEach(item => {
-      if (item.dataset.id === String(id) && item.dataset.server === server) {
+    document.querySelectorAll(".anMusic-playlist-item").forEach((item, index) => {
+      if (playlist[index] === current) {
         item.classList.add("active");
       }
       item.addEventListener("click", () => {
-        luvicii.switchMusicPlaylist(item.dataset.id, item.dataset.server, item);
+        luvicii.switchMusicPlaylist(index, item);
       });
     });
     luvicii.changeMusicBg(false);
   },
-  // 切换指定歌单
-  switchMusicPlaylist: function (id, server, item) {
+  // 切换指定歌单（按 music_playlist 配置下标）
+  switchMusicPlaylist: function (index, item) {
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     if (!anMusicPageMeting) return;
+    const target = (GLOBAL_CONFIG.musicPlaylist || [])[index];
+    if (!target) return;
     document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
     if (item) item.classList.add("active");
     // 切换后收起歌单列表
     const playlistList = document.getElementById("anMusic-playlist-list");
     if (playlistList) playlistList.classList.remove("show");
     // 记录当前歌单，供刷新与循环切换使用
-    luvicii.currentMusic = { id, server };
-    anMusicPageMeting.innerHTML = `<meting-js id="${id}" server="${server}" type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
+    luvicii.currentMusic = target;
+    anMusicPageMeting.innerHTML = luvicii.buildMusicPageMeting(target);
     luvicii.changeMusicBg(false);
   },
   //隐藏今日推荐
@@ -869,7 +883,8 @@ const luvicii = {
     anMusicRefreshBtn.addEventListener("click", () => {
       const cur = luvicii.currentMusic;
       if (!cur) return;
-      luvicii.switchMusicPlaylist(cur.id, cur.server, document.querySelector(".anMusic-playlist-item.active"));
+      document.getElementById("anMusic-page-meting").innerHTML = luvicii.buildMusicPageMeting(cur);
+      luvicii.changeMusicBg(false);
       luvicii.snackbarShow("正在刷新当前歌单");
     });
     // 在已配置的歌单间循环切换（仅配置了多个歌单时该按钮存在）
@@ -878,8 +893,8 @@ const luvicii = {
         const items = Array.from(document.querySelectorAll(".anMusic-playlist-item"));
         if (items.length < 2) return;
         const cur = items.findIndex(el => el.classList.contains("active"));
-        const next = items[(cur + 1) % items.length];
-        luvicii.switchMusicPlaylist(next.dataset.id, next.dataset.server, next);
+        const next = (cur + 1) % items.length;
+        luvicii.switchMusicPlaylist(next, items[next]);
       });
     }
 
