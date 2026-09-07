@@ -45,11 +45,17 @@ done
 # 推送
 git -C "$WORK_DIR" add -A
 git -C "$WORK_DIR" commit -q -m "upload music: $(basename "$AUDIO")" || { echo "没有新文件,未提交"; exit 0; }
+PUSHED=0
 for i in 1 2 3; do
-  if git -C "$WORK_DIR" push -q origin main 2>/dev/null; then break; fi
+  if git -C "$WORK_DIR" push -q origin main 2>/dev/null; then PUSHED=1; break; fi
   echo "推送失败,重试 $i..."
   sleep 5
 done
+if [ "$PUSHED" != "1" ]; then
+  echo "错误: 推送失败,文件尚未上传成功" >&2
+  echo "可稍后手动执行: git -C $WORK_DIR pull --rebase origin main && git -C $WORK_DIR push origin main" >&2
+  exit 1
+fi
 
 SONG_NAME="$(basename "$AUDIO")"
 SONG_NAME="${SONG_NAME%.*}"

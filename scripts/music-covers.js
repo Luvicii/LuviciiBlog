@@ -14,14 +14,18 @@ const UA = { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" 
 const norm = s => (s || "").toLowerCase().replace(/\s+/g, "");
 
 async function searchCover(name, artist) {
-  const keyword = encodeURIComponent(`${name} ${artist || ""}`.trim());
-  const url = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${keyword}&format=json&p=1&n=5&t=0`;
-  const res = await fetch(url, { headers: UA, signal: AbortSignal.timeout(15000) });
-  const data = await res.json();
-  const songs = data && data.data && data.data.song && data.data.song.list;
-  if (!songs || !songs.length) return null;
-  const hit = songs.find(s => norm(s.songname) === norm(name)) || songs[0];
-  return hit && hit.albummid ? COVER_TPL(hit.albummid) : null;
+  // 先按「歌名 + 歌手」搜索，无结果再只按歌名搜索（翻唱、原创等场景歌手匹配不到原曲）
+  const keywords = [`${name} ${artist || ""}`.trim(), name];
+  for (const kw of [...new Set(keywords)]) {
+    const url = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?w=${encodeURIComponent(kw)}&format=json&p=1&n=5&t=0`;
+    const res = await fetch(url, { headers: UA, signal: AbortSignal.timeout(15000) });
+    const data = await res.json();
+    const songs = data && data.data && data.data.song && data.data.song.list;
+    if (!songs || !songs.length) continue;
+    const hit = songs.find(s => norm(s.songname) === norm(name)) || songs[0];
+    if (hit && hit.albummid) return COVER_TPL(hit.albummid);
+  }
+  return null;
 }
 
 hexo.extend.filter.register("before_generate", async function () {

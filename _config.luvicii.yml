@@ -1172,6 +1172,9 @@ music_playlist:
       - name: なんでもないや (movie edit)
         artist: RADWIMPS
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/なんでもないや (movie edit).mp3"
+      - name: 雨き声残響
+        artist: Lrxin（翻唱）
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/雨き声残響 (カバー).mp3"
 
 # 评论匿名邮箱
 visitorMail:
