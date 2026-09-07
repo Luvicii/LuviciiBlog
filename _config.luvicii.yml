@@ -1077,10 +1077,10 @@ home_top:
     swiper_css: /css/plugins/swiper.min.css # 轮播样式(本地自托管,勿改)
     swiper_js: /js/plugins/swiper.min.js # 轮播脚本(本地自托管,勿改)
     shatter: # 轮播图片玻璃碎裂切换特效参数(仅推荐区关闭+宽屏时生效),删除某项则用内置默认值
-      cols: 16 # 碎裂网格列数(宽屏)
-      rows: 7 # 碎裂网格行数(宽屏)
+      cols: 20 # 碎裂网格列数(宽屏)
+      rows: 22 # 碎裂网格行数(宽屏)
       small_cols: 10 # 碎裂网格列数(窄屏)
-      small_rows: 6 # 碎裂网格行数(窄屏)
+      small_rows: 8 # 碎裂网格行数(窄屏)
       fallback_cols: 12 # DOM 回退路径列数(无 WebGL2 时)
       fallback_rows: 5 # DOM 回退路径行数
       sweep: 1200 # 碎裂波纹从撞击点扩散的扫过时间(ms)
@@ -1180,7 +1180,7 @@ greetingBox:
     - greeting: 晚安😴
       startTime: 0
       endTime: 5
-    - greeting: 早上好👋, 祝一天好心情！
+    - greeting: 早上好👋
       startTime: 6
       endTime: 9
     - greeting: 上午好👋, 状态很好，鼓励一下～
