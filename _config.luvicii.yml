@@ -1345,7 +1345,7 @@ CDN:
     aplayer_css: /css/plugins/APlayer.min.css
     aplayer_js: /js/plugins/APlayer.min.js
     meting_js: /js/plugins/Meting2.min.js
-    # meting_api:
+    meting_api: https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&r=:r
     # prismjs_js:
     # prismjs_lineNumber_js:
     # prismjs_autoloader:
