@@ -53,6 +53,10 @@ if home_top_config.enable
                     a.blog-slider__button(href=item.path, alt=item.title) 详情   
             //- 轮播图组件
             .blog-slider__pagination.swiper-pagination-clickable.swiper-pagination-bullets
+            if theme.home_top.top_post_group.enable != true
+              #shatter-stage(style='position:absolute;pointer-events:none;z-index:5;overflow:hidden;border-radius:5px;')
+              script#shatter-covers(type='application/json')!= JSON.stringify(swiper_list.map(item => item.cover))
+              script#shatter-config(type='application/json')!= JSON.stringify(theme.home_top.swiper.shatter || {})
 
           if theme.home_top.top_post_group.enable
             #topPostGroup
@@ -98,7 +102,9 @@ if home_top_config.enable
       
   if theme.home_top.swiper.enable
     script(src=url_for(theme.home_top.swiper.swiper_js))
-    script.
+    if theme.home_top.top_post_group.enable != true
+      script(data-pjax src=url_for('/js/shatter-carousel.js'))
+    script(data-pjax).
       function initBlogSlider() {
         var swiper = new Swiper(".blog-slider", {
           passiveListeners: true,
@@ -107,7 +113,7 @@ if home_top_config.enable
           loop: true,
           autoplay: {
             disableOnInteraction: true,
-            delay: 3000,
+            delay: 4000,
           },
           mousewheel: {
             passive: true, // 将 mousewheel 事件处理程序标记为被动的
@@ -118,6 +124,57 @@ if home_top_config.enable
             clickable: true,
           },
         });
+
+        // 玻璃碎裂图片切换（仅推荐区关闭 + 宽屏拉伸布局下生效，文字切换保持原 fade 效果）
+        function initShatterCarousel(swiper) {
+          var shatterStage = document.getElementById("shatter-stage");
+          var shatterCoversEl = document.getElementById("shatter-covers");
+          if (
+            !shatterStage ||
+            !shatterCoversEl ||
+            !window.ShatterCarousel ||
+            !window.matchMedia("(min-width: 1201px)").matches
+          ) {
+            return;
+          }
+          var shatterCovers = [];
+          var shatterCfg = {};
+          try {
+            shatterCovers = JSON.parse(shatterCoversEl.textContent) || [];
+          } catch (e) {}
+          try {
+            var shatterCfgEl = document.getElementById("shatter-config");
+            if (shatterCfgEl) shatterCfg = JSON.parse(shatterCfgEl.textContent) || {};
+          } catch (e) {}
+          if (!shatterCovers.length) return;
+          window.ShatterCarousel.destroy();
+          window.ShatterCarousel.init(shatterStage, shatterCovers[0], shatterCfg);
+          swiper.on("slideChangeTransitionStart", function () {
+            var next = shatterCovers[swiper.realIndex];
+            if (next) window.ShatterCarousel.shatterTo(next);
+          });
+          var preloadCovers = function () {
+            shatterCovers.forEach(function (src) {
+              var img = new Image();
+              img.src = src;
+            });
+          };
+          if ("requestIdleCallback" in window) window.requestIdleCallback(preloadCovers);
+          else setTimeout(preloadCovers, 2000);
+        }
+        // pjax 重进首页时 data-pjax 脚本为异步重载，模块可能尚未就绪，此时手动加载后再初始化
+        if (document.getElementById("shatter-stage")) {
+          if (window.ShatterCarousel) {
+            initShatterCarousel(swiper);
+          } else {
+            var shatterJs = document.createElement("script");
+            shatterJs.src = "!{url_for('/js/shatter-carousel.js')}";
+            shatterJs.onload = function () {
+              initShatterCarousel(swiper);
+            };
+            document.head.appendChild(shatterJs);
+          }
+        }
 
         var comtainer = document.getElementById("swiper_container");
         if (comtainer !== null) {

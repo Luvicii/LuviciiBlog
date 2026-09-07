@@ -1076,6 +1076,25 @@ home_top:
     enable: true # 首页顶部文章轮播(文章 front-matter 加 swiper_index: 1 即可进轮播)
     swiper_css: /css/plugins/swiper.min.css # 轮播样式(本地自托管,勿改)
     swiper_js: /js/plugins/swiper.min.js # 轮播脚本(本地自托管,勿改)
+    shatter: # 轮播图片玻璃碎裂切换特效参数(仅推荐区关闭+宽屏时生效),删除某项则用内置默认值
+      cols: 16 # 碎裂网格列数(宽屏)
+      rows: 7 # 碎裂网格行数(宽屏)
+      small_cols: 10 # 碎裂网格列数(窄屏)
+      small_rows: 6 # 碎裂网格行数(窄屏)
+      fallback_cols: 12 # DOM 回退路径列数(无 WebGL2 时)
+      fallback_rows: 5 # DOM 回退路径行数
+      sweep: 1200 # 碎裂波纹从撞击点扩散的扫过时间(ms)
+      dur: 800 # 碎片飞行时长基准(ms)
+      dur_range: 600 # 碎片飞行时长随机范围(ms)
+      drift: 500 # 碎片水平飞散距离
+      drift_range: 600 # 飞散距离随机范围
+      sway: 120 # 下坠摆动幅度
+      tumble: 80 # 3D 翻滚角度
+      spin: 540 # 旋转角度
+      scale_min: 0.3 # 碎片飞出缩放最小值
+      scale_max: 0.65 # 碎片飞出缩放最大值
+      jag: 14 # 碎片边缘锯齿程度
+      perspective: 900 # 3D 透视深度
   banner:
     tips: 甜品
     title: 今日份点心

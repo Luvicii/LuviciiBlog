@@ -1074,6 +1074,7 @@ home_top:
     enable: false
     swiper_css: /css/plugins/swiper.min.css #swiper css依赖
     swiper_js: /js/plugins/swiper.min.js #swiper js依赖
+    shatter: {} #轮播图片碎裂特效参数,缺省项用内置默认值(见 js/shatter-carousel.js 的 SHATTER_DEFAULTS)
   banner:
     tips: 新品主题
     title: Theme-Luvicii
