@@ -851,7 +851,13 @@ const luvicii = {
     const server = urlParams.get("server") || defaultItem.server;
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     anMusicPageMeting.innerHTML = `<meting-js id="${id}" server=${server} type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
-    // 绑定多歌单切换栏并标记当前歌单
+    // 绑定多歌单切换列表并标记当前歌单
+    const playlistBtn = document.getElementById("anMusicPlaylistBtn");
+    if (playlistBtn) {
+      playlistBtn.addEventListener("click", () => {
+        document.getElementById("anMusic-playlist-list").classList.toggle("show");
+      });
+    }
     document.querySelectorAll(".anMusic-playlist-item").forEach(item => {
       if (item.dataset.id === String(id) && item.dataset.server === server) {
         item.classList.add("active");
@@ -868,6 +874,9 @@ const luvicii = {
     if (!anMusicPageMeting) return;
     document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
     if (item) item.classList.add("active");
+    // 切换后收起歌单列表
+    const playlistList = document.getElementById("anMusic-playlist-list");
+    if (playlistList) playlistList.classList.remove("show");
     // 重置随机播放与自定义列表状态，避免残留旧歌单数据
     selectRandomSong = [];
     defaultPlayMusicList = [];

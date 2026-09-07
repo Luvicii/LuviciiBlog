@@ -1,6 +1,8 @@
 #anMusic-page
   if theme.music_playlist && theme.music_playlist.length > 1
-    #anMusic-playlist-bar
+    #anMusicPlaylistBtn(title="切换歌单")
+      i(class="luviciifont luvicii-icon-list-ul")
+    #anMusic-playlist-list
       each item in theme.music_playlist
         .anMusic-playlist-item(data-id=item.id data-server=item.server)= item.name
   #anMusicBtnGetSong(title="随机周董单曲，打开异世界的大梦")
