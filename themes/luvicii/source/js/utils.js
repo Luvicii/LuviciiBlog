@@ -742,72 +742,6 @@ const luvicii = {
   hideLoading: function () {
     document.getElementById("loading-box").classList.add("loaded");
   },
-  // 将音乐缓存播放
-  cacheAndPlayMusic() {
-    let data = localStorage.getItem("musicData");
-    if (data) {
-      data = JSON.parse(data);
-      const currentTime = new Date().getTime();
-      if (currentTime - data.timestamp < 24 * 60 * 60 * 1000) {
-        // 如果缓存的数据没有过期，直接使用
-        luvicii.playMusic(data.songs);
-        return;
-      }
-    }
-
-    // 否则重新从服务器获取数据
-    fetch("/json/music.json")
-      .then(response => response.json())
-      .then(songs => {
-        const cacheData = {
-          timestamp: new Date().getTime(),
-          songs: songs,
-        };
-        localStorage.setItem("musicData", JSON.stringify(cacheData));
-        luvicii.playMusic(songs);
-      });
-  },
-  // 播放音乐
-  playMusic(songs) {
-    const anMusicPage = document.getElementById("anMusic-page");
-    const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
-    const randomIndex = Math.floor(Math.random() * songs.length);
-    const randomSong = songs[randomIndex];
-    const allAudios = metingAplayer.list.audios;
-    if (!selectRandomSong.includes(randomSong.name)) {
-      // 如果随机到的歌曲已经未被随机到过，就添加进metingAplayer.list
-      metingAplayer.list.add([randomSong]);
-      // 播放最后一首(因为是添加到了最后)
-      metingAplayer.list.switch(allAudios.length);
-      // 添加到已被随机的歌曲列表
-      selectRandomSong.push(randomSong.name);
-    } else {
-      // 随机到的歌曲已经在播放列表中了
-      // 直接继续随机直到随机到没有随机过的歌曲，如果全部随机过了就切换到对应的歌曲播放即可
-      let songFound = false;
-      while (!songFound) {
-        const newRandomIndex = Math.floor(Math.random() * songs.length);
-        const newRandomSong = songs[newRandomIndex];
-        if (!selectRandomSong.includes(newRandomSong.name)) {
-          metingAplayer.list.add([newRandomSong]);
-          metingAplayer.list.switch(allAudios.length);
-          selectRandomSong.push(newRandomSong.name);
-          songFound = true;
-        }
-        // 如果全部歌曲都已被随机过，跳出循环
-        if (selectRandomSong.length === songs.length) {
-          break;
-        }
-      }
-      if (!songFound) {
-        // 如果全部歌曲都已被随机过，切换到对应的歌曲播放
-        const palyMusicIndex = allAudios.findIndex(song => song.name === randomSong.name);
-        if (palyMusicIndex != -1) metingAplayer.list.switch(palyMusicIndex);
-      }
-    }
-
-    console.info("已随机歌曲：", selectRandomSong, "本次随机歌曲：", randomSong.name);
-  },
   // 音乐节目切换背景
   changeMusicBg: function (isChangeBg = true) {
     const anMusicBg = document.getElementById("an_music_bg");
@@ -851,6 +785,8 @@ const luvicii = {
     const server = urlParams.get("server") || defaultItem.server;
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     anMusicPageMeting.innerHTML = `<meting-js id="${id}" server=${server} type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
+    // 记录当前歌单，供刷新与循环切换使用
+    luvicii.currentMusic = { id, server };
     // 绑定多歌单切换列表并标记当前歌单
     const playlistBtn = document.getElementById("anMusicPlaylistBtn");
     if (playlistBtn) {
@@ -877,10 +813,8 @@ const luvicii = {
     // 切换后收起歌单列表
     const playlistList = document.getElementById("anMusic-playlist-list");
     if (playlistList) playlistList.classList.remove("show");
-    // 重置随机播放与自定义列表状态，避免残留旧歌单数据
-    selectRandomSong = [];
-    defaultPlayMusicList = [];
-    changeMusicListFlag = false;
+    // 记录当前歌单，供刷新与循环切换使用
+    luvicii.currentMusic = { id, server };
     anMusicPageMeting.innerHTML = `<meting-js id="${id}" server="${server}" type="playlist" mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"></meting-js>`;
     luvicii.changeMusicBg(false);
   },
@@ -921,30 +855,32 @@ const luvicii = {
     const anMusicRefreshBtn = anMusicPage.querySelector("#anMusicRefreshBtn");
     const anMusicSwitchingBtn = anMusicPage.querySelector("#anMusicSwitching");
 
-    // 监听增加单曲按钮
+    // 随机播放当前歌单中的一首
     anMusicBtnGetSong.addEventListener("click", () => {
-      if (changeMusicListFlag) {
-        const anMusicPage = document.getElementById("anMusic-page");
-        const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
-        const allAudios = metingAplayer.list.audios;
-        const randomIndex = Math.floor(Math.random() * allAudios.length);
-        // 随机播放一首
-        metingAplayer.list.switch(randomIndex);
-      } else {
-        luvicii.cacheAndPlayMusic();
-      }
+      const metingEl = document.querySelector("#anMusic-page meting-js");
+      const player = metingEl && metingEl.aplayer;
+      if (!player) return;
+      const audios = player.list.audios;
+      if (!audios.length) return;
+      player.list.switch(Math.floor(Math.random() * audios.length));
+      player.play();
     });
+    // 重新拉取当前歌单
     anMusicRefreshBtn.addEventListener("click", () => {
-      localStorage.removeItem("musicData");
-      luvicii.snackbarShow("已移除相关缓存歌曲");
+      const cur = luvicii.currentMusic;
+      if (!cur) return;
+      luvicii.switchMusicPlaylist(cur.id, cur.server, document.querySelector(".anMusic-playlist-item.active"));
+      luvicii.snackbarShow("正在刷新当前歌单");
     });
-    anMusicSwitchingBtn.addEventListener("click", () => {
-      luvicii.changeMusicList();
-    });
-
-    // 默认加载的歌单
-    if (GLOBAL_CONFIG.music_page_default === "custom") {
-      luvicii.changeMusicList();
+    // 在已配置的歌单间循环切换（仅配置了多个歌单时该按钮存在）
+    if (anMusicSwitchingBtn) {
+      anMusicSwitchingBtn.addEventListener("click", () => {
+        const items = Array.from(document.querySelectorAll(".anMusic-playlist-item"));
+        if (items.length < 2) return;
+        const cur = items.findIndex(el => el.classList.contains("active"));
+        const next = items[(cur + 1) % items.length];
+        luvicii.switchMusicPlaylist(next.dataset.id, next.dataset.server, next);
+      });
     }
 
     // 全局事件（menu-mask、键盘）只绑定一次，播放器实时获取，兼容切换歌单与 pjax
@@ -996,39 +932,6 @@ const luvicii = {
         }
       }
     });
-  },
-  // 切换歌单
-  changeMusicList: async function () {
-    const anMusicPage = document.getElementById("anMusic-page");
-    const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
-    const currentTime = new Date().getTime();
-    const cacheData = JSON.parse(localStorage.getItem("musicData")) || { timestamp: 0 };
-    let songs = [];
-
-    if (changeMusicListFlag) {
-      songs = defaultPlayMusicList;
-    } else {
-      // 保存当前默认播放列表，以使下次可以切换回来
-      defaultPlayMusicList = metingAplayer.list.audios;
-      // 如果缓存的数据没有过期，直接使用
-      if (currentTime - cacheData.timestamp < 24 * 60 * 60 * 1000) {
-        songs = cacheData.songs;
-      } else {
-        // 否则重新从服务器获取数据
-        const response = await fetch("/json/music.json");
-        songs = await response.json();
-        cacheData.timestamp = currentTime;
-        cacheData.songs = songs;
-        localStorage.setItem("musicData", JSON.stringify(cacheData));
-      }
-    }
-
-    // 清除当前播放列表并添加新的歌曲
-    metingAplayer.list.clear();
-    metingAplayer.list.add(songs);
-
-    // 切换标志位
-    changeMusicListFlag = !changeMusicListFlag;
   },
   // 控制台音乐列表监听
   addEventListenerConsoleMusicList: function () {

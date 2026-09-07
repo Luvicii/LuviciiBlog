@@ -146,14 +146,8 @@ var vegetablesAndFruits = [
   "火龙果",
 ];
 
-// 已随机的歌曲
-var selectRandomSong = [];
 // 音乐默认声音大小
 var musicVolume = 0.8;
-// 是否切换了周杰伦音乐列表
-var changeMusicListFlag = false;
-// 当前默认播放列表
-var defaultPlayMusicList = [];
 var themeColorMeta, pageHeaderEl, navMusicEl, consoleEl;
 
 document.addEventListener("DOMContentLoaded", function () {

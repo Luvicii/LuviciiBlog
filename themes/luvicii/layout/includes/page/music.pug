@@ -1,14 +1,14 @@
 #anMusic-page
+  #anMusicBtnGetSong(title="随机播放当前歌单")
+    i(class="luviciifont luvicii-icon-shuffle")
+  #anMusicRefreshBtn(title="重新加载当前歌单")
+    i(class="luviciifont luvicii-icon-arrows-rotate")
   if theme.music_playlist && theme.music_playlist.length > 1
-    #anMusicPlaylistBtn(title="切换歌单")
+    #anMusicSwitching(title="顺序切换歌单")
+      i(class="luviciifont luvicii-icon-repeat")
+    #anMusicPlaylistBtn(title="歌单列表")
       i(class="luviciifont luvicii-icon-list-ul")
     #anMusic-playlist-list
       each item in theme.music_playlist
         .anMusic-playlist-item(data-id=item.id data-server=item.server)= item.name
-  #anMusicBtnGetSong(title="随机周董单曲，打开异世界的大梦")
-    i(class="luviciifont luvicii-icon-shuffle")
-  #anMusicRefreshBtn(title="立即刷新最新歌单")
-    i(class="luviciifont luvicii-icon-arrows-rotate")
-  #anMusicSwitching(title="切换歌单")
-    i(class="luviciifont luvicii-icon-repeat")
   #anMusic-page-meting
