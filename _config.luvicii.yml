@@ -1051,8 +1051,8 @@ home_top:
   subTitle: 万物可爱。
   siteText: Luvicii
   category:
-    - name: 跑步
-      path: /categories/跑步/
+    - name: Coding
+      path: /categories/计算机/
       shadow: var(--luvicii-shadow-blue)
       class: blue
       icon: luvicii-icon-dove
