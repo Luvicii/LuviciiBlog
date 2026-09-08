@@ -3,9 +3,9 @@
     - name: Java
       color: "#fff"
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
-    - name: Docker
-      color: "#57b6e6"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b0f0abe.png
+    - name: C#
+      color: "#fff"
+      icon: /img/svg/csharp-logo.svg
     - name: Photoshop
       color: "#4082c3"
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c240e.png
