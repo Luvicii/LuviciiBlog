@@ -4,11 +4,6 @@ menu:
      分类: /categories/ || luvicii-icon-shapes
      标签: /tags/ || luvicii-icon-tags
 
-   友链:
-     友人帐: /link/ || luvicii-icon-link
-     朋友圈: /fcircle/ || luvicii-icon-artstation
-     留言板: /comments/ || luvicii-icon-envelope
-
    我的:
      音乐馆: /music/?id=606061417&server=netease || luvicii-icon-music
      追番页: /bangumis/ || luvicii-icon-bilibili
@@ -18,6 +13,8 @@ menu:
    关于:
      关于本人: /about/ || luvicii-icon-paper-plane
      闲言碎语: /essay/ || luvicii-icon-lightbulb
+     友人帐: /link/ || luvicii-icon-link
+     留言板: /comments/ || luvicii-icon-envelope
      随便逛逛: javascript:toRandomPost() || luvicii-icon-shoe-prints1
 
 # nav相关配置
@@ -1158,10 +1155,10 @@ nav_music:
 # 音乐馆页面可切换的多个歌单（配置两项及以上时，页面显示歌单切换功能）
 # 平台歌单填 id + server；本地/直链歌单填 songs 列表（用 ./uploadMusic.sh 上传后粘贴）
 music_playlist:
-  - name: 网易云
+  - name: Light music
     id: 606061417
     server: netease
-  - name: Lrxin You
+  - name: xin You
     id: 2183317608
     server: netease
   - name: 我的音乐
@@ -1173,7 +1170,7 @@ music_playlist:
         artist: RADWIMPS
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/なんでもないや (movie edit).mp3"
       - name: 雨き声残響
-        artist: Lrxin（翻唱）
+        artist: 翻唱
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/雨き声残響 (カバー).mp3"
 
 # 评论匿名邮箱
