@@ -9,39 +9,30 @@
     - name: Photoshop
       color: "#4082c3"
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c240e.png
-    - name: Node
-      color: "#333"
-      icon: /img/svg/node-logo.svg
-    - name: Webpack
-      color: "#2e3a41"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b68026c.png
-    - name: Pinia
-      color: "#fff"
-      icon: /img/svg/pinia-logo.svg
+    - name: Unity
+      color: "#222"
+      icon: /img/svg/unity-logo.svg
+    - name: Unreal
+      color: "#0e1128"
+      icon: /img/svg/unreal-logo.svg
+    - name: Godot
+      color: "#478cbf"
+      icon: /img/svg/godotengine-logo.svg
+    - name: GameMaker
+      color: "#2d2d2d"
+      icon: /img/svg/gamemaker-logo.svg
     - name: Python
       color: "#fff"
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1230f7.png
-    - name: Vite
-      color: "#937df7"
-      icon: /img/svg/vite-logo.svg
-    - name: Flutter
-      color: "#4499e4"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1055c2.png
-    - name: Vue
-      color: "#b8f0ae"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b6788bd.png
-    - name: React
-      color: "#222"
-      icon: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K
-    - name: CSS3
-      color: "#2c51db"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c251e.png
-    - name: JS
-      color: "#f7cb4f"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b121f02.png
-    - name: HTML
-      color: "#e9572b"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/12/15/639aa3a5c241c.png
+    - name: Cocos
+      color: "#55c2e1"
+      icon: /img/svg/cocos-logo.svg
+    - name: CryEngine
+      color: "#1a1a2e"
+      icon: /img/svg/cryengine-logo.svg
+    - name: Source
+      color: "#f08300"
+      icon: /img/svg/sourceengine-logo.svg
     - name: Git
       color: "#df5b40"
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b10ccdd.webp
