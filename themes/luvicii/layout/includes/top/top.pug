@@ -125,16 +125,11 @@ if home_top_config.enable
           },
         });
 
-        // 玻璃碎裂图片切换（仅推荐区关闭 + 宽屏拉伸布局下生效，文字切换保持原 fade 效果）
+        // 玻璃碎裂图片切换（推荐区关闭时生效；全断点可用，舞台几何跟随当前幻灯片图片）
         function initShatterCarousel(swiper) {
           var shatterStage = document.getElementById("shatter-stage");
           var shatterCoversEl = document.getElementById("shatter-covers");
-          if (
-            !shatterStage ||
-            !shatterCoversEl ||
-            !window.ShatterCarousel ||
-            !window.matchMedia("(min-width: 1201px)").matches
-          ) {
+          if (!shatterStage || !shatterCoversEl || !window.ShatterCarousel) {
             return;
           }
           var shatterCovers = [];
@@ -149,7 +144,41 @@ if home_top_config.enable
           if (!shatterCovers.length) return;
           window.ShatterCarousel.destroy();
           window.ShatterCarousel.init(shatterStage, shatterCovers[0], shatterCfg);
+          // 舞台几何跟随当前激活幻灯片的图片内容盒，适配所有断点
+          var fitStage = function () {
+            var img = document.querySelector("#swiper_container .swiper-slide-active .blog-slider__img img");
+            var parent = shatterStage.offsetParent;
+            if (!img || !parent) return;
+            var r = img.getBoundingClientRect();
+            if (!r.width || !r.height) return;
+            var pr = parent.getBoundingClientRect();
+            shatterStage.style.left = r.left - pr.left + "px";
+            shatterStage.style.top = r.top - pr.top + "px";
+            shatterStage.style.width = r.width + "px";
+            shatterStage.style.height = r.height + "px";
+          };
+          window.__fitShatterStage = fitStage;
+          if (!window.__shatterResizeBound) {
+            window.__shatterResizeBound = true;
+            window.addEventListener("resize", function () {
+              // 等布局落定后再测量
+              requestAnimationFrame(function () {
+                if (window.__fitShatterStage) window.__fitShatterStage();
+              });
+            });
+          }
+          // 当前图（带 src 的那张）加载完成后舞台就位，再隐藏下层原图
+          var shatterImg = Array.from(shatterStage.querySelectorAll("img")).find(function (i) {
+            return i.getAttribute("src");
+          });
+          var markReady = function () {
+            document.getElementById("swiper_container").classList.add("shatter-on");
+          };
+          if (shatterImg && shatterImg.complete && shatterImg.naturalWidth) markReady();
+          else if (shatterImg) shatterImg.addEventListener("load", markReady, { once: true });
+          fitStage();
           swiper.on("slideChangeTransitionStart", function () {
+            fitStage();
             var next = shatterCovers[swiper.realIndex];
             if (next) window.ShatterCarousel.shatterTo(next);
           });

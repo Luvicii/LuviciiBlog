@@ -252,9 +252,9 @@ if hexo-config('home_top.swiper.enable') == true
     }
 
 if hexo-config('home_top.swiper.enable') == true and hexo-config('home_top.top_post_group.enable') != true
-  // 碎裂舞台默认隐藏，仅宽屏拉伸布局下启用
+  // 碎裂舞台全断点启用；几何由 JS 跟随当前幻灯片图片的内容盒（适配窄屏/竖屏）
   #swiper_container #shatter-stage
-    display: none
+    display: block
   @media screen and (min-width: 1201px)
     div#swiper_container.blog-slider
       height: 340px
@@ -273,16 +273,10 @@ if hexo-config('home_top.swiper.enable') == true and hexo-config('home_top.top_p
       height: 114px
       padding: 0 20px
       text-align: left
-    // 舞台几何跟随 .blog-slider__img 的内容盒（padding 10px，高 226px → 内容区 206px）
-    #swiper_container #shatter-stage
-      display: block
-      left: 10px
-      right: 10px
-      top: 10px
-      height: 206px
-    // 图片显示全程由碎裂舞台负责；保留下层 a.blog-slider__img 的点击链接
-    #swiper_container .blog-slider__img img
-      opacity: 0 !important
+  // 碎裂初始化成功（.shatter-on）后，图片显示全程由碎裂舞台负责；
+  // 保留下层 a.blog-slider__img 的点击链接
+  #swiper_container.shatter-on .blog-slider__img img
+    opacity: 0 !important
 
 if hexo-config('article_double_row') == true
   #content-inner #recent-posts > .recent-post-item > .recent-post-info > .content
