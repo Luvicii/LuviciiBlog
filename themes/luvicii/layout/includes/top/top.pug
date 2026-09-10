@@ -39,9 +39,9 @@ if home_top_config.enable
               each item in swiper_list
                 .blog-slider__item.swiper-slide(style='width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;')
                   a.blog-slider__img(href=item.path, title=item.title)
-                    img(width='48' height='48'  src=item.cover alt='图片' onerror=`this.src=` + error_img + `; this.onerror = null;`)
+                    img(width='48' height='48'  src=item.cover alt='图片' onerror=`this.src='${url_for(theme.error_img.post_page)}'; this.onerror = null;`)
                   .blog-slider__content
-                    if (timemode === 'updated' )
+                    if (theme.home_top.timemode === 'updated' )
                       span.blog-slider__code= item.updated.format('YYYY-MM-DD')
                     else
                       span.blog-slider__code= item.date.format('YYYY-MM-DD')
@@ -66,7 +66,7 @@ if home_top_config.enable
                   .post_cover.left_radius
                     a(href=item.path title=item.title)
                       span.top-group-text 荐
-                      img.post_bg(alt=item.title, src=item.cover, onerror=`this.src=` + error_img + `; this.onerror = null;`)
+                      img.post_bg(alt=item.title, src=item.cover, onerror=`this.src='${url_for(theme.error_img.post_page)}'; this.onerror = null;`)
                   .top-group-info
                     a.article-title(href=item.path title=item.title)=item.title
               .top-group-list-none
