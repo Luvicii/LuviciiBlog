@@ -146,8 +146,6 @@ var vegetablesAndFruits = [
   "火龙果",
 ];
 
-// 音乐默认声音大小
-var musicVolume = 0.8;
 var themeColorMeta, pageHeaderEl, navMusicEl, consoleEl;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -1793,6 +1791,7 @@ document.addEventListener("DOMContentLoaded", function () {
     luvicii.getCustomPlayList();
     luvicii.addEventListenerConsoleMusicList(false);
     luvicii.initPaginationObserver();
+    luvicii.addVolumeWheelControl();
 
     setTimeout(() => {
       setInputFocusListener();

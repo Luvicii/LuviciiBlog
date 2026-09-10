@@ -773,6 +773,26 @@ const luvicii = {
       }, 100);
     }
   },
+  // 播放器音量滚轮调节：悬停在音量图标或音量条上时，滚轮上下调节音量
+  addVolumeWheelControl: function () {
+    if (luvicii.volumeWheelBound) return;
+    luvicii.volumeWheelBound = true;
+    document.addEventListener(
+      "wheel",
+      function (event) {
+        const target = event.target.closest && event.target.closest('[class*="aplayer-icon-volume"], .aplayer-volume-wrap');
+        if (!target) return;
+        const metingEl = target.closest("meting-js");
+        const player = metingEl && metingEl.aplayer;
+        if (!player) return;
+        event.preventDefault();
+        const step = 0.05;
+        const vol = Math.min(1, Math.max(0, player.audio.volume + (event.deltaY < 0 ? step : -step)));
+        player.volume(vol);
+      },
+      { passive: false }
+    );
+  },
   // 生成音乐馆播放器 HTML：Meting 平台歌单或本地直链歌曲（借 meting-js 的 api 属性用 data: URL 传入）
   buildMusicPageMeting: function (item) {
     const base = `mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"`;
@@ -849,8 +869,7 @@ const luvicii = {
     const anMusicPage = document.getElementById("anMusic-page");
     const aplayerIconMenu = anMusicPage.querySelector(".aplayer-info .aplayer-time .aplayer-icon-menu");
     const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
-    //初始化音量
-    metingAplayer.volume(0.8, true);
+    // 音量由 APlayer 的 localStorage 存储自动恢复，切换歌单重建播放器时保持用户之前调节的音量
     metingAplayer.on("loadeddata", function () {
       luvicii.changeMusicBg();
     });
@@ -934,17 +953,13 @@ const luvicii = {
       }
       //增加音量
       if (event.keyCode === 38) {
-        if (musicVolume <= 1) {
-          musicVolume += 0.1;
-          player.volume(musicVolume, true);
-        }
+        event.preventDefault();
+        player.volume(Math.min(1, player.audio.volume + 0.1));
       }
       //减小音量
       if (event.keyCode === 40) {
-        if (musicVolume >= 0) {
-          musicVolume += -0.1;
-          player.volume(musicVolume, true);
-        }
+        event.preventDefault();
+        player.volume(Math.max(0, player.audio.volume - 0.1));
       }
     });
   },
