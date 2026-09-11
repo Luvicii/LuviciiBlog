@@ -1158,7 +1158,7 @@ music_playlist:
   - name: Light music
     id: 606061417
     server: netease
-  - name: xin You
+  - name: in You
     id: 2183317608
     server: netease
   - name: 我的音乐
@@ -1170,7 +1170,7 @@ music_playlist:
         artist: RADWIMPS
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/なんでもないや (movie edit).mp3"
       - name: 雨き声残響
-        artist: 翻唱
+        artist: すぃ
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/雨き声残響 (カバー).mp3"
 
 # 评论匿名邮箱
