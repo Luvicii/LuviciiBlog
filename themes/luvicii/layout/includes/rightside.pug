@@ -6,6 +6,10 @@ mixin rightsideItem(array)
         if is_post() && readmode
           button#readmode(type="button" title=_p('rightside.readmode_title'))
             i.luviciifont.luvicii-icon-book-open
+      when 'readAloud'
+        if is_post() && theme.read_aloud
+          button#read-aloud-btn(type="button" title=_p('rightside.read_aloud_title'))
+            i.luviciifont.luvicii-icon-bullhorn
       when 'translate'
         if translate.enable
           button#translateLink(type="button" title=_p('rightside.translate_title'))= translate.default
@@ -36,7 +40,7 @@ mixin rightsideItem(array)
 #rightside
   - const { enable, hide, show } = theme.rightside_item_order
   - const hideArray = enable ? hide && hide.split(',') : ['readmode','translate','darkmode','hideAside']
-  - const showArray = enable ? show && show.split(',') : ['toc','chat','comment']
+  - const showArray = enable ? show && show.split(',') : ['toc','chat','comment','readAloud']
 
   
   #rightside-config-hide

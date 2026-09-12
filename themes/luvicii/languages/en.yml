@@ -99,6 +99,7 @@ share: Share
 
 rightside:
   readmode_title: Read Mode
+  read_aloud_title: Read Aloud
   translate_title: Switch Between Traditional Chinese And Simplified Chinese
   night_mode_title: Switch Between Light And Dark Mode
   back_to_top: Back To Top
@@ -127,3 +128,11 @@ loading: Loading...
 load_more: Load More
 
 error404: Page not found
+
+read_aloud:
+  play: Play
+  pause: Pause
+  prev: Previous paragraph
+  next: Next paragraph
+  speed: Speed
+  close: Close

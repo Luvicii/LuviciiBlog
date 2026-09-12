@@ -166,6 +166,18 @@
     musicPlaylist = JSON.stringify(theme.music_playlist)
   }
 
+  let readAloud = 'undefined';
+  if (theme.read_aloud) {
+    readAloud = JSON.stringify({
+      play: _p('read_aloud.play'),
+      pause: _p('read_aloud.pause'),
+      prev: _p('read_aloud.prev'),
+      next: _p('read_aloud.next'),
+      speed: _p('read_aloud.speed'),
+      close: _p('read_aloud.close')
+    })
+  }
+
 script.
   const GLOBAL_CONFIG = {
     linkPageTop: !{linkPageTop},
@@ -177,6 +189,7 @@ script.
     twikooEnvId: '!{theme.twikoo.envId}',
     commentBarrageConfig:!{commentBarrageConfig},
     musicPlaylist: !{musicPlaylist},
+    readAloud: !{readAloud},
     root: '!{config.root}',
     preloader: !{preloader},
     friends_vue_info: !{friends_vue_info},

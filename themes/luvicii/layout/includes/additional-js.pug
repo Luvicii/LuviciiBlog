@@ -89,6 +89,9 @@ div
   //- 气泡效果
   if theme.bubble.enable
     script(async data-pjax src="/js/plugins/bubble.js")
+  //- 文章朗读
+  if theme.read_aloud
+    script(async src="/js/luvicii/tts.js")
   if theme.visitorMail.enable
     - const mail = theme.visitorMail.mail
     script.

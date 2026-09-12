@@ -893,6 +893,9 @@ translate:
 # Read Mode (閲读模式)
 readmode: true
 
+# Read article aloud (文章朗读)
+read_aloud: true
+
 # 中控台
 centerConsole:
   enable: true

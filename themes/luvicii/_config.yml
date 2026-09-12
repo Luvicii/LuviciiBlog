@@ -896,6 +896,9 @@ translate:
 # Read Mode (閲读模式)
 readmode: true
 
+# Read article aloud (文章朗读)
+read_aloud: true
+
 # 中控台
 centerConsole:
   enable: true
@@ -929,7 +932,7 @@ darkmode:
   end: # 22
 
 # Don't modify the following settings unless you know how they work (非必要请不要修改 )
-# Choose: readmode,translate,darkmode,hideAside,toc,chat,comment
+# Choose: readmode,translate,darkmode,hideAside,toc,chat,comment,readAloud
 # Don't repeat 不要重複
 rightside_item_order:
   enable: false

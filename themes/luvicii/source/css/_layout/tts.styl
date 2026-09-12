@@ -1,0 +1,43 @@
+#read-aloud-bar
+  position: fixed
+  bottom: 20px
+  left: 50%
+  transform: translateX(-50%)
+  z-index: 1002
+  display: flex
+  align-items: center
+  gap: 6px
+  padding: 6px 10px
+  border-radius: 30px
+  background: var(--btn-bg)
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25)
+
+  button
+    width: 32px
+    height: 32px
+    padding: 0
+    border: none
+    border-radius: 50%
+    background: transparent
+    color: var(--btn-color)
+    cursor: pointer
+    font-size: 14px
+    line-height: 32px
+    text-align: center
+    transition: background .2s
+
+    &:hover
+      background: var(--btn-hover-color)
+
+    &.ra-rate
+      width: auto
+      padding: 0 10px
+      border-radius: 16px
+      font-weight: bold
+      font-size: 13px
+
+.read-aloud-active
+  outline: 2px solid var(--luvicii-main)
+  outline-offset: 2px
+  border-radius: 4px
+  transition: outline-color .2s
