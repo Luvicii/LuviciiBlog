@@ -11,6 +11,7 @@
 set -e
 
 REPO_URL="${REPO_URL:-https://Luvicii@github.com/Luvicii/Luvicii-images.git}"  # 可用 REPO_URL=... 覆盖（如 github.com:443 不通时改用 SSH 地址）
+BACKUP_URL="${BACKUP_URL-git@github.com:MuRongxin/Blog_repo.git}"  # 备份仓库(Luvicii-images 的镜像)；BACKUP_URL='' 可跳过备份
 WORK_DIR="/tmp/luvicii-upload"
 SUBDIR="music"
 CDN="https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main"
@@ -45,6 +46,11 @@ else
   git -C "$WORK_DIR" pull -q --ff-only origin main || true
 fi
 
+# 注册备份仓库远程
+if [ -n "$BACKUP_URL" ]; then
+  git -C "$WORK_DIR" remote get-url backup >/dev/null 2>&1 || git -C "$WORK_DIR" remote add backup "$BACKUP_URL"
+fi
+
 # 复制文件
 mkdir -p "$WORK_DIR/$SUBDIR"
 for f in "${FILES[@]}"; do
@@ -66,6 +72,22 @@ if [ "$PUSHED" != "1" ]; then
   echo "错误: 推送失败,文件尚未上传成功" >&2
   echo "可稍后手动执行: git -C $WORK_DIR pull --rebase origin main && git -C $WORK_DIR push origin main" >&2
   exit 1
+fi
+
+# 同步备份仓库（失败仅警告，不影响主仓库上传结果）
+if [ -n "$BACKUP_URL" ]; then
+  BPUSHED=0
+  for i in 1 2 3; do
+    if git -C "$WORK_DIR" push -q backup main 2>/dev/null; then BPUSHED=1; break; fi
+    echo "备份仓库推送失败,重试 $i..."
+    sleep 5
+  done
+  if [ "$BPUSHED" = "1" ]; then
+    echo "已同步备份仓库: MuRongxin/Blog_repo"
+  else
+    echo "警告: 备份仓库推送失败(主仓库已成功,不影响使用)" >&2
+    echo "可稍后手动执行: git -C $WORK_DIR push backup main" >&2
+  fi
 fi
 
 SONG_NAME="$(basename "$AUDIO")"
