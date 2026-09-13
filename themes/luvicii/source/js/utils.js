@@ -793,6 +793,26 @@ const luvicii = {
       { passive: false }
     );
   },
+  // 双语歌词补丁：同时间轴的原文行与译文行一起高亮，滚动定位对准整组开头
+  patchAplayerBilingualLrc: function (player) {
+    if (!player || !player.lrc || player.lrc.__bilingualPatched) return;
+    player.lrc.__bilingualPatched = true;
+    const lrc = player.lrc;
+    const rawUpdate = lrc.update.bind(lrc);
+    lrc.update = function (currentTime) {
+      rawUpdate(currentTime);
+      const idx = lrc.index;
+      const cur = lrc.current[idx];
+      const prev = lrc.current[idx - 1];
+      const lines = lrc.container.querySelectorAll("p");
+      lines.forEach(p => p.classList.remove("aplayer-lrc-pair"));
+      if (cur && prev && prev[0] === cur[0] && lines[idx - 1]) {
+        lines[idx - 1].classList.add("aplayer-lrc-pair");
+        lrc.container.style.transform = "translateY(" + 40 * -(idx - 1) + "px)";
+        lrc.container.style.webkitTransform = lrc.container.style.transform;
+      }
+    };
+  },
   // 生成音乐馆播放器 HTML：Meting 平台歌单或本地直链歌曲（借 meting-js 的 api 属性用 data: URL 传入）
   buildMusicPageMeting: function (item) {
     const base = `mutex="true" preload="auto" theme="var(--luvicii-main)" order="list" list-max-height="calc(100vh - 169px)!important"`;
@@ -869,6 +889,7 @@ const luvicii = {
     const anMusicPage = document.getElementById("anMusic-page");
     const aplayerIconMenu = anMusicPage.querySelector(".aplayer-info .aplayer-time .aplayer-icon-menu");
     const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
+    luvicii.patchAplayerBilingualLrc(metingAplayer);
     // 音量由 APlayer 的 localStorage 存储自动恢复，切换歌单重建播放器时保持用户之前调节的音量
     metingAplayer.on("loadeddata", function () {
       luvicii.changeMusicBg();

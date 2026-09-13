@@ -1444,6 +1444,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const timer = setInterval(() => {
       if (navMusicEl && navMusicEl.querySelector("#nav-music meting-js").aplayer) {
         clearInterval(timer);
+        luvicii.patchAplayerBilingualLrc(navMusicEl.querySelector("#nav-music meting-js").aplayer);
         let msgPlay = '<i class="luviciifont luvicii-icon-play"></i><span>播放音乐</span>';
         let msgPause = '<i class="luviciifont luvicii-icon-pause"></i><span>暂停音乐</span>';
         navMusicEl.querySelector("#nav-music meting-js").aplayer.on("pause", function () {

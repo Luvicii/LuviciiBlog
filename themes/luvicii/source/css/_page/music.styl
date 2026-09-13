@@ -373,7 +373,7 @@ if hexo-config('nav_music.enable') == false
                 // 当前行固定在歌词区中部偏上
                 padding-top 10vh
               p
-                &.aplayer-lrc-current
+                &.aplayer-lrc-current, &.aplayer-lrc-pair
                   color #33a673
             .aplayer-controller
               width 100%
@@ -423,3 +423,6 @@ if hexo-config('nav_music.enable') == false
                   top -90px
 
       
+// 双语歌词：与译文同时间轴的原文行跟随高亮（配合 luvicii.patchAplayerBilingualLrc）
+.aplayer .aplayer-lrc p.aplayer-lrc-pair
+  opacity 1
