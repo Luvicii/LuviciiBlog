@@ -1191,6 +1191,10 @@ music_playlist:
         artist: Cody Simpson
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.mp3"
         lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.lrc"
+      - name: Shawty Shawty
+        artist: Austin Mahone/Bei Maejor
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Shawty Shawty.mp3"
+        cover: "https://p2.music.126.net/_AFqL0snVjtKd6UVLV-2-g==/14323337975038278.jpg?param=300y300"
 
 # 评论匿名邮箱
 visitorMail:
