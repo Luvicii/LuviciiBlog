@@ -867,6 +867,17 @@ const luvicii = {
     const target = (GLOBAL_CONFIG.musicPlaylist || [])[index];
     if (!target) return;
     localStorage.setItem("music-playlist-index", String(index));
+    // 同步 URL：在线歌单写成 ?id=&server= 深链，自定义歌单清除参数，
+    // 避免刷新时 URL 参数把页面强制拉回旧歌单
+    const url = new URL(window.location);
+    if (target.id && target.server) {
+      url.searchParams.set("id", target.id);
+      url.searchParams.set("server", target.server);
+    } else {
+      url.searchParams.delete("id");
+      url.searchParams.delete("server");
+    }
+    window.history.replaceState(window.history.state, "", url);
     document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
     if (item) item.classList.add("active");
     // 切换后收起歌单列表
