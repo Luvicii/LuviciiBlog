@@ -834,6 +834,10 @@ const luvicii = {
       const id = urlParams.get("id");
       const server = urlParams.get("server");
       current = playlist.find(p => String(p.id) === id && p.server === server) || { id, server };
+    } else {
+      // 无 URL 参数时恢复上次选择的歌单（自定义歌单无 id/server，只能靠序号记住）
+      const saved = Number(localStorage.getItem("music-playlist-index"));
+      if (Number.isInteger(saved) && playlist[saved]) current = playlist[saved];
     }
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     anMusicPageMeting.innerHTML = luvicii.buildMusicPageMeting(current);
@@ -862,6 +866,7 @@ const luvicii = {
     if (!anMusicPageMeting) return;
     const target = (GLOBAL_CONFIG.musicPlaylist || [])[index];
     if (!target) return;
+    localStorage.setItem("music-playlist-index", String(index));
     document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
     if (item) item.classList.add("active");
     // 切换后收起歌单列表
