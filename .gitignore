@@ -7,3 +7,6 @@ node_modules/
 _multiconfig.yml
 public/
 docs/luvicii-docs/
+
+# Local Netlify folder
+.netlify

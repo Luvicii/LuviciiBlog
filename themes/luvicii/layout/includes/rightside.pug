@@ -7,7 +7,7 @@ mixin rightsideItem(array)
           button#readmode(type="button" title=_p('rightside.readmode_title'))
             i.luviciifont.luvicii-icon-book-open
       when 'readAloud'
-        if is_post() && theme.read_aloud
+        if is_post() && theme.read_aloud && theme.read_aloud.enable && theme.read_aloud.api
           button#read-aloud-btn(type="button" title=_p('rightside.read_aloud_title'))
             i.luviciifont.luvicii-icon-bullhorn
       when 'translate'

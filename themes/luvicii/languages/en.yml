@@ -136,3 +136,4 @@ read_aloud:
   next: Next paragraph
   speed: Speed
   close: Close
+  error: Speech synthesis failed, please try again later

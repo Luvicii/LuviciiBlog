@@ -1,0 +1,10 @@
+{
+  "name": "edge-tts-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Edge TTS 代理：为博客文章朗读功能提供微软神经语音合成",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "ws": "^8.18.0"
+  }
+}

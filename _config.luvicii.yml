@@ -893,8 +893,12 @@ translate:
 # Read Mode (閲读模式)
 readmode: true
 
-# Read article aloud (文章朗读)
-read_aloud: true
+# Read article aloud (文章朗读，微软神经语音，经 edge-tts-api/ 代理)
+read_aloud:
+  enable: true
+  # 语音代理接口地址（已部署 Netlify）
+  api: https://luvicii-tts.netlify.app/api/tts
+  voice: zh-CN-XiaoxiaoNeural
 
 # 中控台
 centerConsole:

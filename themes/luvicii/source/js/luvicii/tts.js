@@ -1,55 +1,53 @@
 /**
- * 文章朗读（Web Speech API）
+ * 文章朗读（微软 Edge 神经语音）
+ * 音频由 Vercel 代理函数（edge-tts-api/）实时合成，前端按段落分块
+ * fetch MP3 后用 <audio> 播放，支持暂停/继续/跳段/调速与预取下一段。
  * 自包含模块：监听 DOMContentLoaded / pjax:complete 幂等初始化，
  * pjax:send / beforeunload 时停止朗读。
  */
 (function () {
   'use strict';
 
-  if (!('speechSynthesis' in window)) return;
+  const cfg = typeof GLOBAL_CONFIG !== 'undefined' ? GLOBAL_CONFIG.readAloud : undefined;
+  if (!cfg || !cfg.api) return;
 
-  const synth = window.speechSynthesis;
-  const RATES = [0.75, 1, 1.25, 1.5, 2];
+  const RATES = [
+    { label: '0.75x', prosody: '-25%' },
+    { label: '1x', prosody: '+0%' },
+    { label: '1.25x', prosody: '+25%' },
+    { label: '1.5x', prosody: '+50%' },
+    { label: '2x', prosody: '+100%' }
+  ];
   const MAX_LEN = 120;
   const BLOCK_SEL = 'p, h1, h2, h3, h4, h5, h6, li';
   const SKIP_SEL = 'pre, figure, table, script, style, iframe, .aplayer, .tabs, .gallery, .fj-gallery, .katex-display';
-  const IS_CHROME = /Chrome/.test(navigator.userAgent) && !/Edg|OPR/.test(navigator.userAgent);
 
-  const t = (key, fallback) => {
-    const cfg = typeof GLOBAL_CONFIG !== 'undefined' && GLOBAL_CONFIG.readAloud;
-    return (cfg && cfg[key]) || fallback;
-  };
+  const t = (key, fallback) => cfg[key] || fallback;
+
+  const docLang = (document.documentElement.lang || 'zh-CN').toLowerCase();
+  const voice =
+    cfg.voice ||
+    (docLang.startsWith('zh-tw') || docLang.startsWith('zh-hk')
+      ? 'zh-TW-HsiaoChenNeural'
+      : docLang.startsWith('zh')
+        ? 'zh-CN-XiaoxiaoNeural'
+        : 'en-US-JennyNeural');
 
   const state = {
     chunks: [],
     idx: 0,
     status: 'idle', // idle | playing | paused
     rateIndex: 1,
-    voice: null,
     bar: null,
     playBtn: null,
     rateBtn: null,
     activeEl: null,
     speakToken: 0,
-    keepAlive: null
+    cache: new Map(), // idx -> Promise<Blob>
+    audio: new Audio(),
+    blobUrl: null
   };
-
-  const pickVoice = () => {
-    const voices = synth.getVoices();
-    if (!voices.length) return;
-    const lang = (document.documentElement.lang || 'zh-CN').toLowerCase();
-    state.voice =
-      voices.find(v => v.lang && v.lang.toLowerCase() === lang) ||
-      voices.find(v => v.lang && v.lang.toLowerCase().startsWith(lang.split('-')[0])) ||
-      voices.find(v => v.lang && v.lang.toLowerCase().startsWith('zh')) ||
-      voices[0];
-  };
-  pickVoice();
-  if (typeof synth.addEventListener === 'function') {
-    synth.addEventListener('voiceschanged', pickVoice);
-  } else {
-    synth.onvoiceschanged = pickVoice;
-  }
+  state.audio.preload = 'auto';
 
   const splitText = text => {
     const sentences = text.match(/[^。！？!?；;.]+[。！？!?；;.]*["'”’）)]*|[^。！？!?；;.]+$/g) || [text];
@@ -75,6 +73,7 @@
       chunks.push({ el: titleEl, text: titleEl.textContent.trim() });
     }
     container.querySelectorAll(BLOCK_SEL).forEach(el => {
+      if (el === titleEl) return; // 标题已单独收集，避免重复朗读
       if (el.closest(SKIP_SEL)) return;
       if (el.parentElement && el.parentElement.closest(BLOCK_SEL)) return;
       const text = el.textContent.replace(/\s+/g, ' ').trim();
@@ -93,91 +92,142 @@
     }
   };
 
-  const startKeepAlive = () => {
-    stopKeepAlive();
-    if (!IS_CHROME) return;
-    state.keepAlive = setInterval(() => {
-      if (state.status === 'playing' && synth.speaking && !synth.paused) {
-        synth.pause();
-        synth.resume();
-      }
-    }, 10000);
+  const synthesize = (text, prosody) => {
+    const url =
+      cfg.api +
+      '?text=' + encodeURIComponent(text) +
+      '&voice=' + encodeURIComponent(voice) +
+      '&rate=' + encodeURIComponent(prosody);
+    return fetch(url).then(r => {
+      if (!r.ok) throw new Error('tts http ' + r.status);
+      return r.blob();
+    });
   };
 
-  const stopKeepAlive = () => {
-    if (state.keepAlive) {
-      clearInterval(state.keepAlive);
-      state.keepAlive = null;
+  const prefetch = idx => {
+    if (idx >= state.chunks.length || state.cache.has(idx)) return;
+    const p = synthesize(state.chunks[idx].text, RATES[state.rateIndex].prosody).catch(e => {
+      state.cache.delete(idx);
+      throw e;
+    });
+    state.cache.set(idx, p);
+  };
+
+  const clearCache = () => {
+    state.cache.clear();
+  };
+
+  const errorNotify = () => {
+    const msg = t('error', '语音合成失败，请稍后再试');
+    if (typeof luvicii !== 'undefined' && luvicii.snackbarShow) luvicii.snackbarShow(msg);
+    else console.warn('[read-aloud]', msg);
+  };
+
+  const setLoading = on => {
+    if (!state.playBtn) return;
+    const icon = state.playBtn.querySelector('i');
+    if (on) {
+      state.playBtn.dataset.loading = '1';
+      icon.className = 'luviciifont luvicii-icon-spinner ra-spin';
+    } else {
+      delete state.playBtn.dataset.loading;
     }
   };
 
-  const speak = idx => {
+  const updateUI = () => {
+    const { playBtn, rateBtn } = state;
+    if (playBtn) {
+      if (!playBtn.dataset.loading) {
+        const icon = playBtn.querySelector('i');
+        if (state.status === 'playing') {
+          icon.className = 'luviciifont luvicii-icon-pause';
+          playBtn.title = t('pause', '暂停');
+        } else {
+          icon.className = 'luviciifont luvicii-icon-play';
+          playBtn.title = t('play', '播放');
+        }
+      }
+    }
+    if (rateBtn) rateBtn.textContent = RATES[state.rateIndex].label;
+  };
+
+  const releaseAudio = () => {
+    state.audio.pause();
+    state.audio.removeAttribute('src');
+    state.audio.load();
+    if (state.blobUrl) {
+      URL.revokeObjectURL(state.blobUrl);
+      state.blobUrl = null;
+    }
+  };
+
+  const speak = async idx => {
     const token = ++state.speakToken;
-    synth.cancel();
     if (idx >= state.chunks.length) {
       stop();
       return;
     }
     state.idx = Math.max(0, idx);
     const chunk = state.chunks[state.idx];
-    const u = new SpeechSynthesisUtterance(chunk.text);
-    if (state.voice) u.voice = state.voice;
-    u.lang = (state.voice && state.voice.lang) || document.documentElement.lang || 'zh-CN';
-    u.rate = RATES[state.rateIndex];
-    u.onend = () => {
-      if (token !== state.speakToken || state.status !== 'playing') return;
-      speak(state.idx + 1);
-    };
-    u.onerror = e => {
-      if (e.error === 'canceled' || e.error === 'interrupted') return;
-      if (token === state.speakToken && state.status === 'playing') speak(state.idx + 1);
-    };
     highlight(chunk.el);
-    synth.speak(u);
+    setLoading(true);
+    try {
+      prefetch(state.idx);
+      const blob = await state.cache.get(state.idx);
+      if (token !== state.speakToken) return;
+      releaseAudio();
+      state.blobUrl = URL.createObjectURL(blob);
+      state.audio.src = state.blobUrl;
+      setLoading(false);
+      updateUI();
+      await state.audio.play();
+      if (token !== state.speakToken) return;
+      prefetch(state.idx + 1);
+    } catch (e) {
+      if (token !== state.speakToken) return;
+      setLoading(false);
+      errorNotify();
+      stop();
+    }
   };
 
-  const updateUI = () => {
-    const { playBtn, rateBtn } = state;
-    if (playBtn) {
-      const icon = playBtn.querySelector('i');
-      if (state.status === 'playing') {
-        icon.className = 'luviciifont luvicii-icon-pause';
-        playBtn.title = t('pause', '暂停');
-      } else {
-        icon.className = 'luviciifont luvicii-icon-play';
-        playBtn.title = t('play', '播放');
-      }
+  state.audio.addEventListener('ended', () => {
+    if (state.status === 'playing') speak(state.idx + 1);
+  });
+  state.audio.addEventListener('error', () => {
+    if (state.status === 'playing') {
+      errorNotify();
+      stop();
     }
-    if (rateBtn) rateBtn.textContent = RATES[state.rateIndex] + 'x';
-  };
+  });
 
   const play = () => {
     if (!state.chunks.length) return;
     if (state.status === 'paused') {
       state.status = 'playing';
-      synth.resume();
-    } else {
-      state.status = 'playing';
-      speak(state.idx);
+      state.audio.play().catch(() => {});
+      updateUI();
+      return;
     }
-    startKeepAlive();
+    state.status = 'playing';
+    speak(state.idx);
     updateUI();
   };
 
   const pause = () => {
     if (state.status !== 'playing') return;
     state.status = 'paused';
-    synth.pause();
+    state.audio.pause();
     updateUI();
   };
 
   const stop = () => {
     state.status = 'idle';
     state.speakToken++;
-    stopKeepAlive();
-    synth.cancel();
+    releaseAudio();
     highlight(null);
     state.idx = 0;
+    setLoading(false);
     updateUI();
   };
 
@@ -191,7 +241,15 @@
 
   const closeBar = () => {
     stop();
+    clearCache();
     if (state.bar) state.bar.style.display = 'none';
+  };
+
+  const jumpTo = idx => {
+    if (state.status === 'idle') return;
+    state.status = 'playing';
+    speak(idx);
+    updateUI();
   };
 
   const createBar = () => {
@@ -211,29 +269,17 @@
     state.playBtn = bar.querySelector('.ra-play');
     state.rateBtn = bar.querySelector('.ra-rate');
 
-    bar.querySelector('.ra-prev').addEventListener('click', () => {
-      if (state.status === 'idle') return;
-      state.status = 'playing';
-      speak(state.idx - 1);
-      startKeepAlive();
-      updateUI();
-    });
+    bar.querySelector('.ra-prev').addEventListener('click', () => jumpTo(state.idx - 1));
     state.playBtn.addEventListener('click', () => {
       state.status === 'playing' ? pause() : play();
     });
-    bar.querySelector('.ra-next').addEventListener('click', () => {
-      if (state.status === 'idle') return;
-      state.status = 'playing';
-      speak(state.idx + 1);
-      startKeepAlive();
-      updateUI();
-    });
+    bar.querySelector('.ra-next').addEventListener('click', () => jumpTo(state.idx + 1));
     state.rateBtn.addEventListener('click', () => {
       state.rateIndex = (state.rateIndex + 1) % RATES.length;
+      clearCache();
       if (state.status !== 'idle') {
         state.status = 'playing';
         speak(state.idx);
-        startKeepAlive();
       }
       updateUI();
     });

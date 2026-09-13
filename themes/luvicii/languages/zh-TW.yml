@@ -137,3 +137,4 @@ read_aloud:
   next: 下一段
   speed: 語速
   close: 關閉
+  error: 語音合成失敗，請稍後再試

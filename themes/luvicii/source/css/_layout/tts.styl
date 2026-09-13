@@ -41,3 +41,13 @@
   outline-offset: 2px
   border-radius: 4px
   transition: outline-color .2s
+
+@keyframes ra-spin
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+#read-aloud-bar button i.ra-spin
+  display: inline-block
+  animation: ra-spin 1s linear infinite

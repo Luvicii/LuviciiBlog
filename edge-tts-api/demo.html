@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>语音试听 - 文章朗读</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+    background: #f0f2f5; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .card {
+    width: min(560px, 92vw); background: #fff; border-radius: 16px; padding: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+  }
+  h1 { font-size: 20px; margin: 0 0 18px; }
+  label { font-size: 13px; color: #666; display: block; margin: 14px 0 6px; }
+  select, textarea, button {
+    width: 100%; border: 1px solid #d9d9d9; border-radius: 8px; font-size: 14px;
+    padding: 10px 12px; font-family: inherit;
+  }
+  select { background: #fff; cursor: pointer; }
+  textarea { resize: vertical; min-height: 110px; line-height: 1.7; }
+  .row { display: flex; gap: 12px; }
+  .row > div { flex: 1; }
+  #play {
+    margin-top: 18px; background: #425aef; color: #fff; border: none; cursor: pointer;
+    font-size: 15px; padding: 12px; transition: opacity .2s;
+  }
+  #play:disabled { opacity: .5; cursor: wait; }
+  #status { margin-top: 12px; font-size: 13px; color: #999; text-align: center; min-height: 18px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🎧 语音试听（与博客朗读同一接口）</h1>
+  <label>语音</label>
+  <select id="voice">
+    <optgroup label="普通话 · 女声">
+      <option value="zh-CN-XiaoxiaoNeural" selected>晓晓（温暖，朗读首选）</option>
+      <option value="zh-CN-XiaoyiNeural">晓伊（活泼轻快）</option>
+    </optgroup>
+    <optgroup label="普通话 · 男声">
+      <option value="zh-CN-YunxiNeural">云希（年轻，叙事感）</option>
+      <option value="zh-CN-YunyangNeural">云扬（播音腔）</option>
+      <option value="zh-CN-YunjianNeural">云健（沉稳）</option>
+      <option value="zh-CN-YunxiaNeural">云夏（少年音）</option>
+    </optgroup>
+    <optgroup label="方言 / 港台">
+      <option value="zh-CN-liaoning-XiaobeiNeural">晓北（东北话）</option>
+      <option value="zh-CN-shaanxi-XiaoniNeural">晓妮（陕西话）</option>
+      <option value="zh-TW-HsiaoChenNeural">晓辰（台湾·女）</option>
+      <option value="zh-TW-YunJheNeural">云哲（台湾·男）</option>
+      <option value="zh-HK-HiuGaaiNeural">曉佳（粤语·女）</option>
+    </optgroup>
+    <optgroup label="外语">
+      <option value="en-US-JennyNeural">Jenny（英语·女）</option>
+      <option value="ja-JP-NanamiNeural">Nanami（日语·女）</option>
+      <option value="ko-KR-SunHiNeural">SunHi（韩语·女）</option>
+    </optgroup>
+  </select>
+  <div class="row">
+    <div>
+      <label>语速</label>
+      <select id="rate">
+        <option value="-25%">0.75x</option>
+        <option value="+0%" selected>1x</option>
+        <option value="+25%">1.25x</option>
+        <option value="+50%">1.5x</option>
+        <option value="+100%">2x</option>
+      </select>
+    </div>
+  </div>
+  <label>试听文本（可随意修改）</label>
+  <textarea id="text">凌晨的风从跑道尽头吹过来，带着一点青草和塑胶混合的气味。我放慢脚步，让呼吸跟上心跳的节奏。跑步教会我的第一件事，不是如何跑得更快，而是如何与疲惫相处。</textarea>
+  <button id="play">▶ 播放</button>
+  <div id="status"></div>
+</div>
+<script>
+  const $ = id => document.getElementById(id);
+  const audio = new Audio();
+  $('play').addEventListener('click', async () => {
+    $('play').disabled = true;
+    $('play').textContent = '合成中…';
+    $('status').textContent = '';
+    try {
+      const url = '/api/tts?text=' + encodeURIComponent($('text').value.trim()) +
+        '&voice=' + $('voice').value + '&rate=' + encodeURIComponent($('rate').value);
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      audio.src = URL.createObjectURL(await r.blob());
+      await audio.play();
+      $('status').textContent = '播放中…';
+    } catch (e) {
+      $('status').textContent = '合成失败：' + e.message;
+    } finally {
+      $('play').disabled = false;
+      $('play').textContent = '▶ 播放';
+    }
+  });
+</script>
+</body>
+</html>

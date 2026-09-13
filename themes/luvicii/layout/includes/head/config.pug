@@ -167,14 +167,17 @@
   }
 
   let readAloud = 'undefined';
-  if (theme.read_aloud) {
+  if (theme.read_aloud && theme.read_aloud.enable && theme.read_aloud.api) {
     readAloud = JSON.stringify({
+      api: theme.read_aloud.api,
+      voice: theme.read_aloud.voice || '',
       play: _p('read_aloud.play'),
       pause: _p('read_aloud.pause'),
       prev: _p('read_aloud.prev'),
       next: _p('read_aloud.next'),
       speed: _p('read_aloud.speed'),
-      close: _p('read_aloud.close')
+      close: _p('read_aloud.close'),
+      error: _p('read_aloud.error')
     })
   }
 
