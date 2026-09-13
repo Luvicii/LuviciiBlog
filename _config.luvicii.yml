@@ -1182,12 +1182,12 @@ music_playlist:
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/雨き声残響 (カバー).mp3"
   - name: 好听的英语
     songs:
-      # 逐首往下追加即可（换 id 时 cover 的 pic id 需另行查询 meting：type=song&id=网易云歌曲id）
+      # 自建歌曲：先用 ./uploadMusic.sh 传到图床 music/ 目录，再粘贴脚本打印的 jsDelivr 地址
+      # 不写 cover 时，构建脚本会用「歌名+歌手」去 QQ 音乐搜封面并缓存到 source/_data/music_cover_cache.json
       - name: No Ceiling
         artist: Cody Simpson
-        url: "https://api.injahow.cn/meting/?server=netease&type=url&id=26620878"
-        cover: "https://p2.music.126.net/IpEv-htr3-VsRlwvUsPr0w==/4437628929717911.jpg?param=300y300"
-        lrc: "https://api.injahow.cn/meting/?server=netease&type=lrc&id=26620878"
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.mp3"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.lrc"
 
 # 评论匿名邮箱
 visitorMail:

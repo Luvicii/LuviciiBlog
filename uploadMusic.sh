@@ -10,21 +10,32 @@
 
 set -e
 
-REPO_URL="https://Luvicii@github.com/Luvicii/Luvicii-images.git"
+REPO_URL="${REPO_URL:-https://Luvicii@github.com/Luvicii/Luvicii-images.git}"  # 可用 REPO_URL=... 覆盖（如 github.com:443 不通时改用 SSH 地址）
 WORK_DIR="/tmp/luvicii-upload"
 SUBDIR="music"
 CDN="https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main"
 
 [ $# -lt 1 ] && { echo "用法: $0 歌曲.mp3 [封面.jpg] [歌词.lrc]"; exit 1; }
-[ $# -gt 3 ] && { echo "错误: 最多 3 个文件(音频、封面、歌词)"; exit 1; }
 
-AUDIO="$1"
-COVER="$2"
-LRC="$3"
+AUDIO=""
+COVER=""
+LRC=""
+FILES=()
 
+# 按扩展名识别角色，参数顺序随意；封面可省略或用 - 占位
 for f in "$@"; do
+  [ "$f" = "-" ] && continue
   [ -f "$f" ] || { echo "错误: 文件不存在: $f"; exit 1; }
+  case "$(echo "${f##*.}" | tr 'A-Z' 'a-z')" in
+    mp3|m4a|flac|wav|ogg|aac) AUDIO="$f" ;;
+    lrc) LRC="$f" ;;
+    jpg|jpeg|png|webp|gif|bmp) COVER="$f" ;;
+    *) echo "错误: 无法识别的文件类型: $f (仅支持 音频/图片/lrc)" >&2; exit 1 ;;
+  esac
+  FILES+=("$f")
 done
+
+[ -n "$AUDIO" ] || { echo "错误: 缺少音频文件 (.mp3/.m4a/.flac/.wav/.ogg/.aac)" >&2; exit 1; }
 
 # 克隆(复用)图床仓库
 if [ ! -d "$WORK_DIR/.git" ]; then
@@ -36,7 +47,7 @@ fi
 
 # 复制文件
 mkdir -p "$WORK_DIR/$SUBDIR"
-for f in "$@"; do
+for f in "${FILES[@]}"; do
   name="$(basename "$f")"
   cp "$f" "$WORK_DIR/$SUBDIR/$name"
   echo "已添加: $SUBDIR/$name"
