@@ -198,6 +198,9 @@ if hexo-config('nav_music.enable') == false
             height 800%
             margin-top 10px
             mask-image linear-gradient(to bottom, #000, #000, #000, #000, #000, #000, #000, #000, #000, #000, #0000, #0000)
+            .aplayer-lrc-contents
+              // 当前行固定在歌词区中部偏上（APlayer 按 40px/行 滚动，padding 不参与计算）
+              padding-top 20vh
             p
               font-size 20px
               line-height: 20px !important;
@@ -366,6 +369,9 @@ if hexo-config('nav_music.enable') == false
               max-height 200%
               min-height 100%
               mask-image linear-gradient(to bottom, #000, #000, #000, #000, #0000, #0000)
+              .aplayer-lrc-contents
+                // 当前行固定在歌词区中部偏上
+                padding-top 10vh
               p
                 &.aplayer-lrc-current
                   color #33a673
