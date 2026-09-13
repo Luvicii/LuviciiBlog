@@ -907,12 +907,56 @@ const luvicii = {
     }
   },
 
+  // 音乐馆：刷新后恢复上次播放的歌曲与进度
+  // （浏览器禁止无手势自动出声播放，故只恢复位置，保持暂停）
+  restoreMusicProgress: function (player) {
+    const KEY = "music-page-progress";
+    const playlistKey = () => {
+      const cur = luvicii.currentMusic || {};
+      return cur.songs ? "custom:" + (GLOBAL_CONFIG.musicPlaylist || []).indexOf(cur) : cur.server + ":" + cur.id;
+    };
+    // 恢复（仅当歌单一致时）
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (saved && saved.playlist === playlistKey() && (saved.index > 0 || saved.time > 0)) {
+        if (saved.index !== player.list.index) player.list.switch(saved.index);
+        if (saved.time > 0) {
+          const seekOnce = () => {
+            player.off("canplay", seekOnce);
+            player.seek(saved.time);
+          };
+          player.on("canplay", seekOnce);
+        }
+      }
+    } catch (e) {}
+    // 记录：切歌 / 暂停 / 播放中每 3 秒
+    const save = () => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+          playlist: playlistKey(),
+          index: player.list.index,
+          time: Math.floor(player.audio.currentTime || 0)
+        }));
+      } catch (e) {}
+    };
+    player.on("listswitch", save);
+    player.on("pause", save);
+    let lastSave = 0;
+    player.on("timeupdate", () => {
+      const now = Date.now();
+      if (now - lastSave > 3000) {
+        lastSave = now;
+        save();
+      }
+    });
+  },
   // 监听音乐背景改变
   addEventListenerMusic: function () {
     const anMusicPage = document.getElementById("anMusic-page");
     const aplayerIconMenu = anMusicPage.querySelector(".aplayer-info .aplayer-time .aplayer-icon-menu");
     const metingAplayer = anMusicPage.querySelector("meting-js").aplayer;
     luvicii.patchAplayerBilingualLrc(metingAplayer);
+    luvicii.restoreMusicProgress(metingAplayer);
     // 音量由 APlayer 的 localStorage 存储自动恢复，切换歌单重建播放器时保持用户之前调节的音量
     metingAplayer.on("loadeddata", function () {
       luvicii.changeMusicBg();
