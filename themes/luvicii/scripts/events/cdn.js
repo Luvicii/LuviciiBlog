@@ -7,10 +7,23 @@
 
 const { version } = require("../../package.json");
 const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
 
 hexo.extend.filter.register("before_generate", () => {
   const themeConfig = hexo.theme.config;
   const { CDN } = themeConfig;
+
+  // 缓存破除：本地内部资源带内容哈希，CSS 带构建时间戳（hexo g/Server 每次生成都变）
+  const buildStamp = Date.now().toString(36);
+  const fileHash = file => {
+    try {
+      const abs = path.join(hexo.theme_dir, "source", file);
+      return crypto.createHash("md5").update(fs.readFileSync(abs)).digest("hex").slice(0, 8);
+    } catch (e) {
+      return buildStamp;
+    }
+  };
 
   const thirdPartySrc = hexo.render.renderSync({ path: path.join(hexo.theme_dir, "/plugins.yml"), engine: "yaml" });
   const internalSrc = {
@@ -91,7 +104,7 @@ hexo.extend.filter.register("before_generate", () => {
         cdnjs_name,
       };
       const cdnSource = {
-        local: cond === "internal" ? cdnjs_file : `/pluginsSrc/${name}/${file}`,
+        local: cond === "internal" ? `${cdnjs_file}?v=${fileHash(cdnjs_file)}` : `/pluginsSrc/${name}/${file}`,
         jsdelivr: `https://cdn.jsdelivr.net/npm/${name}${verType}/${min_file}`,
         unpkg: `https://unpkg.com/${name}${verType}/${file}`,
         cdnjs: `https://cdnjs.cloudflare.com/ajax/libs/${cdnjs_name}/${version}/${min_cdnjs_file}`,
@@ -105,7 +118,7 @@ hexo.extend.filter.register("before_generate", () => {
       data[key] = cdnSource[type];
     });
 
-    if (cond === "internal") data["main_css"] = "css/index.css";
+    if (cond === "internal") data["main_css"] = `css/index.css?v=${buildStamp}`;
     return data;
   };
 
@@ -123,4 +136,5 @@ hexo.extend.filter.register("before_generate", () => {
     createCDNLink(thirdPartySrc, CDN.third_party_provider),
     deleteNullValue(CDN.option)
   );
+  themeConfig.asset.build_stamp = buildStamp;
 });
