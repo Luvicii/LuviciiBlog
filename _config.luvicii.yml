@@ -1134,8 +1134,8 @@ LA:
 # 标签卖萌
 diytitle:
   enable: true
-  leaveTitle: w(ﾟДﾟ)w 不要走！
-  backTitle: ♪(^∇^*) Hello ！
+  leaveTitle: ✧*｡٩(ˊᗜˋ*)و✧*｡ 不要走！
+  backTitle: (｡◕‿◕｡) Hello ！
 
 # 留言弹幕配置
 comment_barrage_config:
