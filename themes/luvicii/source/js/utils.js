@@ -835,9 +835,14 @@ const luvicii = {
       const server = urlParams.get("server");
       current = playlist.find(p => String(p.id) === id && p.server === server) || { id, server };
     } else {
-      // 无 URL 参数时恢复上次选择的歌单（自定义歌单无 id/server，只能靠序号记住）
-      const saved = Number(localStorage.getItem("music-playlist-index"));
-      if (Number.isInteger(saved) && playlist[saved]) current = playlist[saved];
+      // 恢复优先级：?id=&server= 深链 > ?list= 自定义歌单深链 > localStorage
+      const listParam = urlParams.get("list");
+      if (listParam !== null && playlist[Number(listParam)]) {
+        current = playlist[Number(listParam)];
+      } else {
+        const saved = Number(localStorage.getItem("music-playlist-index"));
+        if (Number.isInteger(saved) && playlist[saved]) current = playlist[saved];
+      }
     }
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     anMusicPageMeting.innerHTML = luvicii.buildMusicPageMeting(current);
@@ -867,15 +872,17 @@ const luvicii = {
     const target = (GLOBAL_CONFIG.musicPlaylist || [])[index];
     if (!target) return;
     localStorage.setItem("music-playlist-index", String(index));
-    // 同步 URL：在线歌单写成 ?id=&server= 深链，自定义歌单清除参数，
+    // 同步 URL：在线歌单写成 ?id=&server= 深链，自定义歌单写成 ?list= 序号，
     // 避免刷新时 URL 参数把页面强制拉回旧歌单
     const url = new URL(window.location);
     if (target.id && target.server) {
       url.searchParams.set("id", target.id);
       url.searchParams.set("server", target.server);
+      url.searchParams.delete("list");
     } else {
       url.searchParams.delete("id");
       url.searchParams.delete("server");
+      url.searchParams.set("list", String(index));
     }
     window.history.replaceState(window.history.state, "", url);
     document.querySelectorAll(".anMusic-playlist-item").forEach(el => el.classList.remove("active"));
