@@ -41,7 +41,13 @@ if site.data.essay
                           .bber-content-noimg
                       if item.aplayer
                         .bber-music
-                          meting-js(id=item.aplayer.id, server=item.aplayer.server, type="song", mutex="true",preload="none", theme="var(--luvicii-main)", data-lrctype="0", order="list")
+                          if item.aplayer.url
+                            //- 自托管单曲：借 meting-js 的 api 属性用 data: URL 传入
+                            - const essaySong = [{ name: item.aplayer.name, artist: item.aplayer.artist, url: item.aplayer.url, cover: item.aplayer.cover, lrc: item.aplayer.lrc }]
+                            - const essayDataApi = 'data:application/json,' + encodeURIComponent(JSON.stringify(essaySong))
+                            meting-js(api=essayDataApi, mutex="true", preload="none", theme="var(--luvicii-main)", data-lrctype="0", order="list")
+                          else
+                            meting-js(id=item.aplayer.id, server=item.aplayer.server, type="song", mutex="true",preload="none", theme="var(--luvicii-main)", data-lrctype="0", order="list")
                   hr
                   .bber-bottom
                     .bber-info
@@ -61,7 +67,8 @@ if site.data.essay
                         .bber-info-from
                           i.luviciifont.luvicii-icon-location-dot
                           span=item.address
-                    .bber-reply(onclick="rm.rightMenuCommentText(" + `'${item.content}'` + ")")
-                      i.luviciifont.luvicii-icon-message
+                    if page.comments !== false
+                      .bber-reply(onclick="rm.rightMenuCommentText(" + `'${item.content}'` + ")")
+                        i.luviciifont.luvicii-icon-message
       #bber-tips(style='color: var(--luvicii-secondtext);')
         ="- 只展示最近" + i.limit + "条短文 -"
