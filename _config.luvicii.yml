@@ -1174,15 +1174,15 @@ music_playlist:
       - name: 3月9日
         artist: レミオロメン
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/3月9日.mp3"
-        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@50d673bf/music/3月9日.lrc"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/3月9日.lrc"
       - name: なんでもないや (movie edit)
         artist: RADWIMPS
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/なんでもないや (movie edit).mp3"
-        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@50d673bf/music/なんでもないや (movie edit).lrc"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/なんでもないや (movie edit).lrc"
       - name: 雨き声残響
         artist: すぃ
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/雨き声残響 (カバー).mp3"
-        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@50d673bf/music/雨き声残響 (カバー).lrc"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/雨き声残響 (カバー).lrc"
   - name: 好听的英语
     songs:
       # 自建歌曲：先用 ./uploadMusic.sh 传到图床 music/ 目录，再粘贴脚本打印的 jsDelivr 地址
@@ -1190,11 +1190,12 @@ music_playlist:
       - name: No Ceiling
         artist: Cody Simpson
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.mp3"
-        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/No Ceiling.lrc"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/No Ceiling.lrc"
       - name: Shawty Shawty
         artist: Austin Mahone/Bei Maejor
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Shawty Shawty.mp3"
         cover: "https://p2.music.126.net/_AFqL0snVjtKd6UVLV-2-g==/14323337975038278.jpg?param=300y300"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/Shawty Shawty.lrc"
 
 # 评论匿名邮箱
 visitorMail:
