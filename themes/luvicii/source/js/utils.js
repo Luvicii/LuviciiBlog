@@ -813,7 +813,8 @@ const luvicii = {
       }
     };
   },
-  // 碎碎念音乐动态：双语歌词舞台。原文/译文从右侧飞入、左侧飞出，译文延迟 150ms 形成错落
+  // 碎碎念音乐动态：歌词在播放器原位置飞入飞出。同时间轴的原文/译文归为一组，
+  // 新组从右侧飞入、旧组从左侧飞出，译文延迟 150ms 形成错落
   initEssayLrcStage: function () {
     document.querySelectorAll("#bber .bber-music meting-js").forEach(metingEl => {
       if (metingEl.__lrcStageBound) return;
@@ -826,7 +827,7 @@ const luvicii = {
           if (metingEl.__lrcStageBuilt) return true;
           if (player.lrc && player.lrc.current && player.lrc.current.length) {
             metingEl.__lrcStageBuilt = true;
-            luvicii.buildEssayLrcStage(metingEl, player);
+            luvicii.patchEssayLrcFly(metingEl, player);
             return true;
           }
           return false;
@@ -843,50 +844,48 @@ const luvicii = {
       setTimeout(() => clearInterval(boot), 30000);
     });
   },
-  buildEssayLrcStage: function (metingEl, player) {
+  patchEssayLrcFly: function (metingEl, player) {
     const wrap = metingEl.closest(".bber-music");
-    if (!wrap || wrap.querySelector(".bber-lrc-stage")) return;
-    wrap.classList.add("bber-lrc-custom");
-    const stage = document.createElement("div");
-    stage.className = "bber-lrc-stage";
-    wrap.appendChild(stage);
+    if (!wrap) return;
+    wrap.classList.add("bber-lrc-fly");
+    const lrc = player.lrc;
+    // 整份歌词都没有译文时，单行歌词垂直居中
+    if (!lrc.current.some((l, i) => i && lrc.current[i - 1][0] === l[0])) {
+      wrap.classList.add("bber-lrc-single");
+    }
+    const rawUpdate = lrc.update.bind(lrc);
     let lastKey = null;
-    const render = () => {
-      const lrc = player.lrc;
+    lrc.update = function (currentTime) {
+      rawUpdate(currentTime);
+      lrc.container.style.transform = "none"; // 禁用原生垂直滚动
       const cur = lrc.current[lrc.index];
       if (!cur) return;
-      const key = cur[0]; // 同时间轴的原文/译文归为一组，只在组切换时重绘
+      const key = cur[0]; // 同时间轴的原文/译文归为一组，只在组切换时换场
       if (key === lastKey) return;
+      const lines = lrc.container.querySelectorAll("p");
+      lines.forEach(p => {
+        if (p.classList.contains("bb-on")) {
+          p.classList.remove("bb-on");
+          p.classList.add("bb-leave");
+        } else {
+          p.classList.remove("bb-leave"); // 更早的离场行静默回右侧待命
+        }
+      });
       lastKey = key;
-      let orig = cur[1];
-      let trans = "";
+      const group = [lrc.index];
       const prev = lrc.current[lrc.index - 1];
       const next = lrc.current[lrc.index + 1];
-      if (next && next[0] === key) trans = next[1];
-      else if (prev && prev[0] === key) {
-        orig = prev[1];
-        trans = cur[1];
-      }
-      [...stage.children].forEach(el => {
-        el.classList.add("leave");
-        setTimeout(() => el.remove(), 900);
+      if (next && next[0] === key) group.push(lrc.index + 1);
+      else if (prev && prev[0] === key) group.unshift(lrc.index - 1);
+      group.forEach((gi, order) => {
+        const p = lines[gi];
+        if (!p) return;
+        p.classList.remove("bb-leave");
+        p.classList.add("bb-on");
+        p.classList.toggle("bber-lrc-trans", order === 1);
       });
-      const lines = [];
-      const mk = (text, cls) => {
-        const d = document.createElement("div");
-        d.className = "bber-lrc-line " + cls + " pre";
-        d.textContent = text;
-        stage.appendChild(d);
-        lines.push(d);
-      };
-      mk(orig, "bber-lrc-orig");
-      if (trans) mk(trans, "bber-lrc-trans");
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => lines.forEach(el => el.classList.remove("pre")))
-      );
     };
-    player.on("timeupdate", render);
-    render();
+    lrc.update(player.audio.currentTime || 0);
   },
   // 生成音乐馆播放器 HTML：Meting 平台歌单或本地直链歌曲（借 meting-js 的 api 属性用 data: URL 传入）
   buildMusicPageMeting: function (item) {

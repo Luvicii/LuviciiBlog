@@ -308,56 +308,49 @@ body[data-type="essay"] #page .author-content-item .card-content .banner-button-
   margin: 0 !important;
 }
 
-/* 碎碎念音乐动态：双语歌词舞台（JS 检测到歌词后加 .bber-lrc-custom 启用） */
-#bber .bber-music.bber-lrc-custom {
-  height: auto;
-}
-#bber .bber-music.bber-lrc-custom .aplayer {
-  height: 90px;
-}
-#bber .bber-music.bber-lrc-custom .aplayer .aplayer-lrc {
-  display: none !important;
-}
-.bber-lrc-stage {
-  position: relative;
-  height: 64px;
+/* 碎碎念音乐动态：歌词在播放器原位置飞入飞出（JS 检测到有歌词后加 .bber-lrc-fly 启用） */
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc {
+  height: 36px;
   overflow: hidden;
-  border-top: 1px dashed rgba(128, 128, 128, 0.25);
+  position: relative;
 }
-.bber-lrc-line {
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc .aplayer-lrc-contents {
+  transform: none !important;
+}
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc p {
   position: absolute;
   left: 0;
   right: 0;
-  padding: 0 18px;
-  box-sizing: border-box;
-  text-align: center;
+  top: 1px;
+  height: 17px !important;
+  min-height: 17px;
+  line-height: 17px !important;
+  font-size: 0.75rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateX(72%);
   transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.55s ease;
   will-change: transform, opacity;
 }
-/* 进入前的初始位置：右侧场外 */
-.bber-lrc-line.pre {
-  transform: translateX(72%);
-  opacity: 0;
-}
-/* 离开：飞向左侧场外 */
-.bber-lrc-line.leave {
-  transform: translateX(-72%);
-  opacity: 0;
-}
-/* 原文先行，译文延迟 150ms，进出都错落 */
-.bber-lrc-orig {
-  top: 9px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--luvicii-fontcolor);
-  transition-delay: 0s;
-}
-.bber-lrc-trans {
-  top: 36px;
-  font-size: 0.8rem;
+/* 译文：第二行，进出都比原文慢 150ms */
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc p.bber-lrc-trans {
+  top: 19px;
+  font-size: 0.68rem;
+  font-weight: 400;
   color: var(--luvicii-secondtext);
   transition-delay: 0.15s;
+}
+/* 无译文的歌词单行垂直居中 */
+#bber .bber-music.bber-lrc-single .aplayer .aplayer-lrc p {
+  top: 10px;
+}
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc p.bb-on {
+  opacity: 1;
+  transform: none;
+}
+#bber .bber-music.bber-lrc-fly .aplayer .aplayer-lrc p.bb-leave {
+  opacity: 0;
+  transform: translateX(-72%);
 }
