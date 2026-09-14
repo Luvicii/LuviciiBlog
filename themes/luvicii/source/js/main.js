@@ -1793,6 +1793,7 @@ document.addEventListener("DOMContentLoaded", function () {
     luvicii.addEventListenerConsoleMusicList(false);
     luvicii.initPaginationObserver();
     luvicii.addVolumeWheelControl();
+    luvicii.initEssayLrcStage();
 
     setTimeout(() => {
       setInputFocusListener();

@@ -307,3 +307,57 @@ body[data-type="essay"] #page .author-content-item .card-content .banner-button-
   height: 40px !important;
   margin: 0 !important;
 }
+
+/* 碎碎念音乐动态：双语歌词舞台（JS 检测到歌词后加 .bber-lrc-custom 启用） */
+#bber .bber-music.bber-lrc-custom {
+  height: auto;
+}
+#bber .bber-music.bber-lrc-custom .aplayer {
+  height: 90px;
+}
+#bber .bber-music.bber-lrc-custom .aplayer .aplayer-lrc {
+  display: none !important;
+}
+.bber-lrc-stage {
+  position: relative;
+  height: 64px;
+  overflow: hidden;
+  border-top: 1px dashed rgba(128, 128, 128, 0.25);
+}
+.bber-lrc-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 18px;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.55s ease;
+  will-change: transform, opacity;
+}
+/* 进入前的初始位置：右侧场外 */
+.bber-lrc-line.pre {
+  transform: translateX(72%);
+  opacity: 0;
+}
+/* 离开：飞向左侧场外 */
+.bber-lrc-line.leave {
+  transform: translateX(-72%);
+  opacity: 0;
+}
+/* 原文先行，译文延迟 150ms，进出都错落 */
+.bber-lrc-orig {
+  top: 9px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--luvicii-fontcolor);
+  transition-delay: 0s;
+}
+.bber-lrc-trans {
+  top: 36px;
+  font-size: 0.8rem;
+  color: var(--luvicii-secondtext);
+  transition-delay: 0.15s;
+}
