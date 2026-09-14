@@ -11,12 +11,18 @@ layout: default
 <input type="radio" name="ac-speed" id="ac-sp2" class="ac-input" checked>
 <input type="radio" name="ac-speed" id="ac-sp3" class="ac-input">
 <div class="ac-panel">
-<div class="ac-display"><span class="ac-temp">26<small>°C</small></span><span class="ac-mode">❄ 制冷</span></div>
-<div class="ac-buttons">
-<label for="ac-on" class="ac-btn ac-btn-power">⏻</label>
-<label for="ac-sp1" class="ac-btn ac-btn-sp1">低速</label>
-<label for="ac-sp2" class="ac-btn ac-btn-sp2">中速</label>
-<label for="ac-sp3" class="ac-btn ac-btn-sp3">高速</label>
+<div class="ac-unit">
+<div class="ac-unit-body">
+<span class="ac-brand">LUVICII AIR</span>
+<span class="ac-screen"><i class="ac-led"></i>26°C ❄</span>
+</div>
+<div class="ac-outlet"></div>
+</div>
+<div class="ac-remote">
+<label for="ac-on" class="ac-btn ac-btn-power" title="开关">⏻</label>
+<label for="ac-sp1" class="ac-btn ac-btn-sp1">低</label>
+<label for="ac-sp2" class="ac-btn ac-btn-sp2">中</label>
+<label for="ac-sp3" class="ac-btn ac-btn-sp3">高</label>
 </div>
 </div>
 <div class="ac-stage">
@@ -100,41 +106,88 @@ layout: default
 }
 .ac-input { display: none; }
 
-/* 面板 */
+/* 面板：空调室内机 + 遥控按钮 */
 .ac-panel {
-  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.ac-unit {
+  width: 300px;
   max-width: 100%;
-  border-radius: 16px;
-  padding: 14px 18px;
-  background: rgba(66, 90, 239, .08);
-  border: 1px solid rgba(66, 90, 239, .25);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #edf1fa);
+  border: 1px solid rgba(66, 90, 239, .18);
+  box-shadow: 0 6px 18px rgba(66, 90, 239, .12), inset 0 1px 0 #fff;
+  overflow: hidden;
+}
+.ac-unit-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  padding: 12px 16px;
 }
-.ac-display { display: flex; align-items: baseline; gap: 10px; white-space: nowrap; }
-.ac-temp {
-  font-size: 34px;
+.ac-brand {
+  font-size: 11px;
+  letter-spacing: 2px;
   font-weight: 700;
-  color: var(--ac-main);
-  font-variant-numeric: tabular-nums;
+  color: #9aa7cc;
 }
-.ac-temp small { font-size: 16px; }
-.ac-mode { font-size: 13px; opacity: .7; white-space: nowrap; }
-.ac-buttons { display: flex; gap: 8px; flex-shrink: 0; }
+.ac-screen {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #20263a;
+  color: #7dffc9;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .5);
+  white-space: nowrap;
+}
+.ac-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #41e59a;
+  box-shadow: 0 0 6px #41e59a;
+  animation: ac-blink 2.4s ease-in-out infinite;
+}
+.ac-outlet {
+  height: 9px;
+  margin: 0 14px 12px;
+  border-radius: 5px;
+  background: repeating-linear-gradient(90deg, #c4cfe9 0 5px, #e9eefa 5px 11px);
+  box-shadow: inset 0 1px 2px rgba(66, 90, 239, .25);
+}
+.ac-remote { display: flex; gap: 10px; }
 .ac-btn {
   cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   border: 1px solid rgba(66, 90, 239, .35);
-  background: transparent;
-  color: inherit;
-  border-radius: 10px;
-  padding: 6px 10px;
-  font-size: 13px;
-  line-height: 1;
+  background: #fff;
+  color: #444;
+  font-size: 14px;
   transition: all .2s;
+  box-shadow: 0 2px 6px rgba(66, 90, 239, .1);
 }
-.ac-btn:hover { background: var(--ac-main); color: #fff; }
+.ac-btn:hover { background: var(--ac-main); color: #fff; transform: translateY(-2px); }
+
+@keyframes ac-blink { 50% { opacity: .35; } }
+
+/* 深色模式适配 */
+[data-theme="dark"] .ac-unit { background: linear-gradient(180deg, #2b3040, #232838); border-color: rgba(255,255,255,.08); }
+[data-theme="dark"] .ac-brand { color: #6b7694; }
+[data-theme="dark"] .ac-outlet { background: repeating-linear-gradient(90deg, #39415a 0 5px, #2c3347 5px 11px); }
+[data-theme="dark"] .ac-btn { background: #2b3040; color: #cfd6ea; border-color: rgba(255,255,255,.15); }
 
 /* 舞台：风扇 + 风 */
 .ac-stage {
@@ -189,8 +242,8 @@ layout: default
 #ac-on:not(:checked) ~ .ac-stage .ac-blades { animation-play-state: paused; }
 #ac-on:not(:checked) ~ .ac-stage .ac-wind { animation-play-state: paused; opacity: .15; }
 #ac-on:not(:checked) ~ .ac-stage .ac-fan { filter: grayscale(.75); opacity: .55; }
-#ac-on:not(:checked) ~ .ac-panel .ac-temp,
-#ac-on:not(:checked) ~ .ac-panel .ac-mode { opacity: .35; }
+#ac-on:not(:checked) ~ .ac-panel .ac-screen { color: #5a6072; opacity: .6; }
+#ac-on:not(:checked) ~ .ac-panel .ac-led { background: #6b7280; box-shadow: none; animation: none; }
 
 @media (max-width: 500px) {
   .ac-fan { width: 190px; }
