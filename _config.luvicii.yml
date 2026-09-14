@@ -1151,13 +1151,16 @@ comment_barrage_config:
 
 # 左下角音乐配置项
 # https://github.com/metowolf/MetingJS
+# 默认用 id + server 播放平台歌单；list 按名称（或下标）引用下方 music_playlist 里的本地歌单，
+# 配了 list 或 songs 后浮窗改为播放自托管音乐（songs 为完整歌曲列表，优先级高于 list）
 nav_music:
   enable: true
   console_widescreen_music: false # 宽屏状态控制台显示音乐而不是标签 enable为true 控制台依然会显示
+  list: ["我的音乐", "好听的英语"]
   id: 606061417
   server: netease
   volume: 0.7 # 默认音量
-  all_playlist: https://music.163.com/playlist?id=606061417
+  all_playlist: /music/
 
 # 音乐馆页面可切换的多个歌单（配置两项及以上时，页面显示歌单切换功能）
 # 平台歌单填 id + server；本地/直链歌单填 songs 列表（用 ./uploadMusic.sh 上传后粘贴）

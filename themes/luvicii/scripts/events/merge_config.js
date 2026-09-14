@@ -573,6 +573,8 @@ hexo.extend.filter.register(
         console_widescreen_music: false,
         id: 8152976493,
         server: "netease",
+        list: null,
+        songs: null,
         all_playlist: "https://y.qq.com/n/ryqq/playlist/8802438608",
       },
       visitorMail: {
