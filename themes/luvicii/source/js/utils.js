@@ -830,19 +830,18 @@ const luvicii = {
     const urlParams = new URLSearchParams(window.location.search);
     const playlist = GLOBAL_CONFIG.musicPlaylist || [];
     let current = playlist[0] || { id: "8152976493", server: "netease" };
-    if (urlParams.get("id") && urlParams.get("server")) {
+    // 恢复优先级：本地记忆 > ?id=&server= 深链 > ?list= 深链（深链供无本地记忆的访客使用）
+    const savedRaw = localStorage.getItem("music-playlist-index");
+    const saved = savedRaw === null ? NaN : Number(savedRaw); // 注意 Number(null)===0 会误判为第一项
+    if (Number.isInteger(saved) && playlist[saved]) {
+      current = playlist[saved];
+    } else if (urlParams.get("id") && urlParams.get("server")) {
       const id = urlParams.get("id");
       const server = urlParams.get("server");
       current = playlist.find(p => String(p.id) === id && p.server === server) || { id, server };
     } else {
-      // 恢复优先级：?id=&server= 深链 > ?list= 自定义歌单深链 > localStorage
       const listParam = urlParams.get("list");
-      if (listParam !== null && playlist[Number(listParam)]) {
-        current = playlist[Number(listParam)];
-      } else {
-        const saved = Number(localStorage.getItem("music-playlist-index"));
-        if (Number.isInteger(saved) && playlist[saved]) current = playlist[saved];
-      }
+      if (listParam !== null && playlist[Number(listParam)]) current = playlist[Number(listParam)];
     }
     const anMusicPageMeting = document.getElementById("anMusic-page-meting");
     anMusicPageMeting.innerHTML = luvicii.buildMusicPageMeting(current);
