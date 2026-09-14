@@ -1,4 +1,4 @@
 ---
-title: 闲言碎语
+title: 碎碎念
 type: essay
 ---

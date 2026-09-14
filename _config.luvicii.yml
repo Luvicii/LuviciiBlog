@@ -12,7 +12,7 @@ menu:
 
    About:
      关于本人: /about/ || luvicii-icon-paper-plane
-     闲言碎语: /essay/ || luvicii-icon-lightbulb
+     碎碎念: /essay/ || luvicii-icon-lightbulb
      友人帐: /link/ || luvicii-icon-link
      留言板: /comments/ || luvicii-icon-envelope
      随便逛逛: javascript:toRandomPost() || luvicii-icon-shoe-prints1
