@@ -422,6 +422,62 @@ if hexo-config('nav_music.enable') == false
                   right 25px
                   top -90px
 
+// 竖屏（宽度大于手机断点但高度大于宽度，如竖置窗口、平板竖屏）改为上下布局：
+// 封面+歌名在上，歌词区拉伸填满中部，歌单沉底，避免下方出现大面积空白
+// 注意：.aplayer-info 默认固定高 90px，歌词是相对定位溢出显示的；竖屏必须放开高度，否则歌词与歌单重叠
+@media screen and (min-width: 769px) and (orientation: portrait)
+  #anMusic-page
+    // 歌单沉底后右下角的悬浮按钮会与之重叠，改为视口中部右侧竖排
+    #anMusicSwitching, #anMusicRefreshBtn, #anMusicBtnGetSong, #anMusicPlaylistBtn
+      right 5vw
+      bottom auto
+    #anMusicSwitching
+      top calc(50vh - 90px)
+    #anMusicRefreshBtn
+      top calc(50vh - 30px)
+    #anMusicBtnGetSong
+      top calc(50vh + 30px)
+    #anMusicPlaylistBtn
+      top calc(50vh + 90px)
+    #anMusic-playlist-list
+      right 5vw
+    meting-js
+      .aplayer
+        flex-direction column
+        height calc(100vh - 220px)
+        .aplayer-body
+          width 100%
+          height auto
+          flex 1
+          min-height 0
+          display flex
+          flex-direction column
+          .aplayer-pic
+            flex none
+          .aplayer-info
+            height auto
+            flex 1
+            min-height 0
+            display flex
+            flex-direction column
+            .aplayer-music
+              flex none
+            .aplayer-lrc
+              flex 1
+              min-height 0
+              height auto
+              .aplayer-lrc-contents
+                padding-top 8vh
+        .aplayer-list
+          width 100%
+          height auto
+          flex none
+          max-height 30%
+          overflow-y auto
+          margin-top 10px
+          ol
+            max-height none !important
+
       
 // 双语歌词：与译文同时间轴的原文行跟随高亮（配合 luvicii.patchAplayerBilingualLrc）
 .aplayer .aplayer-lrc p.aplayer-lrc-pair
