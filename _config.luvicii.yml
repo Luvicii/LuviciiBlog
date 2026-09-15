@@ -1102,8 +1102,8 @@ home_top:
   banner:
     tips: 甜品
     title: 今日份点心
-    image: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/food/dessert1.jpg
-    link: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/food/dessert2.jpg
+    image: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/strawberry-layer-cake-with-whipped-cream-SdLpn6pcdSC93E27Uxmih.jpg
+    link: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/elegant-pink-rose-cake-with-petals-f09ZgRS8p6xxq5ibBQlJg.jpg
 
 # 朋友圈配置
 friends_vue:

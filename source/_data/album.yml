@@ -1,3 +1,98 @@
+- class_name: 甜品收藏
+  path_name: /cake
+  type: 2
+  description: 甜甜的蛋糕与点心，看了就会心情变好。
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/chocolate-cake-with-a-cherry-on-top-rccosNTCT2GE_f6BrplAX.jpg
+  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/chocolate-cake-with-a-cherry-on-top-rccosNTCT2GE_f6BrplAX.jpg
+  rowHeight: 240
+  limit: 20
+  lazyload: true
+  btnLazyload: false
+  url: false
+  top_link: /album
+  top_btn_text: 返回
+  album_list:
+    - date: 2026-09-15 16:00:00
+      content: 草莓层蛋糕配鲜奶油
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/strawberry-layer-cake-with-whipped-cream-SdLpn6pcdSC93E27Uxmih.jpg
+    - date: 2026-09-15 16:01:00
+      content: 胡萝卜蛋糕
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/carrot-cake-with-fresh-fruits-NdCNRJT20M7kEeytYWets.jpg
+    - date: 2026-09-15 16:02:00
+      content: 美味的覆盆子芝士蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-raspberry-cheesecake-slice-fcqqjfdpvcy50e8815IbU.jpg
+    - date: 2026-09-15 16:03:00
+      content: 美味巧克力草莓蛋糕
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-chocolate-strawberry-cake-2dmE20zHT_dnC45SvIZJt.jpg
+    - date: 2026-09-15 16:04:00
+      content: 水果塔
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/fruit-tartelette-macro-qFzrfvJnrhU3n-K6KpEED.jpg
+    - date: 2026-09-15 16:05:00
+      content: 美味的柠檬芝士蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-lemon-cheesecake-slice-q9PymDJ3UUtLZV3csaHUN.jpg
+    - date: 2026-09-15 16:06:00
+      content: 美味的奶酪蛋糕配新鲜浆果
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-cheesecake-with-fresh-berries-RgTCIlBUliBY-VkLJeXEv.jpg
+    - date: 2026-09-15 16:07:00
+      content: 分层草莓奶油蛋糕配樱桃装饰
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/layered-strawberry-cream-cake-with-cherry-topping-E44EYRurEDBt8_Yb10QDh.jpg
+    - date: 2026-09-15 16:08:00
+      content: 奶油青柠派配鲜奶油
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/creamy-key-lime-pie-with-whipped-topping-A0OluUFnzKzs0LYUJjIsp.jpg
+    - date: 2026-09-15 16:09:00
+      content: 抹茶分层慕斯蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/matcha-layered-mousse-cake-slice-mtUif5DxzFSuRVyJ_Y_7X.jpg
+    - date: 2026-09-15 16:10:00
+      content: 奢华草莓奶油蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/decadent-strawberry-cream-cake-slice-uIlQwnuUBaU8e2BAPVR6e.jpg
+    - date: 2026-09-15 16:11:00
+      content: 顶部装饰马卡龙的蛋糕
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/cake-with-macarons-on-top-pvzMrMXlYfzC6jHUb0UXW.jpg
+    - date: 2026-09-15 16:12:00
+      content: 樱桃巧克力蛋糕
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/chocolate-cake-with-a-cherry-on-top-rccosNTCT2GE_f6BrplAX.jpg
+    - date: 2026-09-15 16:13:00
+      content: 优雅的粉色花卉蛋糕置于银色蛋糕架上
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/elegant-pink-floral-cake-on-silver-stand-02Wb0rS1dACXMlMTv9xvJ.jpg
+    - date: 2026-09-15 16:14:00
+      content: 抹茶层蛋糕配樱桃和杏仁
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/matcha-layer-cake-with-cherries-and-almonds-Z4hpWuI8ntC1uK9L3wVyl.jpg
+    - date: 2026-09-15 16:15:00
+      content: 美味草莓层蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-strawberry-layer-cake-slice-SsglfGrc3bDrOdJP1AFEO.jpg
+    - date: 2026-09-15 16:16:00
+      content: 巧克力蛋糕切片
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/slice-of-chocolate-cake-U_Td72ATZQlU1Dl_VDZji.jpg
+    - date: 2026-09-15 16:17:00
+      content: 抹茶开心果蛋糕配流动糖霜
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/matcha-pistachio-cake-with-dripping-glaze-dt-th2LChyMNkwYOhn3I2.jpg
+    - date: 2026-09-15 16:18:00
+      content: 美味的咖啡与甜点盛宴
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/delicious-coffee-and-dessert-spread-uYpz_JG_5TTFhXC8qfF1W.jpg
+    - date: 2026-09-15 16:19:00
+      content: 优雅的粉色玫瑰蛋糕与花瓣
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@ce348599/food/cake/elegant-pink-rose-cake-with-petals-f09ZgRS8p6xxq5ibBQlJg.jpg
+
 - class_name: 壁纸收藏
   path_name: /wallpapers
   type: 2
