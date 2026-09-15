@@ -22,149 +22,157 @@ body[data-type="album"] #page .page-title {
   --album-spacing-l: 24px;
   --album-spacing-xl: 32px;
   --album-spacing-xxl: 64px;
+  /* 拍立得堆叠手感：改这三个值即可整体调整 */
+  --album-photo-w: 64%;   /* 单张照片占卡片宽度 */
+  --album-fan-x: 41px;    /* 悬停时每级横向散开距离 */
+  --album-fan-rot: 11deg; /* 悬停时每级旋转角度 */
 }
 
-/* 卡片样式：错落网格 + 封面轮播 + 底部信息条 */
+/* ============ 相册卡：拍立得照片堆叠 ============ */
 #album .card-album {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-flow: dense;
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 18px;
   margin: var(--album-spacing-xl) 0 0;
 }
 
 #album .card-album .card {
   position: relative;
-  height: 300px;
-  border-radius: 20px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   list-style: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* 入场交错淡入 */
-  opacity: 0;
-  transform: translateY(24px);
-  animation: albumCardIn 0.6s ease forwards;
+  opacity: 1;
+  transform: none;
+  /* backwards：动画播完就交还 transform，否则后面的 hover 上浮会被 forwards 覆盖 */
+  animation: albumCardIn 0.6s ease backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
-#album .card-album .card:nth-child(2) { animation-delay: 0.08s; }
-#album .card-album .card:nth-child(3) { animation-delay: 0.16s; }
-#album .card-album .card:nth-child(4) { animation-delay: 0.24s; }
-#album .card-album .card:nth-child(5) { animation-delay: 0.32s; }
-#album .card-album .card:nth-child(6) { animation-delay: 0.4s; }
 @keyframes albumCardIn {
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* 横图卡片占两列（JS 检测图片比例后加 .card-wide） */
-#album .card-album .card.card-wide {
-  grid-column: span 2;
-}
-
 #album .card-album .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  transform: translateY(-6px);
 }
 
-/* 封面轮播：多张叠放，淡入淡出 */
-#album .card-covers {
-  position: absolute;
-  inset: 0;
-}
-#album .card_cover {
-  position: absolute;
-  inset: 0;
+/* 堆叠画布：预留扇形展开的空间，overflow 必须可见 */
+#album .stack {
+  position: relative;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 1s ease, transform 6s ease;
-}
-#album .card_cover.active {
-  opacity: 1;
-  transform: scale(1);
+  aspect-ratio: 1 / 0.98;
+  overflow: visible;
 }
 
-/* 底部信息条：渐变遮罩保证任何封面下文字可读 */
-#album .card-info {
+/* 单张拍立得：白边 + 底部留白；静置时按 --d 微旋转、按 --d2 轻微错位，像随手一摞 */
+#album .stack-photo {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 40px var(--album-spacing-m) 14px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
-  color: #fff;
+  top: 50%;
+  left: 50%;
+  width: var(--album-photo-w);
+  aspect-ratio: 1 / 1.16;
+  padding: 8px 8px 30px;
+  object-fit: cover;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.12);
+  transform: translate(-50%, -50%) rotate(calc(var(--d) * 2.6deg)) translateY(calc(var(--d2) * 1.8px));
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 0.5s ease;
+  transition-delay: calc(var(--d2) * 25ms); /* 外层先动、顶层后动，展开有层次 */
+  will-change: transform;
+  user-select: none;
 }
-#album .card__category {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+
+/* 悬停：整摞像扇子一样展开 */
+#album .card-album .card:hover .stack-photo {
+  transform: translate(-50%, -50%)
+    translateX(calc(var(--d) * var(--album-fan-x)))
+    translateY(calc(var(--d2) * 2px))
+    rotate(calc(var(--d) * var(--album-fan-rot)));
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* 顶层那张（DOM 里最后一张压在最上面）再上抬放大 */
+#album .card-album .card:hover .stack-photo:last-child {
+  transform: translate(-50%, -50%)
+    translateX(calc(var(--d) * var(--album-fan-x)))
+    translateY(calc(var(--d2) * 2px - 25px))
+    rotate(calc(var(--d) * var(--album-fan-rot)))
+    scale(1.08);
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.26);
+  z-index: 6;
+}
+
+/* 卡片下方文字：相册名 + 张数徽标 + 描述 */
+#album .card-info {
+  padding: 12px 6px 0;
+  text-align: center;
 }
 #album .card-name {
-  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.05rem;
   font-weight: 700;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  color: var(--luvicii-fontcolor);
+  transition: color 0.3s ease;
+}
+#album .card-album .card:hover .card-name {
+  color: var(--luvicii-main);
 }
 #album .card-count {
   flex: none;
-  font-size: 0.75rem;
-  padding: 2px 10px;
+  padding: 1px 9px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(6px);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--luvicii-main);
+  background: var(--luvicii-main-op);
 }
 #album .card__heading {
-  margin-top: 4px;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.82);
-  white-space: nowrap;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--luvicii-secondtext);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* 缩略图预览条 */
-#album .card-thumbs {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-}
-#album .card-thumbs img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  transition: transform 0.25s ease;
-}
-#album .card-album .card:hover .card-thumbs img {
-  transform: translateY(-3px);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
   #album .card-album {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  #album .card-album .card.card-wide {
-    grid-column: span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 768px) {
   #album .card-album {
     margin-top: 10px;
+    gap: 24px 14px;
   }
-  #album .card-album .card {
-    height: 240px;
+  :root {
+    --album-fan-x: 30px;
+    --album-fan-rot: 7deg;
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 520px) {
   #album .card-album {
     grid-template-columns: 1fr;
   }
-  /* 窄屏单列，横图不再占两列 */
-  #album .card-album .card.card-wide {
-    grid-column: span 1;
+  #album .stack-photo {
+    padding: 7px 7px 26px;
+  }
+}
+
+/* 用户偏好减少动效时，直接呈现结果、不做过渡 */
+@media (prefers-reduced-motion: reduce) {
+  #album .card-album .card,
+  #album .stack-photo {
+    animation: none !important;
+    transition: none !important;
   }
 }

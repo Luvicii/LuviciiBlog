@@ -10,3 +10,7 @@ docs/luvicii-docs/
 
 # Local Netlify folder
 .netlify
+
+# 相册验证构建产物（临时）
+.album-verify/
+_config.verify.yml

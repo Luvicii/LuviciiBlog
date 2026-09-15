@@ -11,27 +11,24 @@
           i.luviciifont.luvicii-icon-arrow-circle-right(style='font-size: 1.5rem')
           span.banner-button-text 关于本人
   .card-album
-    each i in site.data.album
-      //- 收集相册内图片：封面轮播 + 缩略图预览条 + 照片数量
+    each i, index in site.data.album
+      //- 堆叠照片：封面 + 相册内最多 3 张，--d 为相对中心的偏移序号（驱动 CSS 扇形展开）
       - const imgs = []
       if i.album_list
         each item in i.album_list
           if item.image
             each im in item.image
               - imgs.push(im)
-      - const altCovers = imgs.filter(im => im !== i.cover).slice(0, 4)
-      .card(onclick=`pjax.loadUrl("${i.path_name}")`)
-        .card-covers
-          img.card_cover.active(src=i.cover, alt=i.class_name)
-          each im in altCovers
-            img.card_cover(src=im, alt="", loading="lazy")
+      - const photos = [i.cover].concat(imgs.filter(im => im !== i.cover)).slice(0, 4)
+      - const center = (photos.length - 1) / 2
+      .card(onclick=`pjax.loadUrl("${i.path_name}")`, style=`--i:${index}`)
+        .stack
+          each im, idx in photos
+            - const d = idx - center
+            img.stack-photo(src=im, alt=i.class_name, loading="lazy" draggable="false" style=`--d:${d.toFixed(1)}; --d2:${(d * d).toFixed(2)}`)
         .card-info
-          .card__category
-            span.card-name=i.class_name
+          .card-name
+            span.card-name-text=i.class_name
             if imgs.length
               span.card-count= imgs.length + ' 张'
           .card__heading=i.description
-          if imgs.length
-            .card-thumbs
-              each im in imgs.slice(0, 3)
-                img(src=im, alt="", loading="lazy")
