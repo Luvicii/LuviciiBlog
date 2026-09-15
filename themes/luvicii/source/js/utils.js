@@ -773,6 +773,44 @@ const luvicii = {
       }, 100);
     }
   },
+  // 相册集首页卡片：横图占两列（错落网格），多图相册封面淡入淡出轮播，hover 暂停
+  initAlbumCards: function () {
+    document.querySelectorAll("#album .card-album .card").forEach((card, idx) => {
+      if (card.__albumCardInit) return;
+      card.__albumCardInit = true;
+      const covers = card.querySelectorAll(".card-covers img");
+      const first = covers[0];
+      if (!first) return;
+      // 横图占两列。主题懒加载会先放 1px 占位图（complete=true 但 naturalWidth=1），
+      // 必须以 naturalWidth>1 判断真实加载完成，并用轮询兜底 src 替换不触发 load 的情况
+      const markWide = () => {
+        if (first.naturalWidth > 1 && first.naturalWidth > first.naturalHeight * 1.25) card.classList.add("card-wide");
+      };
+      markWide();
+      if (!(first.complete && first.naturalWidth > 1)) {
+        first.addEventListener("load", markWide);
+        let n = 0;
+        const poll = setInterval(() => {
+          markWide();
+          if ((first.complete && first.naturalWidth > 1) || ++n > 25) clearInterval(poll);
+        }, 400);
+      }
+      if (covers.length < 2) return;
+      let cur = 0;
+      let timer = null;
+      const tick = () => {
+        covers[cur].classList.remove("active");
+        cur = (cur + 1) % covers.length;
+        covers[cur].classList.add("active");
+      };
+      const start = () => {
+        timer = setInterval(tick, 3200 + (idx % 5) * 600); // 各卡片错开节奏
+      };
+      start();
+      card.addEventListener("mouseenter", () => clearInterval(timer));
+      card.addEventListener("mouseleave", start);
+    });
+  },
   // 播放器音量滚轮调节：悬停在音量图标或音量条上时，滚轮上下调节音量
   addVolumeWheelControl: function () {
     if (luvicii.volumeWheelBound) return;

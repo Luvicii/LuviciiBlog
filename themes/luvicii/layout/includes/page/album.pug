@@ -12,11 +12,26 @@
           span.banner-button-text 关于本人
   .card-album
     each i in site.data.album
+      //- 收集相册内图片：封面轮播 + 缩略图预览条 + 照片数量
+      - const imgs = []
+      if i.album_list
+        each item in i.album_list
+          if item.image
+            each im in item.image
+              - imgs.push(im)
+      - const altCovers = imgs.filter(im => im !== i.cover).slice(0, 4)
       .card(onclick=`pjax.loadUrl("${i.path_name}")`)
-        img.card_cover(src=i.cover)
-        .card__content
-          p.card__category=i.class_name
-          h3.card__heading=i.description
-    .album-content-nocover
-    .album-content-nocover
-    .album-content-nocover
+        .card-covers
+          img.card_cover.active(src=i.cover, alt=i.class_name)
+          each im in altCovers
+            img.card_cover(src=im, alt="", loading="lazy")
+        .card-info
+          .card__category
+            span.card-name=i.class_name
+            if imgs.length
+              span.card-count= imgs.length + ' 张'
+          .card__heading=i.description
+          if imgs.length
+            .card-thumbs
+              each im in imgs.slice(0, 3)
+                img(src=im, alt="", loading="lazy")
