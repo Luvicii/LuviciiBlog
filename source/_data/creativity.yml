@@ -2,7 +2,7 @@
   creativity_list:
     - name: Java
       color: "#fff"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/icons/java.svg
     - name: C#
       color: "#fff"
       icon: /img/svg/csharp-logo.svg
@@ -38,4 +38,4 @@
       icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b10ccdd.webp
     - name: Apifox
       color: "#e65164"
-      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2022/11/19/6378d6458c6b6.png
+      icon: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/icons/apifox.svg

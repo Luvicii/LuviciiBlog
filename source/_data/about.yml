@@ -25,8 +25,8 @@
     text: 去看看
     cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
   map:
-    background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
-    backgroundDark: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+    background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
+    backgroundDark: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
     title: 这里是
     StrengthenTitle: 江苏
   selfInfo:
@@ -55,7 +55,7 @@
     game_tips: 最近在玩
     game_title: CS2
     game_uid: 312979806
-    game_bg: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/04/09/643293b1184e9.jpg
+    game_bg: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
   comic:
     comic_tips: 最近在看
     comic_title: 在看什么
@@ -66,7 +66,7 @@
     music_tips: 最近在听
     music_title: 音乐馆
     music_link: /music/
-    music_bg: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/08/24/64e6ce9c507bb.png
+    music_bg: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/2023/05/08/645907596997d.gif
   like:
     like_tips: 喜欢
     like_title: 数码与科技
