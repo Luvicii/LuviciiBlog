@@ -1,17 +1,3 @@
-- class_name: 世界各地夕阳与风景
-  path_name: /wordScenery
-  type: 2
-  description: 因为到不了世界各地，所以请网友们发来了各地的夕阳与风景🌇。
-  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/miyoushe/2025/06/13/125766904/2cf2b6aea07bba089d0d17c4fea72d1b_5366629137934368264.webp
-  rowHeight: 220
-  limit: 10
-  lazyload: true
-  btnLazyload: false
-  url: false
-  top_link: /album
-  top_btn_text: 返回
-  album_list:
-
 - class_name: 我的日常
   path_name: /dailyPhoto
   type: 1
