@@ -1779,6 +1779,7 @@ document.addEventListener("DOMContentLoaded", function () {
     luvicii.removeBodyPaceClass();
     luvicii.qrcodeCreate();
     luvicii.changeTimeInAlbumDetail();
+    luvicii.initAlbumStacks();
     luvicii.reflashEssayWaterFall();
     luvicii.sayhi();
     luvicii.stopImgRightDrag();

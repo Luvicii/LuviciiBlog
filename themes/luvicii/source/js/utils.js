@@ -773,6 +773,34 @@ const luvicii = {
       }, 100);
     }
   },
+  // 相册集首页：每次加载（含 pjax 进入）都从候选池重新洗牌，挑一批照片铺到拍立得堆叠上
+  initAlbumStacks: function () {
+    document.querySelectorAll("#album .card-album .stack").forEach(stack => {
+      const imgs = stack.querySelectorAll(".stack-photo");
+      if (!imgs.length) return;
+      let pool = [];
+      try {
+        pool = JSON.parse(stack.dataset.pool || "[]");
+      } catch (e) {
+        pool = [];
+      }
+      if (pool.length < 2) {
+        // 单图相册或池子异常：回落到构建时写死的 data-photo
+        imgs.forEach(img => {
+          if (!img.getAttribute("src") && img.dataset.photo) img.src = img.dataset.photo;
+        });
+        return;
+      }
+      for (let i = pool.length - 1; i > 0; i--) {
+        // Fisher–Yates 洗牌
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      imgs.forEach((img, i) => {
+        img.src = pool[i % pool.length];
+      });
+    });
+  },
   // 播放器音量滚轮调节：悬停在音量图标或音量条上时，滚轮上下调节音量
   addVolumeWheelControl: function () {
     if (luvicii.volumeWheelBound) return;

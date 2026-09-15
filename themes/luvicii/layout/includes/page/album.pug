@@ -19,13 +19,17 @@
           if item.image
             each im in item.image
               - imgs.push(im)
-      - const photos = [i.cover].concat(imgs.filter(im => im !== i.cover)).slice(0, 7)
+      //- 候选池：构建时从相册里随机抽 36 张；前端每次刷新再从池里随机挑 7 张铺到堆叠上
+      - const shuffle = arr => { const a = arr.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+      - const candidates = shuffle([i.cover].concat(imgs.filter(im => im !== i.cover))).slice(0, 36)
+      - const photos = candidates.slice(0, 7)
       - const center = (photos.length - 1) / 2
       .card(onclick=`pjax.loadUrl("${i.path_name}")`, style=`--i:${index}`)
-        .stack
+        .stack(data-pool=JSON.stringify(candidates))
           each im, idx in photos
             - const d = idx - center
-            img.stack-photo(src=im, alt=i.class_name, loading="lazy" draggable="false" style=`--d:${d.toFixed(1)}; --d2:${(d * d).toFixed(2)}`)
+            //- src 交给 luvicii.initAlbumStacks() 填，data-photo 是单图相册/JS 异常时的兜底
+            img.stack-photo(data-photo=im, alt=i.class_name, loading="lazy" draggable="false" style=`--d:${d.toFixed(1)}; --d2:${(d * d).toFixed(2)}`)
         .card-info
           .card-name
             span.card-name-text=i.class_name
