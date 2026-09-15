@@ -1,3 +1,17 @@
+- class_name: 菲比表情包
+  path_name: /feibi
+  type: 2
+  description: 加菲猫菲比的表情包合集，自取。
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@2b14ea8/feibi/1top-banner.png
+  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@2b14ea8/feibi/1top-banner.png
+  rowHeight: 160
+  limit: 40
+  lazyload: true
+  btnLazyload: false
+  url: /feibi/list.json
+  top_link: /album
+  top_btn_text: 返回
+
 - class_name: 我的日常
   path_name: /dailyPhoto
   type: 1
