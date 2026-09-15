@@ -1,3 +1,30 @@
+- class_name: 壁纸收藏
+  path_name: /wallpapers
+  type: 2
+  description: 收集到的好看壁纸。
+  cover: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/wallpapers/milky-way-starry-sky-night-mountains-lake-reflection-cold-5k-3840x2160-287.jpg
+  top_background: https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/wallpapers/milky-way-starry-sky-night-mountains-lake-reflection-cold-5k-3840x2160-287.jpg
+  rowHeight: 300
+  limit: 10
+  lazyload: true
+  btnLazyload: false
+  url: false
+  top_link: /album
+  top_btn_text: 返回
+  album_list:
+    - date: 2025-08-15 21:48:00
+      content: 富士山 · 红枫 · 浮世绘风
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/wallpapers/japan-artistic-3840x2160-25406.jpg
+    - date: 2025-08-15 21:50:00
+      content: 银河星空 · 山湖倒影
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/wallpapers/milky-way-starry-sky-night-mountains-lake-reflection-cold-5k-3840x2160-287.jpg
+    - date: 2025-08-15 22:02:00
+      content: 猫娘少女
+      image:
+        - https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/wallpapers/kawaii-cat-girl-5120x2880-26545.png
+
 - class_name: 我的日常
   path_name: /dailyPhoto
   type: 1
