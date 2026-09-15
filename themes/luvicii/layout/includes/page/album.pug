@@ -12,14 +12,14 @@
           span.banner-button-text 关于本人
   .card-album
     each i, index in site.data.album
-      //- 堆叠照片：封面 + 相册内最多 3 张，--d 为相对中心的偏移序号（驱动 CSS 扇形展开）
+      //- 堆叠照片：封面 + 相册内最多 6 张，--d 为相对中心的偏移序号（驱动 CSS 扇形展开）
       - const imgs = []
       if i.album_list
         each item in i.album_list
           if item.image
             each im in item.image
               - imgs.push(im)
-      - const photos = [i.cover].concat(imgs.filter(im => im !== i.cover)).slice(0, 4)
+      - const photos = [i.cover].concat(imgs.filter(im => im !== i.cover)).slice(0, 7)
       - const center = (photos.length - 1) / 2
       .card(onclick=`pjax.loadUrl("${i.path_name}")`, style=`--i:${index}`)
         .stack
