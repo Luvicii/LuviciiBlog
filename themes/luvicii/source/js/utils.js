@@ -796,9 +796,11 @@ const luvicii = {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
       }
-      imgs.forEach((img, i) => {
-        img.src = pool[i % pool.length];
-      });
+      // 倒序赋值：DOM 最后一张（压在堆顶、卡片露脸的那张）第一个发起请求，
+      // 它带着 fetchpriority="high"，会优先于其余 6 张渲染出来
+      for (let i = imgs.length - 1; i >= 0; i--) {
+        imgs[i].src = pool[i % pool.length];
+      }
     });
   },
   // 播放器音量滚轮调节：悬停在音量图标或音量条上时，滚轮上下调节音量

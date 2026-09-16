@@ -28,8 +28,10 @@
         .stack(data-pool=JSON.stringify(candidates))
           each im, idx in photos
             - const d = idx - center
+            //- 最顶上那张（DOM 最后一张）最先加载：eager + 高优先级，其余让路
+            - const isTop = idx === photos.length - 1
             //- src 交给 luvicii.initAlbumStacks() 填，data-photo 是单图相册/JS 异常时的兜底
-            img.stack-photo(data-photo=im, alt=i.class_name, loading="lazy" draggable="false" style=`--d:${d.toFixed(1)}; --d2:${(d * d).toFixed(2)}`)
+            img.stack-photo(data-photo=im, alt=i.class_name, loading=isTop ? "eager" : "lazy", fetchpriority=isTop ? "high" : "low", draggable="false", style=`--d:${d.toFixed(1)}; --d2:${(d * d).toFixed(2)}`)
         .card-info
           .card-name
             span.card-name-text=i.class_name
