@@ -803,8 +803,8 @@ const luvicii = {
       }
     });
   },
-  // 相册横幅照片墙：图片真正加载完成后逐个淡入（主题懒加载先放 1px 占位图，
-  // 所以用 naturalWidth > 1 判断真实图已到位，而不是 complete）；
+  // 相册横幅照片墙：图片加载完成后逐个淡入（墙图带 nolazyload，不再走懒加载，
+  // 所以加载发生在首屏；仍用 naturalWidth > 1 判断"真的解码好了"）；
   // 整墙图片都到位后再点亮白缝（.wall-ready），让白色边界跟着照片一起出现。
   initPhotoWall: function () {
     document.querySelectorAll("#album .photo-wall").forEach(wall => {
@@ -816,7 +816,7 @@ const luvicii = {
         if (img.dataset.wallInit) return;
         img.dataset.wallInit = "1";
         img.style.transitionDelay = (i % 12) * 55 + "ms"; // 从左到右的波次
-        img.classList.add("wall-armed");
+        // 隐藏态写在 CSS 默认值里（避免缓存的图在 JS 执行前闪一下），这里只负责显示
         const reveal = () => img.classList.add("wall-in");
         if (img.naturalWidth > 1) {
           reveal();
