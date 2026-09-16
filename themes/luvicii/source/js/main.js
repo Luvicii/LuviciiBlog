@@ -1780,6 +1780,7 @@ document.addEventListener("DOMContentLoaded", function () {
     luvicii.qrcodeCreate();
     luvicii.changeTimeInAlbumDetail();
     luvicii.initAlbumStacks();
+    luvicii.initPhotoWall();
     luvicii.reflashEssayWaterFall();
     luvicii.sayhi();
     luvicii.stopImgRightDrag();

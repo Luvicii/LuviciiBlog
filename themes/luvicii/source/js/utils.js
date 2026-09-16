@@ -803,6 +803,71 @@ const luvicii = {
       }
     });
   },
+  // 相册横幅照片墙：图片真正加载完成后逐个淡入（主题懒加载先放 1px 占位图，
+  // 所以用 naturalWidth > 1 判断真实图已到位，而不是 complete）；
+  // 整墙图片都到位后再点亮白缝（.wall-ready），让白色边界跟着照片一起出现。
+  initPhotoWall: function () {
+    document.querySelectorAll("#album .photo-wall").forEach(wall => {
+      const imgs = wall.querySelectorAll(".photo-wall-tile img");
+      if (!imgs.length) return;
+
+      // ① 单张：加载完成后淡入
+      imgs.forEach((img, i) => {
+        if (img.dataset.wallInit) return;
+        img.dataset.wallInit = "1";
+        img.style.transitionDelay = (i % 12) * 55 + "ms"; // 从左到右的波次
+        img.classList.add("wall-armed");
+        const reveal = () => img.classList.add("wall-in");
+        if (img.naturalWidth > 1) {
+          reveal();
+        } else {
+          img.addEventListener("load", reveal, { once: true });
+          img.addEventListener("error", reveal, { once: true }); // 坏图也别留黑块
+        }
+      });
+
+      // ② 流动速度恒定 15px/s：按实测的"一遍宽度"反推动画时长
+      //   （墙上图片数量是构建时随机的，写死时长会让速度飘）
+      const track = wall.querySelector(".photo-wall-track");
+      const tiles = track ? track.children : [];
+      if (track && tiles.length > 1) {
+        const srcOf = el => {
+          const im = el.querySelector("img");
+          return im ? im.dataset.lazySrc || im.getAttribute("src") || "" : "";
+        };
+        const firstSrc = srcOf(tiles[0]);
+        for (let k = 1; k < tiles.length; k++) {
+          if (srcOf(tiles[k]) !== firstSrc) continue;
+          const passWidth = tiles[k].offsetLeft - tiles[0].offsetLeft; // 一整遍的宽度
+          if (passWidth > 0) track.style.animationDuration = (passWidth / 15).toFixed(2) + "s";
+          break;
+        }
+      }
+
+      // ③ 整墙：全部图片加载完再放白缝；4 秒兜底，网络再慢也要出边界
+      if (wall.dataset.wallWatch) return;
+      wall.dataset.wallWatch = "1";
+      let pending = imgs.length;
+      let done = false;
+      const showSeams = () => {
+        if (done) return;
+        done = true;
+        wall.classList.add("wall-ready");
+      };
+      const oneDone = () => {
+        if (--pending <= 0) showSeams();
+      };
+      imgs.forEach(img => {
+        if (img.naturalWidth > 1) {
+          oneDone();
+        } else {
+          img.addEventListener("load", oneDone, { once: true });
+          img.addEventListener("error", oneDone, { once: true });
+        }
+      });
+      setTimeout(showSeams, 4000);
+    });
+  },
   // 播放器音量滚轮调节：悬停在音量图标或音量条上时，滚轮上下调节音量
   addVolumeWheelControl: function () {
     if (luvicii.volumeWheelBound) return;

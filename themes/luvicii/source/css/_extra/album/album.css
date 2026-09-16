@@ -28,6 +28,104 @@ body[data-type="album"] #page .page-title {
   --album-fan-rot: 11deg; /* 悬停时每级旋转角度 */
 }
 
+/* ============ 相册集横幅：相册照片墙（窄高平行四边形，横向流动） ============ */
+/* 盖掉默认的流动渐变，给图片一个底色兜底 */
+body[data-type="album"] .author-content.author-content-item.album {
+  background-image: none;
+  animation: none;
+  background-color: #0b1020;
+}
+
+#album .photo-wall {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* 白缝来自这层底色，但它要等图片加载完成后才亮起（JS 加 .wall-ready），
+     否则进场时是"深色格子 + 白线"，白线会先冒出来抢戏 */
+  background: transparent;
+  transition: background-color 0.6s ease;
+}
+#album .photo-wall.wall-ready {
+  background: #fff;
+}
+#album .photo-wall-track {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  width: max-content;
+  /* 目标 15px/s：这里给的 70s 对应"一遍 1050px"，JS 会按实测宽度覆盖成恒定的 15px/s */
+  animation: photoWallFlow 70s linear infinite;
+  will-change: transform;
+}
+#album .photo-wall-tile {
+  flex: none;
+  width: 11.33rem; /* 8.5rem × 4/3 */
+  height: 100%;
+  /* 斜切 52px：位移 -50px 后相邻块之间正好留出 2px 的等宽白缝（白缝来自 .photo-wall 的白底）。
+     深色底在图片没加载完时可见，压住白色标题不被白缝吃掉。
+     位移 1/4 正好等于铺一遍的宽度，循环无跳帧 */
+  margin-right: -50px;
+  background: #0e1220;
+  overflow: hidden;
+  /* 窄高的平行四边形：上边右移、下边左移 */
+  clip-path: polygon(52px 0, 100% 0, calc(100% - 52px) 100%, 0 100%);
+}
+#album .photo-wall-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+/* 进场：图片真正加载完成后淡入 + 从略大回落到正常（JS 加 .wall-armed 隐藏、加载完加 .wall-in 显示） */
+#album .photo-wall-tile img.wall-armed {
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.9s ease, transform 1.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+#album .photo-wall-tile img.wall-in {
+  opacity: 1;
+  transform: none;
+}
+@keyframes photoWallFlow {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-25%, 0, 0); }
+}
+/* 全局压暗层：整体压暗照片 + 左右收边（白缝同样会被它压暗一点，属于同一层视觉） */
+#album .photo-wall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(6, 10, 24, .78), rgba(6, 10, 24, .34) 45%, rgba(6, 10, 24, .78)),
+    linear-gradient(180deg, rgba(6, 10, 24, .26), rgba(6, 10, 24, .06) 40%, rgba(6, 10, 24, .4));
+}
+/* 文字投影：配合压暗层一起保证标题可读 */
+#album .author-content-item.album .card-content {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+/* 文字层压在照片墙与泡泡之上 */
+#album .author-content-item.album .card-content {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  #album .photo-wall-tile {
+    width: 8.67rem; /* 6.5rem × 4/3 */
+    margin-right: -36px;
+    clip-path: polygon(38px 0, 100% 0, calc(100% - 38px) 100%, 0 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #album .photo-wall-track {
+    animation: none;
+  }
+}
+
 /* ============ 相册卡：拍立得照片堆叠 ============ */
 #album .card-album {
   display: grid;

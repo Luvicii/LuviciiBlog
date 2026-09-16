@@ -1,9 +1,30 @@
 #album
   - let album_background = page.top_background
+  //- 横幅背景墙：每个相册各随机抽 4 张（避免大户相册垄断），混合后再随机取 12 张
+  //- 铺 3 遍做无缝横向流动；同图重复只下载一次，fetchpriority=low 不抢卡片图
+  - const wallShuffle = arr => { const a = arr.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+  - const wallPicked = []
+  each a in site.data.album
+    - const pool = []
+    if a.cover
+      - pool.push(a.cover)
+    if a.album_list
+      each it in a.album_list
+        if it.image
+          each im in it.image
+            - pool.push(im)
+    - wallPicked.push(...wallShuffle([...new Set(pool)]).slice(0, 4))
+  - const wallPhotos = wallShuffle([...new Set(wallPicked)]).slice(0, 12)
   .author-content.author-content-item.album.single(style=`${album_background ? `background: url(${album_background}) top / cover no-repeat;` : ""}`)
+    .photo-wall
+      .photo-wall-track
+        each round in [0, 1, 2, 3]
+          each im in wallPhotos
+            .photo-wall-tile
+              img(src=im, alt='', loading='lazy', decoding='async', fetchpriority='low', draggable='false')
     .card-content
       .author-content-item-tips 相册集
-      span.author-content-item-title 这里是我的相册集哦😯
+      span.author-content-item-title 这里是我的相册集啦
       .content-bottom
         .tips 每一张照片都是一次美好的记忆。
       .banner-button-group
