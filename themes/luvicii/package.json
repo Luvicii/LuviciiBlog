@@ -1,6 +1,6 @@
 {
   "name": "hexo-theme-luvicii",
-  "version": "1.6.14",
+  "version": "2.0.1",
   "description": "A Simple and Card UI Design theme for Hexo",
   "main": "package.json",
   "scripts": {
@@ -11,22 +11,12 @@
     "theme",
     "luvicii",
     "Card UI Design",
-    "Luvicii",
-    "hexo-theme-anzhiyu"
+    "Luvicii"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git"
-  },
-  "bugs": {
-    "url": "https://github.com/anzhiyu-c/hexo-theme-anzhiyu/issues",
-    "email": "me@anheyu.com"
-  },
   "dependencies": {
     "hexo-renderer-stylus": "^3.0.0",
     "hexo-renderer-pug": "^3.0.0"
   },
-  "homepage": "https://blog.anheyu.com/",
-  "author": "luvicii <me@anheyu.com>",
+  "author": "luvicii",
   "license": "GPL-3.0"
 }

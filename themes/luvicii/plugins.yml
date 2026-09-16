@@ -152,18 +152,6 @@ flickr_justified_gallery_css:
   name: flickr-justified-gallery
   file: dist/fjGallery.css
   version: 2.1.2
-aplayer_css:
-  name: anzhiyu-theme-static
-  file: aplayer/APlayer.min.css
-  version: 1.0.0
-aplayer_js:
-  name: anzhiyu-blog-static
-  file: js/APlayer.min.js
-  version: 1.0.1
-meting_js:
-  name: hexo-anzhiyu-music
-  file: assets/js/Meting2.min.js
-  version: 1.0.1
 prismjs_js:
   name: prismjs
   file: prism.js
@@ -192,39 +180,3 @@ pace_js:
   other_name: pace
   file: pace.min.js
   version: 1.2.4
-pace_default_css:
-  name: anzhiyu-theme-static
-  file: progress_bar/progress_bar.css
-  version: 1.1.10
-coin_js:
-  name: anzhiyu-theme-static
-  file: coin/coin.js
-  version: 1.0.0
-coin_css:
-  name: anzhiyu-theme-static
-  file: coin/coin.min.css
-  version: 1.0.0
-countup_js:
-  name: anzhiyu-theme-static
-  file: countup/countup.js
-  version: 1.0.0
-gsap_js:
-  name: anzhiyu-theme-static
-  file: gsap/gsap.min.js
-  version: 1.0.0
-rightmenu:
-  name: anzhiyu-theme-static
-  file: rightmenu/rightmenu.js
-  version: 1.0.0
-waterfall:
-  name: anzhiyu-theme-static
-  file: waterfall/waterfall.js
-  version: 1.0.0
-ali_iconfont_css:
-  name: anzhiyu-theme-static
-  file: icon/ali_iconfont_css.css
-  version: 1.1.9
-accesskey_js:
-  name: anzhiyu-theme-static
-  file: accesskey/accesskey.js
-  version: 1.1.5

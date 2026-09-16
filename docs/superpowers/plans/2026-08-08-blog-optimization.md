@@ -4,7 +4,7 @@
 
 **Goal:** Fix SEO fundamentals (site URL, sitemap, RSS, robots.txt), make local search work, safely stage comment config, and consolidate deployment onto a hardened GitHub Actions pipeline with asset minification.
 
-**Architecture:** Pure configuration + build-pipeline changes on a Hexo 7.3.0 site with the luvicii theme (anzhiyu fork). New generator plugins (`hexo-generator-sitemap`, `hexo-generator-feed`, `hexo-generator-search`) emit `sitemap.xml`, `atom.xml`, `search.xml` at build time; a minimal `gulpfile.js` minifies `public/` in CI before `peaceiris/actions-gh-pages` publishes to `Luvicii/Luvicii.github.io`.
+**Architecture:** Pure configuration + build-pipeline changes on a Hexo 7.3.0 site with the luvicii theme. New generator plugins (`hexo-generator-sitemap`, `hexo-generator-feed`, `hexo-generator-search`) emit `sitemap.xml`, `atom.xml`, `search.xml` at build time; a minimal `gulpfile.js` minifies `public/` in CI before `peaceiris/actions-gh-pages` publishes to `Luvicii/Luvicii.github.io`.
 
 **Tech Stack:** Hexo 7, Node 20, gulp 5 + gulp-htmlmin/gulp-clean-css/gulp-terser, GitHub Actions.
 
