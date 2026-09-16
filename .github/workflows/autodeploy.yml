@@ -21,6 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # 照片墙缩略图正常情况下随仓库提交（构建期会自动跳过），
+      # 只有忘记提交时才会走到这里临时装 ImageMagick 现场生成（ubuntu-24.04 runner 不带它）
+      - name: Ensure ImageMagick if photo-wall thumbnails are missing
+        run: |
+          if ls themes/luvicii/source/img/wall/*.webp >/dev/null 2>&1; then
+            echo "缩略图已在仓库中，跳过"
+          else
+            echo "缺少缩略图，安装 ImageMagick 让构建期自动生成"
+            sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+          fi
+
       - name: Generate and minify site
         run: |
           npx hexo clean

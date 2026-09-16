@@ -1,24 +1,28 @@
 #album
   - let album_background = page.top_background
-  //- 横幅背景墙：每个相册各随机抽 4 张（避免大户相册垄断），混合后再随机取 12 张
-  //- 铺 3 遍做无缝横向流动；同图重复只下载一次，fetchpriority=low 不抢卡片图
+  //- 横幅背景墙：优先用构建期自动生成的本地缩略图（见 scripts/photo-wall.js，360x600 webp，约 20~40KB）。
+  //- 直接用相册原图时，壁纸那几张是 4K/5K（单张 7MB、解码后 59MB），缩到 181px 显示会明显掉帧。
+  //- 缩略图缺失（例如机器上没装 ImageMagick）时回落到"按相册抽样原图"，功能不受影响。
   - const wallShuffle = arr => { const a = arr.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
-  - const wallPicked = []
-  each a in site.data.album
-    - const pool = []
-    if a.cover
-      - pool.push(a.cover)
-    if a.album_list
-      each it in a.album_list
-        if it.image
-          each im in it.image
-            - pool.push(im)
-    - wallPicked.push(...wallShuffle([...new Set(pool)]).slice(0, 4))
-  - const wallPhotos = wallShuffle([...new Set(wallPicked)]).slice(0, 12)
+  - let wallCandidates = photo_wall_pool()
+  if !wallCandidates.length
+    - const wallPicked = []
+    each a in site.data.album
+      - const pool = []
+      if a.cover
+        - pool.push(a.cover)
+      if a.album_list
+        each it in a.album_list
+          if it.image
+            each im in it.image
+              - pool.push(im)
+      - wallPicked.push(...wallShuffle([...new Set(pool)]).slice(0, 4))
+    - wallCandidates = [...new Set(wallPicked)]
+  - const wallPhotos = wallShuffle(wallCandidates).slice(0, 12)
   .author-content.author-content-item.album.single(style=`${album_background ? `background: url(${album_background}) top / cover no-repeat;` : ""}`)
     .photo-wall
       .photo-wall-track
-        each round in [0, 1, 2, 3]
+        each round in [0, 1, 2]
           each im in wallPhotos
             .photo-wall-tile
               img(src=im, alt='', loading='lazy', decoding='async', fetchpriority='low', draggable='false')
