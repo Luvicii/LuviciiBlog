@@ -30,6 +30,8 @@ block content
       default
         include includes/page/default-page.pug
 
-    if page.comments !== false && theme.comments && theme.comments.use
+    //- 页面默认不开评论区，只有 front-matter 显式 comments: true 的页面才渲染
+    //- 判定逻辑见 themes/luvicii/scripts/events/page-comments.js（文章页不受影响）
+    if page.comments && theme.comments && theme.comments.use
       - var commentsJsLoad = true
       !=partial('includes/third-party/comments/index', {}, {cache: true})
