@@ -1201,7 +1201,7 @@ music_playlist:
       - name: Sunshine
         artist: OneRepublic
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Sunshine.mp3"
-        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@05a262e5/music/Sunshine.lrc"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@93bb5a1d/music/Sunshine.lrc"
   - name: Home
     songs:
       # 专辑 home / hideyuki hashimoto（7 首纯音乐，封面 7 首共用一张）
