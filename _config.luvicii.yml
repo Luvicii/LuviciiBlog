@@ -54,10 +54,10 @@ code_word_wrap: false
 # copyright: Add the copyright information after copied content (複制的内容后面加上版权信息)
 # copy: enable 复制后弹窗提示版权信息
 copy:
-  enable: false
+  enable: true
   copyright:
     enable: true # 开启后,文章底部显示版权声明(转载/分享须知)
-    limit_count: 50 # 全文超过多少字才显示版权声明
+    limit_count: 9090 # 全文超过多少字才显示版权声明
 
 # social settings (社交图标设置)
 # formal:
@@ -1198,6 +1198,10 @@ music_playlist:
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Shawty Shawty.mp3"
         cover: "https://p2.music.126.net/_AFqL0snVjtKd6UVLV-2-g==/14323337975038278.jpg?param=300y300"
         lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/Shawty Shawty.lrc"
+      - name: Sunshine
+        artist: OneRepublic
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Sunshine.mp3"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@05a262e5/music/Sunshine.lrc"
   - name: Home
     songs:
       # 专辑 home / hideyuki hashimoto（7 首纯音乐，封面 7 首共用一张）
