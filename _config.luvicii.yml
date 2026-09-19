@@ -54,7 +54,7 @@ code_word_wrap: false
 # copyright: Add the copyright information after copied content (複制的内容后面加上版权信息)
 # copy: enable 复制后弹窗提示版权信息
 copy:
-  enable: true
+  enable: false
   copyright:
     enable: true # 开启后,文章底部显示版权声明(转载/分享须知)
     limit_count: 50 # 全文超过多少字才显示版权声明
@@ -1198,6 +1198,45 @@ music_playlist:
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/Shawty Shawty.mp3"
         cover: "https://p2.music.126.net/_AFqL0snVjtKd6UVLV-2-g==/14323337975038278.jpg?param=300y300"
         lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@cbe9f41b/music/Shawty Shawty.lrc"
+  - name: Home
+    songs:
+      # 专辑 home / hideyuki hashimoto（7 首纯音乐，封面 7 首共用一张）
+      # 音频用 @main；歌词固定到上传时的提交（若以后替换歌词文件，改这里的 sha，避开 jsDelivr 缓存）
+      - name: leaf
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/leaf.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/leaf.lrc"
+      - name: sora
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/sora.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/sora.lrc"
+      - name: taiwa
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/taiwa.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/taiwa.lrc"
+      - name: tobira
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/tobira.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/tobira.lrc"
+      - name: toki
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/toki.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/toki.lrc"
+      - name: umi
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/umi.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/umi.lrc"
+      - name: yura yura
+        artist: hideyuki hashimoto
+        url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/yura yura.flac"
+        cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
+        lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/yura yura.lrc"
 
 # 评论匿名邮箱
 visitorMail:
