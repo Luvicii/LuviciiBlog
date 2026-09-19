@@ -811,7 +811,28 @@ const luvicii = {
       const imgs = wall.querySelectorAll(".photo-wall-tile img");
       if (!imgs.length) return;
 
-      // ① 单张：加载完成后淡入
+      // ① 每次加载（含 pjax 进入）都从素材池里重新随机挑 12 张，铺满 3 遍。
+      //   注意"一遍"必须恒为 12 个格子：CSS 关键帧位移固定是轨道的 1/3（12 格），
+      //   池子不足 12 张时循环复用（下面的 seq），否则一遍变短会导致循环末尾瞬跳。
+      let pool = [];
+      try {
+        pool = JSON.parse(wall.dataset.pool || "[]");
+      } catch (e) {
+        pool = [];
+      }
+      if (pool.length) {
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+        const seq = [];
+        for (let i = 0; i < 12; i++) seq.push(pool[i % pool.length]);
+        imgs.forEach((img, i) => {
+          img.src = seq[i % 12];
+        });
+      }
+
+      // ② 单张：加载完成后淡入
       imgs.forEach((img, i) => {
         if (img.dataset.wallInit) return;
         img.dataset.wallInit = "1";
@@ -826,7 +847,7 @@ const luvicii = {
         }
       });
 
-      // ② 流动速度恒定 15px/s：按实测的"一遍宽度"反推动画时长
+      // ③ 流动速度恒定 15px/s：按实测的"一遍宽度"反推动画时长
       //   （墙上图片数量是构建时随机的，写死时长会让速度飘）
       const track = wall.querySelector(".photo-wall-track");
       const tiles = track ? track.children : [];
@@ -844,7 +865,7 @@ const luvicii = {
         }
       }
 
-      // ③ 整墙：全部图片加载完再放白缝；4 秒兜底，网络再慢也要出边界
+      // ④ 整墙：全部图片加载完再放白缝；4 秒兜底，网络再慢也要出边界
       if (wall.dataset.wallWatch) return;
       wall.dataset.wallWatch = "1";
       let pending = imgs.length;

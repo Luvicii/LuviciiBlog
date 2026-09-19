@@ -18,17 +18,19 @@
               - pool.push(im)
       - wallPicked.push(...wallShuffle([...new Set(pool)]).slice(0, 4))
     - wallCandidates = [...new Set(wallPicked)]
-  - const wallPhotos = wallShuffle(wallCandidates).slice(0, 12)
+  //- 每次刷新换一批：整池交给前端（data-pool），由 initPhotoWall 每次随机挑 12 张填进格子
+  - const wallPhotos = wallCandidates.slice(0, 12)
   .author-content.author-content-item.album.single(style=`${album_background ? `background: url(${album_background}) top / cover no-repeat;` : ""}`)
-    .photo-wall
+    .photo-wall(data-pool=JSON.stringify(wallCandidates))
       .photo-wall-track
         each round in [0, 1, 2]
           each im in wallPhotos
             .photo-wall-tile
+              //- 这里不写 src：每次刷新由 initPhotoWall 从 data-pool 里随机挑 12 张填进来，
+              //- 保证只下载被选中的 12 张（每张约 20~40KB）。
               //- class 必须写 nolazyload：主题懒加载会把 img 改写成 1px 占位图 + data-lazy-src，
               //- 而墙是横向滑动的，"进入视口"要等动画滑到才会触发 → 加载时机散落在动画中途，每次都有一串长帧。
-              //- 加 nolazyload 让它们随页面一起加载（12 张唯一图，共约 350KB）。
-              img.photo-wall-img.nolazyload(src=im, alt='', decoding='async', fetchpriority='low', draggable='false')
+              img.photo-wall-img.nolazyload(alt='', decoding='async', fetchpriority='low', draggable='false')
     //- 无 JS 时也别让墙是空的
     noscript
       style.

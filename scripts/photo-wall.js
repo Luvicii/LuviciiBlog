@@ -43,17 +43,10 @@ function poolUrls() {
       }
     }
     if (!urls.length) continue
-    // 固定种子：同一个相册每次抽到同一批，缩略图文件名才能稳定复用
-    const seed = parseInt(crypto.createHash('md5').update(String(a.path_name || '')).digest('hex').slice(0, 8), 16)
-    let s = seed
-    const rand = () => ((s = (s * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff)
-    for (let i = urls.length - 1; i > 0; i--) {
-      const j = Math.floor(rand() * (i + 1))
-      const t = urls[i]
-      urls[i] = urls[j]
-      urls[j] = t
-    }
-    urls.slice(0, PER_ALBUM).forEach(u => out.push(u))
+    // 按 URL 哈希排序取前 PER_ALBUM 张：与顺序无关、结果稳定——
+    // 相册里新增照片时只会替换掉"哈希排在最后"的那张，其余缩略图可继续复用，不必重新下载生成
+    const h = u => crypto.createHash('md5').update(u).digest('hex')
+    urls.slice().sort((x, y) => (h(x) < h(y) ? -1 : 1)).slice(0, PER_ALBUM).forEach(u => out.push(u))
   }
   return [...new Set(out)]
 }
