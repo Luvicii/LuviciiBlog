@@ -7,6 +7,7 @@
 #   ./uploadIMG.sh -d 文章名 a.png b.jpg            # 指定子目录
 #   ./uploadIMG.sh -c "自定义说明" a.png            # 附带提交说明
 #   PROXY=http://127.0.0.1:7890 ./uploadIMG.sh …    # 指定代理（默认自动探测本地端口）
+#   注意: gh-proxy 这类加速站只用于读（克隆/GET），上传写操作直连 —— 详见 cdn-api.sh 头部
 #   DRY_RUN=1 ./uploadIMG.sh …                      # 只打印，不上传
 #
 # 输出: 每个图片的 jsDelivr 访问 URL

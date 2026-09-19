@@ -15,12 +15,24 @@
 #   不指定时自动探测常见本地端口（7890 / 7897 / 10809 / 1080 / 8118）
 #   连接失败会"直连 → 代理"交替重试；API 本身报错（如 403/422）则直接报错，不盲目重试
 #
+# GitHub 加速站（GH_PROXY）：
+#   GH_PROXY=https://gh-proxy.com/    默认值；GH_PROXY= 可关闭
+#   它是"URL 前缀"型加速站，即 https://gh-proxy.com/https://github.com/... 这种写法。
+#   ⚠️ 只用于【读】：克隆 / ls-remote / API GET（实测 clone refs 1.6s vs 直连 4.0s）。
+#   写操作（POST/PATCH）绝不能走它：它不转发 Authorization 头，请求会退化成匿名请求，
+#   实测建 blob、更新 ref 一律 403 "Resource not accessible by personal access token"，
+#   直连则 201。所以上传始终直连（或本地代理），gh-proxy 只做读失败时的兜底。
+#
+#   加速克隆（本仓库 500MB+，一般不需要整仓克隆，下面写法只作参考）：
+#     source ./cdn-api.sh && git clone "$(cdn_git_url Luvicii/Luvicii-images)"
+#
 # 注意：GitHub API 匿名请求会 403，必须带 ~/.git-credentials 里 Luvicii 的 token
 # ============================================
 
 CDN_REPO="${CDN_REPO:-Luvicii/Luvicii-images}"
 CDN_BRANCH="${CDN_BRANCH:-main}"
 CDN_API="https://api.github.com/repos/$CDN_REPO"
+GH_PROXY="${GH_PROXY-https://gh-proxy.com/}"
 
 CDN_PROXY=""
 CDN_TOKEN=""
@@ -53,14 +65,23 @@ cdn_token() {
   done
 }
 
-# 调 API：连接失败才重试（直连/代理交替）；HTTP 错误直接报告
+# 加速克隆地址：cdn_git_url [owner/repo] → 回显可直接 git clone 的 URL
+cdn_git_url() {
+  local repo="${1:-$CDN_REPO}"
+  printf '%shttps://github.com/%s.git' "$GH_PROXY" "$repo"
+}
+
+# 调 API：连接失败才重试（直连/代理/加速站轮换）；HTTP 错误直接报告
+# 读请求（GET）可走 GH_PROXY 兜底；写请求只走直连/本地代理（加速站会丢 Authorization → 403）
 cdn_api() {
   local method="$1" path="$2" body=""
   [ $# -ge 3 ] && body="$3"
   local url="$CDN_API$path"
+  local modes="direct proxy"
+  [ "$method" = "GET" ] && [ -n "$GH_PROXY" ] && modes="direct proxy ghproxy"
   local round=1 mode last_err="连接失败"
   while [ "$round" -le 3 ]; do
-    for mode in direct proxy; do
+    for mode in $modes; do
       if [ "$mode" = proxy ] && [ -z "$CDN_PROXY" ]; then continue; fi
       local args=(-sS -m 300 -w '\n%{http_code}' -X "$method"
         -H "Authorization: token $CDN_TOKEN"
@@ -69,8 +90,10 @@ cdn_api() {
         -H "User-Agent: luvicii-cdn-upload")
       if [ "$mode" = proxy ]; then args+=(-x "$CDN_PROXY"); fi
       if [ -n "$body" ]; then args+=(--data-binary "@$body"); fi
+      local req_url="$url"
+      [ "$mode" = ghproxy ] && req_url="${GH_PROXY}${url}"
       local out code payload
-      if out=$(curl "${args[@]}" "$url" 2>/dev/null); then
+      if out=$(curl "${args[@]}" "$req_url" 2>/dev/null); then
         code=$(printf '%s' "$out" | tail -n1)
         payload=$(printf '%s' "$out" | sed '$d')
         if [ "$code" -ge 200 ] 2>/dev/null && [ "$code" -lt 300 ] 2>/dev/null; then
@@ -85,7 +108,7 @@ cdn_api() {
       fi
     done
     round=$((round + 1))
-    if [ "$round" -le 3 ]; then echo "  $last_err，重试第 $round 轮（直连/代理交替）…" >&2; sleep 4; fi
+    if [ "$round" -le 3 ]; then echo "  $last_err，重试第 $round 轮（直连/代理/加速站轮换）…" >&2; sleep 4; fi
   done
   echo "错误：访问 GitHub API 失败（$last_err）" >&2
   return 1

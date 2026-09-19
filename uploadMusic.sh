@@ -6,6 +6,7 @@
 #   ./uploadMusic.sh 歌曲.mp3                      # 只传音频
 #   ./uploadMusic.sh 歌曲.flac 封面.jpg 歌词.lrc     # 音频+封面+歌词，顺序随意、可省略
 #   PROXY=http://127.0.0.1:7890 ./uploadMusic.sh …  # 指定代理（默认自动探测本地端口）
+#   注意: gh-proxy 这类加速站只用于读（克隆/GET），上传写操作直连 —— 详见 cdn-api.sh 头部
 #   DRY_RUN=1 ./uploadMusic.sh …                    # 只打印将要做的操作，不真的上传
 #
 # 输出: 可直接粘贴到 _config.luvicii.yml 的 music_playlist 配置
