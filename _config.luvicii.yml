@@ -1249,6 +1249,11 @@ music_playlist:
         url: "https://api.injahow.cn/meting/?server=netease&type=url&id=2116382382"
         cover: "https://api.injahow.cn/meting/?server=netease&type=pic&id=109951169761664617"
         lrc: "https://api.injahow.cn/meting/?server=netease&type=lrc&id=2116382382"
+      - name: OCTOPATH TRAVELER -メインテーマ-
+        artist: 西木康智
+        url: "https://api.injahow.cn/meting/?server=netease&type=url&id=1321754688"
+        cover: "https://api.injahow.cn/meting/?server=netease&type=pic&id=109951163636785317"
+        lrc: "https://api.injahow.cn/meting/?server=netease&type=lrc&id=1321754688"
 
 # 评论匿名邮箱
 visitorMail:
