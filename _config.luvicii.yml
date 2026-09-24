@@ -1241,6 +1241,14 @@ music_playlist:
         url: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/yura yura.flac"
         cover: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@main/music/home.jpg"
         lrc: "https://fastly.jsdelivr.net/gh/Luvicii/Luvicii-images@e8a3325/music/yura yura.lrc"
+  - name: 剑与魔法
+    songs:
+      # 网易云单曲：url/cover/lrc 填 Meting 代理地址（该接口 lrc 返回纯 LRC 文本）
+      - name: Journey of a Lifetime ~ Frieren Main Theme
+        artist: Evan Call
+        url: "https://api.injahow.cn/meting/?server=netease&type=url&id=2116382382"
+        cover: "https://api.injahow.cn/meting/?server=netease&type=pic&id=109951169761664617"
+        lrc: "https://api.injahow.cn/meting/?server=netease&type=lrc&id=2116382382"
 
 # 评论匿名邮箱
 visitorMail:
