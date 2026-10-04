@@ -1120,9 +1120,9 @@ universe:
 bubble:
   enable: true
 
-#  控制台打印信息
+#  控制台打印信息（彩蛋：LUV-001/002/003、摄像头、Powered by 等，已关闭）
 console:
-  enable: true
+  enable: false
 
 # 51a统计配置
 LA:
