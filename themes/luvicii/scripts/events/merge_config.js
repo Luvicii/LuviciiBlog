@@ -634,9 +634,6 @@ hexo.extend.filter.register(
         delay: 100,
         shiftDelay: 200,
       },
-      console: {
-        enable: true,
-      },
       aplayerInject: {
         enable: false,
         per_page: true,

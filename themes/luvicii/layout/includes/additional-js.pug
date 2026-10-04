@@ -30,10 +30,6 @@ div
     canvas(id="universe")
     script(async src="/js/plugins/dark.js")
 
-  //- 控制台打印信息
-  if theme.console.enable
-    != partial("includes/luvicii/log-js.pug", {}, { cache: true })
-  
   //- 随机文章
   script(async src="/luvicii/random.js")
 

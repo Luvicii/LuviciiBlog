@@ -1103,10 +1103,6 @@ universe:
 bubble:
   enable: false
 
-#  控制台打印信息
-console:
-  enable: true
-
 # 51a统计配置
 LA:
   enable: false
