@@ -9,14 +9,18 @@
   'use strict';
 
   const cfg = typeof GLOBAL_CONFIG !== 'undefined' ? GLOBAL_CONFIG.readAloud : undefined;
-  if (!cfg || !cfg.api) return;
+  if (!cfg) return;
+
+  // local  = 浏览器 Web Speech API 合成（无需后端，断网也能用）
+  // remote = 走 cfg.api 的语音代理合成（需要后端可用）
+  const useLocal = (cfg.mode || 'local') === 'local';
 
   const RATES = [
-    { label: '0.75x', prosody: '-25%' },
-    { label: '1x', prosody: '+0%' },
-    { label: '1.25x', prosody: '+25%' },
-    { label: '1.5x', prosody: '+50%' },
-    { label: '2x', prosody: '+100%' }
+    { label: '0.75x', prosody: '-25%', rate: 0.75 },
+    { label: '1x', prosody: '+0%', rate: 1 },
+    { label: '1.25x', prosody: '+25%', rate: 1.25 },
+    { label: '1.5x', prosody: '+50%', rate: 1.5 },
+    { label: '2x', prosody: '+100%', rate: 2 }
   ];
   const MAX_LEN = 120;
   const BLOCK_SEL = 'p, h1, h2, h3, h4, h5, h6, li';
@@ -32,6 +36,84 @@
       : docLang.startsWith('zh')
         ? 'zh-CN-XiaoxiaoNeural'
         : 'en-US-JennyNeural');
+
+  // ---- 本地语音合成（浏览器 Web Speech API）----
+  const localTTS = (() => {
+    const s = typeof window !== 'undefined' ? window.speechSynthesis : null;
+    return {
+      synth: s,
+      supported: !!(s && typeof window.SpeechSynthesisUtterance === 'function'),
+      voice: null
+    };
+  })();
+
+  const speechLang = () => {
+    const parts = (cfg.voice || '').split('-');
+    if (parts.length >= 2) return parts.slice(0, 2).join('-');
+    return docLang.startsWith('zh') ? 'zh-CN' : docLang;
+  };
+
+  const pickVoice = () => {
+    if (!localTTS.synth) return null;
+    const list = localTTS.synth.getVoices() || [];
+    if (!list.length) return null;
+    const want = speechLang().toLowerCase();
+    const cands = list.filter(v => (v.lang || '').toLowerCase().replace('_', '-').startsWith(want));
+    if (!cands.length) return null;
+    // 优先系统里的自然音色（Windows/Edge 的 Natural、Android 的 online 音色）
+    const score = v =>
+      (/natural|xiaoxiao|xiaoyi|yunxi|yunjian|online/i.test(v.name || '') ? 2 : 0) + (v.localService ? 0 : 1);
+    return cands.slice().sort((a, b) => score(b) - score(a))[0];
+  };
+
+  const speakLocal = idx => {
+    if (!localTTS.supported) {
+      errorNotify();
+      return;
+    }
+    const token = ++state.speakToken;
+    if (idx >= state.chunks.length) {
+      stop();
+      return;
+    }
+    state.idx = Math.max(0, idx);
+    const chunk = state.chunks[state.idx];
+    highlight(chunk.el);
+    setLoading(false);
+    updateUI();
+    if (!localTTS.voice) localTTS.voice = pickVoice();
+    let utter;
+    try {
+      utter = new SpeechSynthesisUtterance(chunk.text);
+      utter.lang = speechLang();
+      utter.rate = RATES[state.rateIndex].rate;
+      if (localTTS.voice) utter.voice = localTTS.voice;
+    } catch (e) {
+      // 音色对象失效（voiceschanged 后）时退回用引擎默认音色
+      localTTS.voice = null;
+      utter = new SpeechSynthesisUtterance(chunk.text);
+      utter.lang = speechLang();
+      utter.rate = RATES[state.rateIndex].rate;
+    }
+    utter.onend = () => {
+      if (token !== state.speakToken || state.status !== 'playing') return;
+      speakLocal(state.idx + 1);
+    };
+    utter.onerror = e => {
+      if (token !== state.speakToken) return;
+      const why = e && e.error;
+      if (why === 'interrupted' || why === 'canceled') return;
+      errorNotify();
+      stop();
+    };
+    localTTS.synth.cancel();
+    localTTS.synth.speak(utter);
+  };
+
+  const startAt = idx => {
+    if (useLocal) speakLocal(idx);
+    else speak(idx);
+  };
 
   const state = {
     chunks: [],
@@ -205,25 +287,28 @@
     if (!state.chunks.length) return;
     if (state.status === 'paused') {
       state.status = 'playing';
-      state.audio.play().catch(() => {});
+      if (useLocal) localTTS.synth.resume();
+      else state.audio.play().catch(() => {});
       updateUI();
       return;
     }
     state.status = 'playing';
-    speak(state.idx);
+    startAt(state.idx);
     updateUI();
   };
 
   const pause = () => {
     if (state.status !== 'playing') return;
     state.status = 'paused';
-    state.audio.pause();
+    if (useLocal) localTTS.synth.pause();
+    else state.audio.pause();
     updateUI();
   };
 
   const stop = () => {
     state.status = 'idle';
     state.speakToken++;
+    if (useLocal && localTTS.synth) localTTS.synth.cancel();
     releaseAudio();
     highlight(null);
     state.idx = 0;
@@ -248,7 +333,7 @@
   const jumpTo = idx => {
     if (state.status === 'idle') return;
     state.status = 'playing';
-    speak(idx);
+    startAt(idx);
     updateUI();
   };
 
@@ -279,12 +364,19 @@
       clearCache();
       if (state.status !== 'idle') {
         state.status = 'playing';
-        speak(state.idx);
+        startAt(state.idx);
       }
       updateUI();
     });
     bar.querySelector('.ra-close').addEventListener('click', closeBar);
   };
+
+  if (localTTS.synth && localTTS.synth.addEventListener) {
+    // 部分浏览器首次 getVoices() 为空，等音色列表就绪后重新挑选
+    localTTS.synth.addEventListener('voiceschanged', () => {
+      localTTS.voice = pickVoice();
+    });
+  }
 
   const init = () => {
     const btn = document.getElementById('read-aloud-btn');

@@ -895,10 +895,13 @@ translate:
 # Read Mode (閲读模式)
 readmode: true
 
-# Read article aloud (文章朗读，微软神经语音，经 edge-tts-api/ 代理)
+# Read article aloud (文章朗读)
 read_aloud:
   enable: true
-  # 语音代理接口地址，部署 edge-tts-api/ 后填写，如 https://your-app.netlify.app/api/tts
+  # local  = 浏览器 Web Speech API 合成，无需后端（默认）
+  # remote = 走下面的 api 合成，需要已部署 edge-tts-api/
+  mode: local
+  # 语音代理接口地址，仅 mode: remote 时使用，如 https://your-app.netlify.app/api/tts
   api:
   voice: zh-CN-XiaoxiaoNeural
 

@@ -892,10 +892,13 @@ translate:
 # Read Mode (閲读模式)
 readmode: true
 
-# Read article aloud (文章朗读，微软神经语音，经 edge-tts-api/ 代理)
+# Read article aloud (文章朗读)
 read_aloud:
   enable: true
-  # 语音代理接口地址（已部署 Netlify）
+  # local  = 浏览器 Web Speech API 合成，无需后端、断网可用（推荐）
+  # remote = 走下面的 api 合成（2026-10 起微软变更端点，Netlify 出网被拦，暂不可用）
+  mode: local
+  # 语音代理接口地址（已部署 Netlify，仅 mode: remote 时使用）
   api: https://luvicii-tts.netlify.app/api/tts
   voice: zh-CN-XiaoxiaoNeural
 
