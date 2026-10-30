@@ -153,3 +153,13 @@ search:
   path: search.xml
   field: post
   content: true
+
+# 数学公式（hexo-filter-mathjax：构建期渲染为 SVG，无需前端脚本）
+# 默认只渲染 front-matter 写了 mathjax: true 的文章；every_page: true 则全部页面都渲染
+mathjax:
+  tags: none # or 'ams' or 'all'
+  single_dollars: true # 支持 $...$ 行内公式
+  cjk_width: 0.9
+  normal_width: 0.6
+  append_css: true # 自动注入 MathJax 样式
+  every_page: false
